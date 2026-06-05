@@ -256,7 +256,7 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
     </div>
     <p id="err" class="login-err hidden">Credenziali non valide. Riprova.</p>
     <button class="btn btn--primary btn--full" onclick="login()">Accedi</button>
-    <a href="../index.html" class="login-back">← Torna al sito</a>
+    <a href="/" class="login-back">← Torna al sito</a>
   </div>
 </div>
 
@@ -264,7 +264,7 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
 <script>
   /* Redirect se già autenticato */
   if (sessionStorage.getItem('tl_auth') === '1') {
-    window.location.href = 'dashboard.html';
+    window.location.href = '/admin/dashboard';
   }
 
   function login() {
@@ -273,7 +273,7 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
     const pw = TL.cfg().adminPw || 'ricciardi2025';
     if (u === 'admin' && p === pw) {
       sessionStorage.setItem('tl_auth', '1');
-      window.location.href = 'dashboard.html';
+      window.location.href = '/admin/dashboard';
     } else {
       document.getElementById('err').classList.remove('hidden');
       document.getElementById('p').value = '';
@@ -452,7 +452,7 @@ const TL = {
 
 // Redirect se già autenticato
 if (sessionStorage.getItem('tl_auth') === '1') {
-  window.location.href = 'dashboard.html';
+  window.location.href = '/admin/dashboard';
 }
 
 async function login() {
@@ -462,7 +462,7 @@ async function login() {
   const pw = TL.cfg().adminPw || 'ricciardi2025';
   if (u === 'admin' && p === pw) {
     sessionStorage.setItem('tl_auth', '1');
-    window.location.href = 'dashboard.html';
+    window.location.href = '/admin/dashboard';
   } else {
     document.getElementById('err').classList.remove('hidden');
     document.getElementById('p').value = '';
