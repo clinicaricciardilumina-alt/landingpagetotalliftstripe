@@ -713,7 +713,7 @@ const TL = {
   },
 
   /* EVENTO */
-  eventDay() { return TL._cfg.eventDay || '2025-05-27'; },
+  eventDay() { return TL._cfg.eventDay || localStorage.getItem('tl_eventDay') || '2025-05-27'; },
 
   /* REAL-TIME LISTENER prenotazioni (per dashboard) */
   onBookingsChange(callback) {
