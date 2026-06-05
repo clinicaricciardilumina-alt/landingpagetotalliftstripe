@@ -23,10 +23,10 @@
     <img class="hero__img" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&q=80&auto=format&fit=crop" alt="Total Lift trattamento">
     <div class="hero__overlay"></div>
     <div class="hero__content">
-      <span class="hero__tag">Total Beauty Day · 27 Maggio</span>
+      <span class="hero__tag">Total Beauty Day · <span id="date-tag"></span></span>
       <h1 class="hero__title">Total<br><em>Lift</em></h1>
       <p class="hero__sub">Ringiovanimento completo del volto senza bisturi. Tre azioni sinergiche, un risultato naturale e duraturo.</p>
-      <p class="hero__date">Mercoledì 27 Maggio · Palagiano</p>
+      <p class="hero__date"><span id="date-hero"></span> · Palagiano</p>
       <div class="hero__ctas">
         <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
         <a href="#come-agisce" class="btn btn--ghost">Come funziona</a>
@@ -45,7 +45,7 @@
     <span class="strip__item">Zero downtime</span><span class="strip__dot"></span>
     <span class="strip__item">Risultati immediati</span><span class="strip__dot"></span>
     <span class="strip__item">Posti limitati</span><span class="strip__dot"></span>
-    <span class="strip__item">Solo 27 Maggio</span>
+    <span class="strip__item">Solo <span id="date-strip"></span></span>
   </div>
 
   <!-- INTRO -->
@@ -241,7 +241,7 @@
     <div class="cta-banner__overlay"></div>
     <div class="cta-banner__content">
       <h2>Posti limitati.<br><em>Prenota ora.</em></h2>
-      <p>Solo per il Total Beauty Day del 27 Maggio. Soluzioni personalizzate pensate esclusivamente per te.</p>
+      <p>Solo per il Total Beauty Day del <span id="date-banner"></span>. Soluzioni personalizzate pensate esclusivamente per te.</p>
       <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
     </div>
   </div>
