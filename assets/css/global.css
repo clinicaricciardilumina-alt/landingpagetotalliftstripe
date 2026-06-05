@@ -69,13 +69,10 @@ img    { display: block; max-width: 100%; }
   backdrop-filter: blur(12px);
 }
 .nav__logo {
-  font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700;
-  letter-spacing: 0.08em; color: var(--dark); text-decoration: none; line-height: 1.2;
+  display: flex; align-items: center; text-decoration: none;
 }
-.nav__logo span {
-  display: block; font-family: 'DM Sans', sans-serif;
-  font-size: 0.6rem; font-weight: 300; letter-spacing: 0.24em;
-  text-transform: uppercase; color: var(--mid);
+.nav__logo img {
+  height: 44px; width: auto; display: block;
 }
 
 /* ── FOOTER ── */
