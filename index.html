@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Total Lift – Ricciardi Studio Dermistico</title>
+<meta name="description" content="Total Lift: ringiovanimento completo del viso senza bisturi. Prenota il tuo appuntamento per il Total Beauty Day del 27 Maggio a Palagiano.">
+<link rel="stylesheet" href="assets/css/global.css">
+<link rel="stylesheet" href="assets/css/landing.css">
+</head>
+<body>
+
+<!-- ══════════════ LANDING ══════════════ -->
+<div id="page-landing">
+
+  <nav class="nav">
+    <a href="index.html" class="nav__logo">RICCIARDI<span>Studio Dermistico</span></a>
+    <a href="#flow" class="btn btn--primary btn--sm" onclick="trackEvent('ClickPrenotazione')">Prenota ora</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img class="hero__img" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&q=80&auto=format&fit=crop" alt="Total Lift trattamento">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__tag">Total Beauty Day · 27 Maggio</span>
+      <h1 class="hero__title">Total<br><em>Lift</em></h1>
+      <p class="hero__sub">Ringiovanimento completo del volto senza bisturi. Tre azioni sinergiche, un risultato naturale e duraturo.</p>
+      <p class="hero__date">Mercoledì 27 Maggio · Palagiano</p>
+      <div class="hero__ctas">
+        <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
+        <a href="#come-agisce" class="btn btn--ghost">Come funziona</a>
+      </div>
+      <div class="hero__badges">
+        <div class="hero__badge">Senza bisturi</div>
+        <div class="hero__badge">Risultati immediati</div>
+        <div class="hero__badge">Percorso personalizzato</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRIP -->
+  <div class="strip">
+    <span class="strip__item">Non invasivo</span><span class="strip__dot"></span>
+    <span class="strip__item">Zero downtime</span><span class="strip__dot"></span>
+    <span class="strip__item">Risultati immediati</span><span class="strip__dot"></span>
+    <span class="strip__item">Posti limitati</span><span class="strip__dot"></span>
+    <span class="strip__item">Solo 27 Maggio</span>
+  </div>
+
+  <!-- INTRO -->
+  <section class="intro">
+    <div class="intro__text">
+      <span class="label label--light">Perché Total Lift</span>
+      <h2>Il trattamento che<br><em>ridà giovinezza</em><br>al tuo viso</h2>
+      <p>Con il passare degli anni la pelle subisce trasformazioni naturali. Total Lift è un programma innovativo per contrastare questi effetti in soli 3 step, dalla superficie al muscolo profondo.</p>
+      <p>In questa giornata speciale proponiamo soluzioni personalizzate pensate solo per chi partecipa.</p>
+      <ul class="intro__bullets">
+        <li>Non invasivo — zero bisturi, zero cicatrici</li>
+        <li>Rapido — torni subito alla tua routine</li>
+        <li>Naturale — rigenerazione profonda dei tessuti</li>
+        <li>Duraturo — risultati che migliorano nel tempo</li>
+      </ul>
+    </div>
+    <div class="intro__img">
+      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop" alt="Trattamento viso">
+      <div class="intro__img-overlay"></div>
+    </div>
+  </section>
+
+  <!-- COME AGISCE -->
+  <section class="agisce" id="come-agisce">
+    <div class="agisce__photo">
+      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80&auto=format&fit=crop" alt="Total Lift azione">
+    </div>
+    <div class="agisce__content">
+      <span class="label">Come agisce Total Lift</span>
+      <h2>3 azioni sinergiche,<br><em>un solo risultato</em></h2>
+      <div class="azione">
+        <div class="azione__num">Azione 01 · Superficiale</div>
+        <h3>Efficace su:</h3>
+        <p>Palpebre cadenti · Pelle flaccida · Rughe da pelle in eccesso · Macchie cutanee</p>
+      </div>
+      <div class="azione">
+        <div class="azione__num">Azione 02 · Intermedia</div>
+        <h3>Efficace su:</h3>
+        <p>Rilassamento cutaneo · Lifting viso e décolleté · Contouring del viso · Resurfacing frazionato</p>
+      </div>
+      <div class="azione">
+        <div class="azione__num">Azione 03 · Profonda</div>
+        <h3>Efficace su:</h3>
+        <p>Fronte e guance · Doppio mento · Sollevamento sopracciglia · Rinforzo della pelle del collo</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW: quiz + form + payment -->
+  <section id="flow">
+    <div class="inner">
+      <span class="label label--light">Prenota il tuo Total Lift</span>
+      <h2>Tre domande,<br><em>soluzioni su misura</em></h2>
+      <p class="sub" style="font-size:0.9rem;color:rgba(255,255,255,0.48);margin-bottom:2.5rem;font-weight:300">Rispondi al questionario per personalizzare il tuo percorso.</p>
+      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
+
+      <!-- Q1 -->
+      <div id="step-q1">
+        <span class="step-indicator">Domanda 1 di 3</span>
+        <p class="quiz-q">Quale risultato desideri ottenere principalmente?</p>
+        <div class="options">
+          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span>Correggere una piccola asimmetria del viso</div>
+          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span>Prevenire i segni dell'invecchiamento</div>
+          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un cambiamento visibile e più definito</div>
+          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più fresco, riposato e armonioso</div>
+        </div>
+        <div class="btn-row"><button class="btn--next" onclick="go('q2')">Continua →</button></div>
+      </div>
+
+      <!-- Q2 -->
+      <div id="step-q2" class="hidden">
+        <span class="step-indicator">Domanda 2 di 3</span>
+        <p class="quiz-q">Quanto vorresti migliorare questo aspetto?</p>
+        <div class="options">
+          <div class="opt" data-val="poco"       onclick="sel(this,'q2')"><span class="opt__marker">A</span>Poco</div>
+          <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span>Abbastanza</div>
+          <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span>Molto</div>
+        </div>
+        <div class="btn-row">
+          <button class="btn--back" onclick="go('q1')">← Indietro</button>
+          <button class="btn--next" onclick="go('q3')">Continua →</button>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div id="step-q3" class="hidden">
+        <span class="step-indicator">Domanda 3 di 3</span>
+        <p class="quiz-q">La nostra sede è a Palagiano. Sei disponibile a venire in studio per la visita e il trattamento?</p>
+        <div class="options">
+          <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span>Sì, sono disponibile</div>
+          <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span>No, al momento non posso venire in sede</div>
+        </div>
+        <div class="btn-row">
+          <button class="btn--back" onclick="go('q2')">← Indietro</button>
+          <button class="btn--next" onclick="afterQ3()">Continua →</button>
+        </div>
+      </div>
+
+      <!-- BLOCKED -->
+      <div id="step-blocked" class="hidden">
+        <div class="block-msg">
+          <div class="block-msg__icon">📍</div>
+          <h3>Trattamento in sede</h3>
+          <p>Il trattamento viene effettuato presso la nostra sede di <strong style="color:var(--blue-light)">Palagiano</strong>.<br>Per completare la prenotazione è necessario essere disponibili a venire in studio.</p>
+        </div>
+        <div class="btn-row mt-2">
+          <button class="btn--back" onclick="go('q3')">← Torna alla domanda</button>
+        </div>
+      </div>
+
+      <!-- FORM DATI -->
+      <div id="step-form" class="hidden">
+        <span class="step-indicator">Passo 4 di 6 · I tuoi dati</span>
+        <p class="quiz-q">Inserisci i tuoi dati per la prenotazione</p>
+        <div class="grid-2 mb-1">
+          <div class="field"><label>Nome *</label><input type="text" id="f-nome" placeholder="Maria" autocomplete="given-name"></div>
+          <div class="field"><label>Cognome *</label><input type="text" id="f-cognome" placeholder="Rossi" autocomplete="family-name"></div>
+        </div>
+        <div class="field mb-1"><label>Email *</label><input type="email" id="f-email" placeholder="maria@email.it" autocomplete="email"></div>
+        <div class="field mb-1"><label>Telefono *</label><input type="tel" id="f-tel" placeholder="+39 333 000 0000" autocomplete="tel"></div>
+        <div class="field mb-2"><label>Note (opzionale)</label><textarea id="f-note" rows="3" placeholder="Eventuali note o richieste particolari..."></textarea></div>
+        <label class="privacy-row mb-2">
+          <input type="checkbox" id="f-privacy">
+          <span>Ho letto e accetto la <a href="#">Privacy Policy</a>. Acconsento al trattamento dei miei dati personali per la gestione della prenotazione. *</span>
+        </label>
+        <div id="form-err" class="err hidden"></div>
+        <div class="btn-row">
+          <button class="btn--back" onclick="go('q3')">← Indietro</button>
+          <button class="btn--next" onclick="go('slot')">Continua →</button>
+        </div>
+      </div>
+
+      <!-- SLOT -->
+      <div id="step-slot" class="hidden">
+        <span class="step-indicator">Passo 5 di 6 · Scegli l'orario</span>
+        <p class="quiz-q">Seleziona il tuo orario preferito</p>
+        <div class="field mb-1">
+          <label>Giorno evento</label>
+          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.4);cursor:default">
+        </div>
+        <span class="slots-label">Orari disponibili (durata 1 ora)</span>
+        <div class="slots-grid" id="slots-grid"></div>
+        <div id="slot-err" class="err hidden">Seleziona un orario per continuare.</div>
+        <div class="btn-row">
+          <button class="btn--back" onclick="go('form')">← Indietro</button>
+          <button class="btn--next" onclick="go('payment')">Continua →</button>
+        </div>
+      </div>
+
+      <!-- PAYMENT -->
+      <div id="step-payment" class="hidden">
+        <span class="step-indicator">Passo 6 di 6 · Pagamento</span>
+        <p class="quiz-q">Conferma e completa il pagamento</p>
+        <div class="summary" id="summary"></div>
+        <div id="stripe-el-wrap"><div id="card-element"></div></div>
+        <div id="card-errors"></div>
+        <button class="pay-btn" id="pay-btn" onclick="handlePay()">
+          <div class="pay-spinner"></div>
+          <span class="pay-label">💳 &nbsp;Paga e Prenota</span>
+        </button>
+        <p class="pay-note">Pagamento sicuro gestito da Stripe · Crittografia SSL</p>
+        <div class="btn-row mt-2">
+          <button class="btn--back" onclick="go('slot')">← Indietro</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testi">
+    <div class="testi__inner">
+      <div class="testi__header">
+        <span class="label">Cosa dicono del trattamento</span>
+        <h2>Le <em>esperienze</em> reali<br>delle nostre pazienti</h2>
+      </div>
+      <div class="testi__grid">
+        <div class="testi__card">
+          <p>"Ho provato il trattamento durante un open day e subito ho capito l'efficacia. Ho seguito le tre fasi, adesso la mia pelle è più giovane e tonica."</p>
+          <cite>Tonia, 41 anni</cite>
+        </div>
+        <div class="testi__card">
+          <p>"Sono rimasta sorpresa dalla semplicità e dall'efficacia. I risultati sono stati immediati e naturali. Lo consiglio a tutte!"</p>
+          <cite>Laura, 55 anni</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <img class="cta-banner__img" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop" alt="">
+    <div class="cta-banner__overlay"></div>
+    <div class="cta-banner__content">
+      <h2>Posti limitati.<br><em>Prenota ora.</em></h2>
+      <p>Solo per il Total Beauty Day del 27 Maggio. Soluzioni personalizzate pensate esclusivamente per te.</p>
+      <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer__logo">RICCIARDI</p>
+    <p class="footer__sub">Studio Dermistico</p>
+    <div class="footer__social">
+      <a href="#">f</a><a href="#">in</a><a href="#">tk</a>
+    </div>
+    <p>Palagiano, Via Imbriani, 40 &nbsp;·&nbsp; 099 888 4995</p>
+    <div class="footer__divider"></div>
+    <p><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="admin/login.html">Accesso staff</a></p>
+  </footer>
+
+</div><!-- /page-landing -->
+
+<!-- ══════════════ SUCCESS ══════════════ -->
+<div id="page-success" class="success-page">
+  <img class="success-page__img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80&auto=format&fit=crop" alt="Conferma prenotazione">
+  <div class="success-page__check">✓</div>
+  <h2>Prenotazione <em>confermata.</em></h2>
+  <p>Grazie, abbiamo ricevuto la tua richiesta per il trattamento Total Lift.<br>La nostra segreteria ti ricorderà l'appuntamento prima della visita.</p>
+  <div class="success-page__details" id="success-details"></div>
+</div>
+
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/pixel.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="assets/js/landing.js"></script>
+</body>
+</html>
