@@ -553,39 +553,176 @@ img    { display: block; max-width: 100%; }
   <div class="success-page__details" id="success-details"></div>
 </div>
 
-<script>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script type="module" id="app-module">
 /* ═══════════════════════════════════════════════
-   storage.js — Gestione dati localStorage
+   storage.js — Firebase Firestore + fallback localStorage
    Ricciardi Studio Dermistico · Total Lift
 ═══════════════════════════════════════════════ */
 
+// ── FIREBASE CONFIG ──────────────────────────
+const firebaseConfig = {
+  apiKey:            "AIzaSyCVC6fHbo8OHevILIkI9j_XDyP4GoWCHAQ",
+  authDomain:        "landing-total-stripe.firebaseapp.com",
+  projectId:         "landing-total-stripe",
+  storageBucket:     "landing-total-stripe.firebasestorage.app",
+  messagingSenderId: "528151902496",
+  appId:             "1:528151902496:web:9da1394fe42a30a36dff45"
+};
+
+// ── FIREBASE INIT ────────────────────────────
+import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc,
+         getDocs, getDoc, setDoc, addDoc,
+         updateDoc, deleteDoc, onSnapshot,
+         query, orderBy }                         from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const _app = initializeApp(firebaseConfig);
+const db   = getFirestore(_app);
+
+// ── COLLEZIONI FIRESTORE ─────────────────────
+// /bookings/{id}   → prenotazioni
+// /config/main     → cfg (pixelId, stripePk, stripeAmount, stripeDesc, adminPw, eventDay)
+// /slots/{id}      → slot orari
+
+// ── DEFAULT SLOTS ────────────────────────────
+const DEFAULT_SLOTS = [
+  { id: 's1', start: '09:00', end: '10:00', blocked: false },
+  { id: 's2', start: '10:00', end: '11:00', blocked: false },
+  { id: 's3', start: '11:00', end: '12:00', blocked: false },
+  { id: 's4', start: '12:00', end: '13:00', blocked: false },
+  { id: 's5', start: '14:00', end: '15:00', blocked: false },
+  { id: 's6', start: '15:00', end: '16:00', blocked: false },
+  { id: 's7', start: '16:00', end: '17:00', blocked: false },
+  { id: 's8', start: '17:00', end: '18:00', blocked: false },
+];
+
+// ── TL OBJECT ────────────────────────────────
 const TL = {
 
-  /* CONFIG (stripe, pixel, password, giorno evento) */
-  cfg:     () => JSON.parse(localStorage.getItem('tl_cfg') || '{}'),
-  saveCfg: (c) => localStorage.setItem('tl_cfg', JSON.stringify({ ...TL.cfg(), ...c })),
+  /* CONFIG */
+  _cfg: {},
+  async loadCfg() {
+    try {
+      const snap = await getDoc(doc(db, 'config', 'main'));
+      TL._cfg = snap.exists() ? snap.data() : {};
+    } catch(e) {
+      TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
+    }
+    return TL._cfg;
+  },
+  cfg() { return TL._cfg; },
+  async saveCfg(data) {
+    TL._cfg = { ...TL._cfg, ...data };
+    try {
+      await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
+    } catch(e) {
+      localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+    }
+  },
 
   /* PRENOTAZIONI */
-  bookings:     () => JSON.parse(localStorage.getItem('tl_bookings') || '[]'),
-  saveBookings: (b) => localStorage.setItem('tl_bookings', JSON.stringify(b)),
+  async getBookings() {
+    try {
+      const snap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch(e) {
+      return JSON.parse(localStorage.getItem('tl_bookings') || '[]');
+    }
+  },
+  async addBooking(b) {
+    try {
+      const ref = await addDoc(collection(db, 'bookings'), b);
+      return ref.id;
+    } catch(e) {
+      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]');
+      bks.push(b);
+      localStorage.setItem('tl_bookings', JSON.stringify(bks));
+      return b.id;
+    }
+  },
+  async updateBooking(id, data) {
+    try {
+      await updateDoc(doc(db, 'bookings', id), data);
+    } catch(e) {
+      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]');
+      const i = bks.findIndex(b => b.id === id);
+      if (i > -1) { bks[i] = { ...bks[i], ...data }; localStorage.setItem('tl_bookings', JSON.stringify(bks)); }
+    }
+  },
+  async deleteBooking(id) {
+    try {
+      await deleteDoc(doc(db, 'bookings', id));
+    } catch(e) {
+      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]').filter(b => b.id !== id);
+      localStorage.setItem('tl_bookings', JSON.stringify(bks));
+    }
+  },
 
   /* SLOTS */
-  defaultSlots: [
-    { id: 's1', start: '09:00', end: '10:00', blocked: false },
-    { id: 's2', start: '10:00', end: '11:00', blocked: false },
-    { id: 's3', start: '11:00', end: '12:00', blocked: false },
-    { id: 's4', start: '12:00', end: '13:00', blocked: false },
-    { id: 's5', start: '14:00', end: '15:00', blocked: false },
-    { id: 's6', start: '15:00', end: '16:00', blocked: false },
-    { id: 's7', start: '16:00', end: '17:00', blocked: false },
-    { id: 's8', start: '17:00', end: '18:00', blocked: false },
-  ],
-  slots:     () => JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(TL.defaultSlots)),
-  saveSlots: (s) => localStorage.setItem('tl_slots', JSON.stringify(s)),
+  async getSlots() {
+    try {
+      const snap = await getDocs(collection(db, 'slots'));
+      if (snap.empty) {
+        await TL.initDefaultSlots();
+        return DEFAULT_SLOTS;
+      }
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+                      .sort((a,b) => a.start.localeCompare(b.start));
+    } catch(e) {
+      return JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
+    }
+  },
+  async initDefaultSlots() {
+    for (const s of DEFAULT_SLOTS) {
+      await setDoc(doc(db, 'slots', s.id), { start: s.start, end: s.end, blocked: s.blocked });
+    }
+  },
+  async saveSlot(id, data) {
+    try {
+      await setDoc(doc(db, 'slots', id), data, { merge: true });
+    } catch(e) {
+      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
+      const i = slots.findIndex(s => s.id === id);
+      if (i > -1) slots[i] = { ...slots[i], ...data };
+      localStorage.setItem('tl_slots', JSON.stringify(slots));
+    }
+  },
+  async addSlot(slot) {
+    try {
+      await setDoc(doc(db, 'slots', slot.id), { start: slot.start, end: slot.end, blocked: false });
+    } catch(e) {
+      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
+      slots.push(slot);
+      localStorage.setItem('tl_slots', JSON.stringify(slots));
+    }
+  },
+  async deleteSlot(id) {
+    try {
+      await deleteDoc(doc(db, 'slots', id));
+    } catch(e) {
+      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS)).filter(s => s.id !== id);
+      localStorage.setItem('tl_slots', JSON.stringify(slots));
+    }
+  },
 
-  /* GIORNO EVENTO */
-  eventDay: () => TL.cfg().eventDay || '2025-05-27',
+  /* EVENTO */
+  eventDay() { return TL._cfg.eventDay || '2025-05-27'; },
+
+  /* REAL-TIME LISTENER prenotazioni (per dashboard) */
+  onBookingsChange(callback) {
+    try {
+      return onSnapshot(
+        query(collection(db, 'bookings'), orderBy('createdAt', 'desc')),
+        snap => callback(snap.docs.map(d => ({ id: d.id, ...d.data() })))
+      );
+    } catch(e) {
+      return () => {};
+    }
+  }
 };
+
 
 /* ═══════════════════════════════════════════════
    pixel.js — Meta Pixel tracking
@@ -629,9 +766,7 @@ function trackEvent(name, params = {}) {
   }
 }
 
-</script>
-<script src="https://js.stripe.com/v3/"></script>
-<script>
+
 /* ═══════════════════════════════════════════════
    landing.js — Quiz, form, slot, Stripe, successo
    Ricciardi Studio Dermistico · Total Lift
@@ -648,8 +783,8 @@ function formatDay(dateStr) {
 /* ── STATE ── */
 const ans = { q1: '', q2: '', q3: '' };
 let selSlot = null;
-let stripe   = null;
-let cardEl   = null;
+let stripe  = null;
+let cardEl  = null;
 
 const STEPS = ['q1','q2','q3','blocked','form','slot','payment'];
 const PROG  = { q1:14, q2:28, q3:42, blocked:42, form:57, slot:71, payment:85 };
@@ -662,29 +797,30 @@ function showStep(id) {
   document.getElementById('flow').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function go(next) {
+async function go(next) {
   if (next === 'q2' && !ans.q1) { alert('Seleziona una risposta'); return; }
   if (next === 'q3' && !ans.q2) { alert('Seleziona una risposta'); return; }
   if (next === 'slot') {
     if (!validateForm()) return;
-    renderSlots();
+    await renderSlots();
   }
   if (next === 'payment') {
     if (!selSlot) { document.getElementById('slot-err').classList.remove('hidden'); return; }
     document.getElementById('slot-err').classList.add('hidden');
-    /* controllo doppia prenotazione */
-    const taken = TL.bookings().filter(b =>
+    // controllo doppia prenotazione
+    const bks = await TL.getBookings();
+    const taken = bks.filter(b =>
       b.ora  === selSlot.start + '-' + selSlot.end &&
       b.data === TL.eventDay() &&
       b.payment !== 'failed'
     );
     if (taken.length) {
       alert('Questo slot è appena stato prenotato. Scegline un altro.');
-      renderSlots(); showStep('slot'); return;
+      await renderSlots(); showStep('slot'); return;
     }
     trackEvent('SlotSelected', { slot: selSlot.start });
     trackEvent('InitiateCheckout');
-    renderSummary();
+    await renderSummary();
     initStripe();
   }
   showStep(next);
@@ -703,8 +839,6 @@ function sel(el, q) {
   document.querySelectorAll('#step-' + q + ' .opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   ans[q] = el.dataset.val;
-
-  // Avanza automaticamente dopo 350ms (piccola pausa per vedere la selezione)
   setTimeout(() => {
     if (q === 'q1') go('q2');
     else if (q === 'q2') go('q3');
@@ -733,9 +867,9 @@ function validateForm() {
 }
 
 /* ── RENDER SLOT ── */
-function renderSlots() {
-  const slots = TL.slots();
-  const bks   = TL.bookings();
+async function renderSlots() {
+  const slots = await TL.getSlots();
+  const bks   = await TL.getBookings();
   const day   = TL.eventDay();
   document.getElementById('event-day-disp').value = formatDay(day);
   const grid = document.getElementById('slots-grid');
@@ -763,7 +897,7 @@ function renderSlots() {
 }
 
 /* ── RIEPILOGO ── */
-function renderSummary() {
+async function renderSummary() {
   const c     = TL.cfg();
   const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(2) : '—';
   document.getElementById('summary').innerHTML = `
@@ -783,10 +917,7 @@ function initStripe() {
   const elements = stripe.elements();
   cardEl = elements.create('card', {
     style: {
-      base: {
-        color: '#ffffff', fontFamily: 'DM Sans, sans-serif', fontSize: '16px',
-        '::placeholder': { color: 'rgba(255,255,255,0.28)' }
-      },
+      base: { color: '#ffffff', fontFamily: 'DM Sans, sans-serif', fontSize: '16px', '::placeholder': { color: 'rgba(255,255,255,0.28)' } },
       invalid: { color: '#ff6b6b' }
     }
   });
@@ -806,24 +937,17 @@ async function handlePay() {
       document.getElementById('card-errors').textContent = error.message;
       btn.classList.remove('loading'); btn.disabled = false; return;
     }
-    /*
-     * ⚠️  PRODUZIONE: invia paymentMethod.id al tuo backend
-     * Il backend crea il PaymentIntent e restituisce il clientSecret.
-     * Poi chiama stripe.confirmCardPayment(clientSecret).
-     * Demo: salva direttamente come pagato.
-     */
-    saveAndConfirm('paid', TL.cfg().stripeAmount || 0, paymentMethod.id);
+    // ⚠️ PRODUZIONE: invia paymentMethod.id al backend → crea PaymentIntent → conferma
+    await saveAndConfirm('paid', TL.cfg().stripeAmount || 0, paymentMethod.id);
   } catch (e) {
     console.error(e);
     btn.classList.remove('loading'); btn.disabled = false;
   }
 }
 
-/* ── SALVA E MOSTRA SUCCESSO ── */
-function saveAndConfirm(status, amount, ref) {
-  const bks = TL.bookings();
+/* ── SALVA SU FIRESTORE E MOSTRA SUCCESSO ── */
+async function saveAndConfirm(status, amount, ref) {
   const b = {
-    id:         'bk_' + Date.now(),
     nome:       document.getElementById('f-nome').value.trim(),
     cognome:    document.getElementById('f-cognome').value.trim(),
     email:      document.getElementById('f-email').value.trim(),
@@ -838,14 +962,14 @@ function saveAndConfirm(status, amount, ref) {
     promemoria: 'no',
     createdAt:  new Date().toISOString()
   };
-  bks.push(b);
-  TL.saveBookings(bks);
+  const id = await TL.addBooking(b);
+  b.id = id;
   trackEvent('Purchase', { value: amount / 100, currency: 'EUR' });
   showSuccess(b);
 }
 
 function showSuccess(b) {
-  document.getElementById('page-landing').style.display  = 'none';
+  document.getElementById('page-landing').style.display = 'none';
   const pg = document.getElementById('page-success');
   pg.style.display = 'flex';
   document.getElementById('success-details').innerHTML = `
@@ -856,33 +980,37 @@ function showSuccess(b) {
   `;
 }
 
-/* ── POPOLA DATE DINAMICHE ── */
+/* ── DATE DINAMICHE ── */
 function populateDates() {
-  const day = TL.eventDay(); // es. "2025-05-27"
-  const d = new Date(day + 'T12:00:00');
-
-  // Formato breve: "27 Maggio"
-  const short = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
-
-  // Formato completo con giorno settimana: "Mercoledì 27 Maggio"
-  const full = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+  const day = TL.eventDay();
+  const d   = new Date(day + 'T12:00:00');
+  const short   = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
+  const full    = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
   const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
-
   const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-
-  set('date-tag',    short);      // hero tag: "Total Beauty Day · 27 Maggio"
-  set('date-hero',   fullCap);    // hero date: "Mercoledì 27 Maggio"
-  set('date-strip',  short);      // strip: "Solo 27 Maggio"
-  set('date-banner', short);      // cta banner: "del 27 Maggio"
+  set('date-tag',    short);
+  set('date-hero',   fullCap);
+  set('date-strip',  short);
+  set('date-banner', short);
 }
 
+
+// Esponi funzioni globali (necessario con type="module")
+window.go     = go;
+window.sel    = sel;
+window.afterQ3 = afterQ3;
+window.handlePay = handlePay;
+window.trackEvent = trackEvent;
+
 /* ── INIT ── */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await TL.loadCfg();
   initPixel();
   trackEvent('PageView');
   populateDates();
 });
 
 </script>
+
 </body>
 </html>
