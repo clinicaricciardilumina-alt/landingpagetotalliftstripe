@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accesso Staff – Total Lift</title>
+<link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-card">
+    <p class="login-card__logo">RICCIARDI</p>
+    <p class="login-card__sub">Studio Dermistico</p>
+    <h2>Dashboard</h2>
+    <p>Accesso riservato allo staff</p>
+    <div class="field field--light mb-1">
+      <label>Username</label>
+      <input type="text" id="u" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="field field--light mb-2">
+      <label>Password</label>
+      <input type="password" id="p" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') login()">
+    </div>
+    <p id="err" class="login-err hidden">Credenziali non valide. Riprova.</p>
+    <button class="btn btn--primary btn--full" onclick="login()">Accedi</button>
+    <a href="../index.html" class="login-back">← Torna al sito</a>
+  </div>
+</div>
+
+<script src="../assets/js/storage.js"></script>
+<script>
+  /* Redirect se già autenticato */
+  if (sessionStorage.getItem('tl_auth') === '1') {
+    window.location.href = 'dashboard.html';
+  }
+
+  function login() {
+    const u  = document.getElementById('u').value;
+    const p  = document.getElementById('p').value;
+    const pw = TL.cfg().adminPw || 'ricciardi2025';
+    if (u === 'admin' && p === pw) {
+      sessionStorage.setItem('tl_auth', '1');
+      window.location.href = 'dashboard.html';
+    } else {
+      document.getElementById('err').classList.remove('hidden');
+      document.getElementById('p').value = '';
+    }
+  }
+</script>
+</body>
+</html>
