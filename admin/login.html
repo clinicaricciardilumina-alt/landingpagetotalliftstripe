@@ -4,14 +4,246 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Accesso Staff – Total Lift</title>
-<link rel="stylesheet" href="../assets/css/global.css">
-<link rel="stylesheet" href="../assets/css/dashboard.css">
+<style>
+/* ═══════════════════════════════════════════════
+   global.css — Variabili, reset, componenti base
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── VARIABILI ── */
+:root {
+  --blue:       #419cc9;
+  --blue-light: #a2d7ea;
+  --blue-pale:  #e8f5fb;
+  --dark:       #0d1117;
+  --white:      #ffffff;
+  --mid:        #5a7a8a;
+  --accent:     #2d7aab;
+  --text:       #1a2530;
+  --green:      #27ae60;
+  --red:        #e74c3c;
+  --radius:     0px;
+}
+
+/* ── BASE ── */
+html   { scroll-behavior: smooth; }
+body   { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+a      { transition: color .2s; }
+img    { display: block; max-width: 100%; }
+
+/* ── TIPOGRAFIA UTILITY ── */
+.label {
+  font-size: 0.63rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.8rem; display: block; font-weight: 500;
+}
+.label--light { color: var(--blue-light); }
+
+/* ── BOTTONI ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif; font-weight: 500;
+  font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  padding: 1rem 2.4rem;
+  transition: background .2s, transform .15s, border-color .2s, color .2s;
+}
+.btn--primary  { background: var(--blue); color: #fff; }
+.btn--primary:hover { background: var(--accent); transform: translateY(-2px); }
+.btn--ghost    { background: transparent; border: 1px solid rgba(255,255,255,0.38); color: rgba(255,255,255,0.85); }
+.btn--ghost:hover  { border-color: #fff; color: #fff; }
+.btn--dark     { background: var(--dark); color: #fff; }
+.btn--dark:hover   { background: var(--accent); }
+.btn--outline  { background: transparent; border: 1px solid rgba(65,156,201,0.3); color: var(--mid); }
+.btn--outline:hover { border-color: var(--blue); color: var(--blue); }
+.btn--danger   { background: transparent; border: 1px solid rgba(231,76,60,0.3); color: var(--red); }
+.btn--danger:hover  { border-color: var(--red); background: rgba(231,76,60,0.05); }
+.btn--sm       { padding: 0.42rem 0.9rem; font-size: 0.67rem; }
+.btn--full     { width: 100%; padding: 1.15rem; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: none;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  height: 80px;
+}
+.nav__logo {
+  display: flex; align-items: center; text-decoration: none;
+  height: 100%;
+  padding: 0 2rem;
+}
+.nav__logo img {
+  height: 70px; width: auto; display: block;
+}
+
+/* ── FOOTER ── */
+.footer { background: var(--dark); padding: 3.5rem 2rem; text-align: center; }
+.footer__logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
+.footer__sub { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.3rem; }
+.footer p   { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-weight: 300; }
+.footer a   { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.5rem; }
+.footer a:hover { color: var(--blue); }
+.footer__divider { height: 1px; background: rgba(65,156,201,0.12); margin: 1.5rem auto; max-width: 260px; }
+.footer__social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; }
+.footer__social a { width: 36px; height: 36px; border: 1px solid rgba(65,156,201,0.25); display: flex; align-items: center; justify-content: center; color: var(--blue-light); font-size: 0.72rem; text-decoration: none; transition: all .2s; }
+.footer__social a:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ── BADGE ── */
+.badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.22rem 0.65rem; text-transform: uppercase; font-weight: 600; }
+.badge--paid    { background: rgba(39,174,96,0.1);   color: #27ae60; }
+.badge--pending { background: rgba(162,215,234,0.18); color: var(--blue); }
+.badge--failed  { background: rgba(231,76,60,0.1);   color: var(--red); }
+.badge--yes     { background: rgba(39,174,96,0.1);   color: #27ae60; }
+.badge--no      { background: rgba(162,215,234,0.12); color: var(--mid); }
+
+/* ── FORM ── */
+.field { display: flex; flex-direction: column; gap: 0.38rem; }
+.field label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.48); font-weight: 500; }
+.field input, .field textarea, .field select {
+  padding: 0.88rem 1rem; font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
+  color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(65,156,201,0.22);
+  outline: none; transition: border-color .2s, background .2s; width: 100%;
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.22); }
+.field input:focus, .field textarea:focus { border-color: var(--blue); background: rgba(65,156,201,0.08); }
+.field--light label  { color: var(--mid); }
+.field--light input, .field--light textarea, .field--light select { background: #f8fbfd; color: var(--text); border-color: rgba(65,156,201,0.22); }
+.field--light input::placeholder { color: rgba(26,37,48,0.3); }
+.field--light input:focus, .field--light textarea:focus { border-color: var(--blue); background: #fff; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.privacy-row { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; }
+.privacy-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--blue); flex-shrink: 0; margin-top: 3px; }
+.privacy-row span { font-size: 0.8rem; color: rgba(255,255,255,0.52); line-height: 1.6; }
+.privacy-row a { color: var(--blue-light); }
+.err { color: #ff6b6b; font-size: 0.78rem; margin-top: 0.3rem; }
+
+/* ── UTILITY ── */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.8rem; }  .mt-2 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.8rem; } .mb-2 { margin-bottom: 1.5rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .nav { padding: 0.9rem 1.5rem; } }
+
+/* Nav button alignment */
+.nav .btn { margin-right: 2rem; }
+
+/* ═══════════════════════════════════════════════
+   dashboard.css — Stili admin login + dashboard
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+/* ── LOGIN PAGE ── */
+.login-page { min-height: 100vh; background: var(--dark); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.login-page::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(65,156,201,0.07) 0%, transparent 70%); pointer-events: none; }
+.login-card { background: var(--white); padding: 3.5rem 3rem; max-width: 400px; width: 100%; position: relative; }
+.login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+.login-card__logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); text-align: center; }
+.login-card__sub  { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 2.5rem; }
+.login-card h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; text-align: center; }
+.login-card > p { font-size: 0.82rem; color: var(--mid); margin-bottom: 2rem; text-align: center; font-weight: 300; }
+.login-card .field--light { margin-bottom: 1rem; }
+.login-err  { color: var(--red); font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
+.login-back { display: block; text-align: center; margin-top: 1.2rem; font-size: 0.75rem; color: var(--mid); text-decoration: none; transition: color .2s; }
+.login-back:hover { color: var(--blue); }
+
+/* ── DASHBOARD LAYOUT ── */
+.dash-page   { min-height: 100vh; background: #eef5f9; }
+.dash-header { background: var(--dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(65,156,201,0.12); }
+.dash-header__logo { font-family: 'Playfair Display', serif; color: var(--blue); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+.dash-header__logo span { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-left: 0.5rem; font-weight: 300; }
+.dash-header__actions { display: flex; gap: 0.6rem; align-items: center; }
+
+/* ── TABS ── */
+.dash-tabs { background: #fff; border-bottom: 1px solid rgba(65,156,201,0.12); display: flex; padding: 0 2rem; }
+.dash-tab { padding: 0.9rem 1.4rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; color: var(--mid); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+.dash-tab:hover  { color: var(--blue); }
+.dash-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.dash-panel      { display: none; padding: 2rem; }
+.dash-panel.active { display: block; }
+
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card  { background: #fff; padding: 1.3rem 1.5rem; border-top: 3px solid var(--blue); }
+.stat-card__label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.4rem; }
+.stat-card__val   { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--dark); line-height: 1; }
+.stat-card__sub   { font-size: 0.72rem; color: var(--blue); margin-top: 0.3rem; }
+
+/* ── FILTERS ── */
+.filters { background: #fff; padding: 1rem 1.2rem; border: 1px solid rgba(65,156,201,0.1); margin-bottom: 1rem; display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end; }
+.filter-group { display: flex; flex-direction: column; gap: 0.25rem; }
+.filter-group label  { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.filter-group input, .filter-group select { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.42rem 0.75rem; font-size: 0.8rem; color: var(--dark); font-family: 'DM Sans', sans-serif; outline: none; min-width: 120px; }
+
+/* ── TABLE ── */
+.table-wrap { background: #fff; border: 1px solid rgba(65,156,201,0.1); overflow-x: auto; }
+.table-head { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(65,156,201,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.table-head h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); }
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; min-width: 1100px; }
+thead th { padding: 0.7rem 0.9rem; text-align: left; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 600; border-bottom: 1px solid rgba(65,156,201,0.1); white-space: nowrap; background: #fafcfe; }
+tbody tr { border-bottom: 1px solid rgba(65,156,201,0.06); transition: background .12s; }
+tbody tr:hover { background: #f4f9fc; }
+td { padding: 0.7rem 0.9rem; color: var(--dark); vertical-align: middle; white-space: nowrap; }
+td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
+.actions { display: flex; gap: 0.3rem; }
+.act { padding: 0.22rem 0.6rem; font-size: 0.62rem; border: 1px solid rgba(65,156,201,0.22); background: transparent; color: var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; letter-spacing: 0.04em; text-transform: uppercase; }
+.act:hover        { border-color: var(--blue); color: var(--blue); }
+.act-danger       { border-color: rgba(231,76,60,0.22); color: var(--red); }
+.act-danger:hover { border-color: var(--red); background: rgba(231,76,60,0.04); }
+.act-green        { border-color: rgba(39,174,96,0.25); color: var(--green); }
+.act-green:hover  { border-color: var(--green); background: rgba(39,174,96,0.05); }
+
+/* ── SLOT MANAGER ── */
+.slot-mgr    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+.slot-mgr h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
+.slot-items  { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 0.6rem; margin-bottom: 1.2rem; }
+.slot-item   { display: flex; align-items: center; justify-content: space-between; background: #f4f9fc; border: 1px solid rgba(65,156,201,0.12); padding: 0.65rem 0.9rem; }
+.slot-item__time   { font-size: 0.85rem; font-weight: 500; color: var(--dark); }
+.slot-item__status { font-size: 0.65rem; color: var(--mid); margin-top: 1px; }
+.slot-item__acts   { display: flex; gap: 0.3rem; }
+.add-slot { display: flex; gap: 0.7rem; align-items: flex-end; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid rgba(65,156,201,0.1); }
+.add-slot .input-group { display: flex; flex-direction: column; gap: 0.2rem; }
+.add-slot .input-group label { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.add-slot input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.5rem 0.8rem; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; }
+
+/* ── SETTINGS ── */
+.settings-card    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+.settings-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
+.setting-row { display: grid; grid-template-columns: 180px 1fr; gap: 1rem; align-items: center; margin-bottom: 0.9rem; }
+.setting-row label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.setting-row input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.55rem 0.9rem; font-size: 0.88rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; transition: border-color .2s; width: 100%; }
+.setting-row input:focus { border-color: var(--blue); }
+.settings-note { font-size: 0.75rem; color: var(--mid); line-height: 1.6; margin-top: 0.5rem; }
+.save-indicator { font-size: 0.72rem; color: var(--green); margin-left: 0.5rem; opacity: 0; transition: opacity .3s; }
+.save-indicator.show { opacity: 1; }
+
+/* ── MODAL ── */
+.modal-bg  { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 500; align-items: center; justify-content: center; padding: 1rem; }
+.modal-bg.open { display: flex; }
+.modal { background: #fff; padding: 2rem; max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 1.5rem; }
+.modal-actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+.modal .field--light { margin-bottom: 0.9rem; }
+
+</style>
 </head>
 <body>
 
 <div class="login-page">
   <div class="login-card">
-    <img src="../assets/logo.png" alt="Ricciardi" style="height:64px;width:auto;margin:0 auto 0.5rem;display:block">
+    <img src="../assets/logo.png" alt="Ricciardi" style="height:60px;width:auto;margin:0 auto 0.5rem;display:block">
     <h2>Dashboard</h2>
     <p>Accesso riservato allo staff</p>
     <div class="field field--light mb-1">
@@ -28,7 +260,41 @@
   </div>
 </div>
 
-<script src="../assets/js/storage.js"></script>
+<script>
+/* ═══════════════════════════════════════════════
+   storage.js — Gestione dati localStorage
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+const TL = {
+
+  /* CONFIG (stripe, pixel, password, giorno evento) */
+  cfg:     () => JSON.parse(localStorage.getItem('tl_cfg') || '{}'),
+  saveCfg: (c) => localStorage.setItem('tl_cfg', JSON.stringify({ ...TL.cfg(), ...c })),
+
+  /* PRENOTAZIONI */
+  bookings:     () => JSON.parse(localStorage.getItem('tl_bookings') || '[]'),
+  saveBookings: (b) => localStorage.setItem('tl_bookings', JSON.stringify(b)),
+
+  /* SLOTS */
+  defaultSlots: [
+    { id: 's1', start: '09:00', end: '10:00', blocked: false },
+    { id: 's2', start: '10:00', end: '11:00', blocked: false },
+    { id: 's3', start: '11:00', end: '12:00', blocked: false },
+    { id: 's4', start: '12:00', end: '13:00', blocked: false },
+    { id: 's5', start: '14:00', end: '15:00', blocked: false },
+    { id: 's6', start: '15:00', end: '16:00', blocked: false },
+    { id: 's7', start: '16:00', end: '17:00', blocked: false },
+    { id: 's8', start: '17:00', end: '18:00', blocked: false },
+  ],
+  slots:     () => JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(TL.defaultSlots)),
+  saveSlots: (s) => localStorage.setItem('tl_slots', JSON.stringify(s)),
+
+  /* GIORNO EVENTO */
+  eventDay: () => TL.cfg().eventDay || '2025-05-27',
+};
+
+</script>
 <script>
   /* Redirect se già autenticato */
   if (sessionStorage.getItem('tl_auth') === '1') {
