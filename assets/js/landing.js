@@ -215,8 +215,29 @@ function showSuccess(b) {
   `;
 }
 
+/* ── POPOLA DATE DINAMICHE ── */
+function populateDates() {
+  const day = TL.eventDay(); // es. "2025-05-27"
+  const d = new Date(day + 'T12:00:00');
+
+  // Formato breve: "27 Maggio"
+  const short = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
+
+  // Formato completo con giorno settimana: "Mercoledì 27 Maggio"
+  const full = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+  const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  set('date-tag',    short);      // hero tag: "Total Beauty Day · 27 Maggio"
+  set('date-hero',   fullCap);    // hero date: "Mercoledì 27 Maggio"
+  set('date-strip',  short);      // strip: "Solo 27 Maggio"
+  set('date-banner', short);      // cta banner: "del 27 Maggio"
+}
+
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
   initPixel();
   trackEvent('PageView');
+  populateDates();
 });
