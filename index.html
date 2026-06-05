@@ -5,8 +5,304 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Total Lift – Ricciardi Studio Dermistico</title>
 <meta name="description" content="Total Lift: ringiovanimento completo del viso senza bisturi. Prenota il tuo appuntamento per il Total Beauty Day del 27 Maggio a Palagiano.">
-<link rel="stylesheet" href="assets/css/global.css">
-<link rel="stylesheet" href="assets/css/landing.css">
+<style>
+/* ═══════════════════════════════════════════════
+   global.css — Variabili, reset, componenti base
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── VARIABILI ── */
+:root {
+  --blue:       #419cc9;
+  --blue-light: #a2d7ea;
+  --blue-pale:  #e8f5fb;
+  --dark:       #0d1117;
+  --white:      #ffffff;
+  --mid:        #5a7a8a;
+  --accent:     #2d7aab;
+  --text:       #1a2530;
+  --green:      #27ae60;
+  --red:        #e74c3c;
+  --radius:     0px;
+}
+
+/* ── BASE ── */
+html   { scroll-behavior: smooth; }
+body   { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+a      { transition: color .2s; }
+img    { display: block; max-width: 100%; }
+
+/* ── TIPOGRAFIA UTILITY ── */
+.label {
+  font-size: 0.63rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--blue); margin-bottom: 0.8rem; display: block; font-weight: 500;
+}
+.label--light { color: var(--blue-light); }
+
+/* ── BOTTONI ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-family: 'DM Sans', sans-serif; font-weight: 500;
+  font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+  text-decoration: none; border: none; cursor: pointer;
+  padding: 1rem 2.4rem;
+  transition: background .2s, transform .15s, border-color .2s, color .2s;
+}
+.btn--primary  { background: var(--blue); color: #fff; }
+.btn--primary:hover { background: var(--accent); transform: translateY(-2px); }
+.btn--ghost    { background: transparent; border: 1px solid rgba(255,255,255,0.38); color: rgba(255,255,255,0.85); }
+.btn--ghost:hover  { border-color: #fff; color: #fff; }
+.btn--dark     { background: var(--dark); color: #fff; }
+.btn--dark:hover   { background: var(--accent); }
+.btn--outline  { background: transparent; border: 1px solid rgba(65,156,201,0.3); color: var(--mid); }
+.btn--outline:hover { border-color: var(--blue); color: var(--blue); }
+.btn--danger   { background: transparent; border: 1px solid rgba(231,76,60,0.3); color: var(--red); }
+.btn--danger:hover  { border-color: var(--red); background: rgba(231,76,60,0.05); }
+.btn--sm       { padding: 0.42rem 0.9rem; font-size: 0.67rem; }
+.btn--full     { width: 100%; padding: 1.15rem; }
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: none;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  height: 80px;
+}
+.nav__logo {
+  display: flex; align-items: center; text-decoration: none;
+  height: 100%;
+  padding: 0 2rem;
+}
+.nav__logo img {
+  height: 70px; width: auto; display: block;
+}
+
+/* ── FOOTER ── */
+.footer { background: var(--dark); padding: 3.5rem 2rem; text-align: center; }
+.footer__logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
+.footer__sub { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.3rem; }
+.footer p   { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-weight: 300; }
+.footer a   { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.5rem; }
+.footer a:hover { color: var(--blue); }
+.footer__divider { height: 1px; background: rgba(65,156,201,0.12); margin: 1.5rem auto; max-width: 260px; }
+.footer__social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; }
+.footer__social a { width: 36px; height: 36px; border: 1px solid rgba(65,156,201,0.25); display: flex; align-items: center; justify-content: center; color: var(--blue-light); font-size: 0.72rem; text-decoration: none; transition: all .2s; }
+.footer__social a:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ── BADGE ── */
+.badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.22rem 0.65rem; text-transform: uppercase; font-weight: 600; }
+.badge--paid    { background: rgba(39,174,96,0.1);   color: #27ae60; }
+.badge--pending { background: rgba(162,215,234,0.18); color: var(--blue); }
+.badge--failed  { background: rgba(231,76,60,0.1);   color: var(--red); }
+.badge--yes     { background: rgba(39,174,96,0.1);   color: #27ae60; }
+.badge--no      { background: rgba(162,215,234,0.12); color: var(--mid); }
+
+/* ── FORM ── */
+.field { display: flex; flex-direction: column; gap: 0.38rem; }
+.field label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.48); font-weight: 500; }
+.field input, .field textarea, .field select {
+  padding: 0.88rem 1rem; font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
+  color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(65,156,201,0.22);
+  outline: none; transition: border-color .2s, background .2s; width: 100%;
+}
+.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.22); }
+.field input:focus, .field textarea:focus { border-color: var(--blue); background: rgba(65,156,201,0.08); }
+.field--light label  { color: var(--mid); }
+.field--light input, .field--light textarea, .field--light select { background: #f8fbfd; color: var(--text); border-color: rgba(65,156,201,0.22); }
+.field--light input::placeholder { color: rgba(26,37,48,0.3); }
+.field--light input:focus, .field--light textarea:focus { border-color: var(--blue); background: #fff; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.privacy-row { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; }
+.privacy-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--blue); flex-shrink: 0; margin-top: 3px; }
+.privacy-row span { font-size: 0.8rem; color: rgba(255,255,255,0.52); line-height: 1.6; }
+.privacy-row a { color: var(--blue-light); }
+.err { color: #ff6b6b; font-size: 0.78rem; margin-top: 0.3rem; }
+
+/* ── UTILITY ── */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.8rem; }  .mt-2 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.8rem; } .mb-2 { margin-bottom: 1.5rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+@media (max-width: 768px) { .nav { padding: 0.9rem 1.5rem; } }
+
+/* Nav button alignment */
+.nav .btn { margin-right: 2rem; }
+
+/* ═══════════════════════════════════════════════
+   landing.css — Stili specifici della landing page
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+/* ── HERO ── */
+.hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.hero__overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,18,28,0.90) 45%, rgba(10,18,28,0.22) 100%); }
+.hero__content { position: relative; z-index: 2; padding: 10rem 4rem 5rem; max-width: 700px; }
+.hero__tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.35rem 1rem; margin-bottom: 1.5rem; font-weight: 500; }
+.hero__title { font-size: clamp(3.8rem, 10vw, 8rem); font-weight: 700; color: #fff; line-height: 1; margin-bottom: 1.5rem; letter-spacing: -0.02em; white-space: nowrap; }
+.hero__title em { font-style: italic; color: var(--blue-light); }
+.hero__sub { font-size: 1.05rem; color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 440px; margin-bottom: 0.8rem; font-weight: 300; }
+.hero__date { font-size: 0.75rem; color: var(--blue-light); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 2.2rem; }
+.hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero__badges { display: flex; gap: 1.8rem; margin-top: 3rem; flex-wrap: wrap; }
+.hero__badge { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.55); font-size: 0.8rem; }
+.hero__badge::before { content: '✓'; color: var(--blue-light); font-weight: 700; }
+
+/* ── STRIP ── */
+.strip { background: var(--blue); padding: 1.1rem 2rem; display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.strip__item { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; font-weight: 500; }
+.strip__dot  { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.35); flex-shrink: 0; }
+
+/* ── INTRO ── */
+.intro { display: grid; grid-template-columns: 1fr 1fr; min-height: 580px; }
+.intro__text { background: var(--dark); padding: 5rem 4.5rem; display: flex; flex-direction: column; justify-content: center; }
+.intro__text h2 { font-size: clamp(2rem, 3.5vw, 2.9rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.5rem; }
+.intro__text h2 em { font-style: italic; color: var(--blue); }
+.intro__text p { font-size: 0.95rem; color: rgba(255,255,255,0.58); line-height: 1.85; font-weight: 300; margin-bottom: 1rem; }
+.intro__bullets { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.intro__bullets li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; color: rgba(255,255,255,0.72); }
+.intro__bullets li::before { content: ''; width: 22px; height: 1px; background: var(--blue); flex-shrink: 0; }
+.intro__img { position: relative; overflow: hidden; }
+.intro__img img { width: 100%; height: 100%; object-fit: cover; }
+.intro__img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,17,23,0.45) 0%, transparent 55%); }
+
+/* ── COME AGISCE ── */
+.agisce { display: grid; grid-template-columns: 1fr 1fr; }
+.agisce__photo { position: relative; overflow: hidden; min-height: 620px; }
+.agisce__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.agisce__content { background: var(--blue-pale); padding: 4.5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+.agisce__content h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 2rem; }
+.agisce__content h2 em { font-style: italic; color: var(--blue); }
+.azione { background: #fff; border-left: 3px solid var(--blue); padding: 1.3rem 1.5rem; margin-bottom: 1rem; transition: box-shadow .2s, transform .2s; }
+.azione:hover { box-shadow: 0 6px 24px rgba(65,156,201,0.15); transform: translateX(4px); }
+.azione__num { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 0.35rem; }
+.azione h3 { font-size: 0.92rem; font-weight: 600; color: var(--dark); margin-bottom: 0.4rem; font-family: 'DM Sans', sans-serif; }
+.azione p  { font-size: 0.8rem; color: var(--mid); line-height: 1.65; font-weight: 300; }
+
+/* ── FLOW (quiz + form + payment) ── */
+#flow { background: var(--dark); padding: 5rem 2rem; }
+#flow .inner { max-width: 720px; margin: 0 auto; }
+.progress-bar  { height: 2px; background: rgba(255,255,255,0.08); margin-bottom: 2.8rem; overflow: hidden; border-radius: 2px; }
+.progress-fill { height: 100%; background: var(--blue); transition: width .45s ease; }
+.step-indicator { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.5rem; display: block; }
+.quiz-q { font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 400; color: #fff; margin-bottom: 1.8rem; line-height: 1.35; }
+.options { display: grid; gap: 0.7rem; margin-bottom: 2rem; }
+.opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.3rem; border: 1px solid rgba(65,156,201,0.2); background: rgba(65,156,201,0.04); cursor: pointer; font-size: 0.88rem; color: rgba(255,255,255,0.78); font-weight: 300; transition: border-color .2s, background .2s; }
+.opt:hover { border-color: var(--blue); background: rgba(65,156,201,0.1); }
+.opt.selected { border-color: var(--blue); background: rgba(65,156,201,0.16); color: #fff; }
+.opt__marker { width: 24px; height: 24px; border: 1px solid rgba(65,156,201,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--blue-light); font-weight: 600; transition: all .2s; }
+.opt.selected .opt__marker { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+.btn--back { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); padding: 0.88rem 1.8rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
+.btn--back:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
+.btn--next { background: var(--blue); color: #fff; padding: 0.88rem 2.5rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: background .2s; }
+.btn--next:hover { background: var(--accent); }
+
+/* BLOCKED */
+.block-msg { background: rgba(65,156,201,0.06); border: 1px solid rgba(65,156,201,0.18); padding: 2.5rem 2rem; text-align: center; }
+.block-msg__icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.block-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
+.block-msg p  { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; }
+
+/* SLOTS */
+.slots-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.9rem; margin-top: 1.5rem; font-weight: 500; display: block; }
+.slots-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 0.6rem; margin-bottom: 1.5rem; }
+.slot { padding: 0.75rem 1rem; border: 1px solid rgba(65,156,201,0.2); font-size: 0.82rem; cursor: pointer; color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.03); transition: all .2s; text-align: center; line-height: 1.3; }
+.slot:hover:not(.slot--taken):not(.slot--blocked) { border-color: var(--blue); color: #fff; background: rgba(65,156,201,0.1); }
+.slot.selected { border-color: var(--blue); background: var(--blue); color: #fff; }
+.slot--taken   { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
+.slot--blocked { opacity: 0.2; cursor: not-allowed; }
+.slot__badge   { font-size: 0.58rem; display: block; margin-top: 2px; opacity: 0.75; }
+
+/* SUMMARY */
+.summary { background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 1.6rem; margin-bottom: 1.5rem; }
+.summary__row  { display: flex; justify-content: space-between; align-items: baseline; padding: 0.28rem 0; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.summary__row strong { color: #fff; }
+.summary__total { border-top: 1px solid rgba(65,156,201,0.18); margin-top: 0.5rem; padding-top: 0.5rem; }
+.summary__total .summary__row { font-size: 1.05rem; }
+.summary__total strong { color: var(--blue); font-size: 1.2rem; }
+
+/* STRIPE */
+#stripe-el-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(65,156,201,0.2); padding: 1.2rem; margin-bottom: 0.5rem; }
+#card-errors { color: #ff6b6b; font-size: 0.8rem; margin: 0.5rem 0 1rem; min-height: 1.1rem; }
+.pay-btn { width: 100%; background: var(--blue); color: #fff; padding: 1.18rem; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 0.6rem; transition: background .2s; }
+.pay-btn:hover:not(:disabled) { background: var(--accent); }
+.pay-btn:disabled { opacity: 0.52; cursor: not-allowed; }
+.pay-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.28); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+.pay-btn.loading .pay-spinner { display: block; }
+.pay-btn.loading .pay-label { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.pay-note { font-size: 0.7rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 0.8rem; }
+
+/* TESTIMONIALS */
+.testi { background: var(--blue-pale); padding: 5rem 2rem; }
+.testi__inner  { max-width: 920px; margin: 0 auto; }
+.testi__header { text-align: center; margin-bottom: 3rem; }
+.testi__header h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; color: var(--dark); }
+.testi__header h2 em { font-style: italic; color: var(--blue); }
+.testi__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.testi__card { background: #fff; padding: 2.2rem 2rem 1.8rem; border-bottom: 3px solid var(--blue); position: relative; }
+.testi__card::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--blue-light); line-height: 1; position: absolute; top: -0.6rem; left: 1.4rem; opacity: 0.55; }
+.testi__card p    { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; color: var(--dark); line-height: 1.68; margin-bottom: 1.2rem; margin-top: 1.5rem; }
+.testi__card cite { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); font-style: normal; font-weight: 600; }
+
+/* CTA BANNER */
+.cta-banner { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 420px; text-align: center; padding: 5rem 2rem; }
+.cta-banner__img     { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.cta-banner__overlay { position: absolute; inset: 0; background: rgba(10,18,28,0.80); }
+.cta-banner__content { position: relative; z-index: 2; max-width: 580px; }
+.cta-banner__content h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
+.cta-banner__content h2 em { font-style: italic; color: var(--blue-light); }
+.cta-banner__content p  { color: rgba(255,255,255,0.62); font-size: 0.95rem; margin-bottom: 2.2rem; font-weight: 300; line-height: 1.75; }
+
+/* SUCCESS */
+.success-page { min-height: 100vh; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; }
+.success-page__img     { width: 100%; max-width: 480px; height: 280px; object-fit: cover; margin-bottom: 2.5rem; }
+.success-page__check   { width: 80px; height: 80px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: #fff; }
+.success-page h2       { font-size: clamp(2rem,5vw,3rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
+.success-page h2 em    { font-style: italic; color: var(--blue-light); }
+.success-page > p      { color: rgba(255,255,255,0.58); font-size: 0.95rem; line-height: 1.85; max-width: 480px; font-weight: 300; margin: 0 auto; }
+.success-page__details { margin-top: 2rem; background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: left; max-width: 400px; width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+.success-page__details strong { color: #fff; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .intro   { grid-template-columns: 1fr; }
+  .intro__img { min-height: 300px; }
+  .agisce  { grid-template-columns: 1fr; }
+  .agisce__photo { min-height: 300px; }
+  .testi__grid { grid-template-columns: 1fr; }
+}
+
+
+/* ── FLOW TITLE ── */
+#flow h2.flow-title { color: #ffffff; }
+#flow h2.flow-title em { color: var(--blue-light); }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  .hero__content   { padding: 8rem 1.8rem 4rem; }
+  .hero__ctas      { flex-direction: column; }
+  .hero__badges    { display: none !important; }
+  .strip           { display: none !important; }
+  .hero__title     { font-size: clamp(3rem, 13vw, 4.5rem); white-space: nowrap; }
+  .intro__text     { padding: 3.5rem 2rem; }
+  .agisce__content { padding: 3rem 2rem; }
+}
+
+</style>
 </head>
 <body>
 
@@ -261,9 +557,336 @@
   <div class="success-page__details" id="success-details"></div>
 </div>
 
-<script src="assets/js/storage.js"></script>
-<script src="assets/js/pixel.js"></script>
+<script>
+/* ═══════════════════════════════════════════════
+   storage.js — Gestione dati localStorage
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+const TL = {
+
+  /* CONFIG (stripe, pixel, password, giorno evento) */
+  cfg:     () => JSON.parse(localStorage.getItem('tl_cfg') || '{}'),
+  saveCfg: (c) => localStorage.setItem('tl_cfg', JSON.stringify({ ...TL.cfg(), ...c })),
+
+  /* PRENOTAZIONI */
+  bookings:     () => JSON.parse(localStorage.getItem('tl_bookings') || '[]'),
+  saveBookings: (b) => localStorage.setItem('tl_bookings', JSON.stringify(b)),
+
+  /* SLOTS */
+  defaultSlots: [
+    { id: 's1', start: '09:00', end: '10:00', blocked: false },
+    { id: 's2', start: '10:00', end: '11:00', blocked: false },
+    { id: 's3', start: '11:00', end: '12:00', blocked: false },
+    { id: 's4', start: '12:00', end: '13:00', blocked: false },
+    { id: 's5', start: '14:00', end: '15:00', blocked: false },
+    { id: 's6', start: '15:00', end: '16:00', blocked: false },
+    { id: 's7', start: '16:00', end: '17:00', blocked: false },
+    { id: 's8', start: '17:00', end: '18:00', blocked: false },
+  ],
+  slots:     () => JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(TL.defaultSlots)),
+  saveSlots: (s) => localStorage.setItem('tl_slots', JSON.stringify(s)),
+
+  /* GIORNO EVENTO */
+  eventDay: () => TL.cfg().eventDay || '2025-05-27',
+};
+
+/* ═══════════════════════════════════════════════
+   pixel.js — Meta Pixel tracking
+   Ricciardi Studio Dermistico · Total Lift
+
+   Eventi tracciati:
+   - PageView
+   - ClickPrenotazione
+   - QuestionarioCompletato
+   - Lead
+   - SlotSelected
+   - InitiateCheckout
+   - Purchase
+═══════════════════════════════════════════════ */
+
+function initPixel() {
+  const pid = TL.cfg().pixelId;
+  if (!pid) return;
+
+  /* Carica SDK Facebook solo se non già presente */
+  if (!window.fbq) {
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;
+      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;
+      n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  }
+
+  fbq('init', pid);
+  fbq('track', 'PageView');
+}
+
+function trackEvent(name, params = {}) {
+  const pid = TL.cfg().pixelId;
+  if (!pid) return;
+  if (window.fbq) {
+    fbq('track', name, params);
+  }
+}
+
+</script>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="assets/js/landing.js"></script>
+<script>
+/* ═══════════════════════════════════════════════
+   landing.js — Quiz, form, slot, Stripe, successo
+   Ricciardi Studio Dermistico · Total Lift
+═══════════════════════════════════════════════ */
+
+/* ── UTILITY ── */
+function formatDay(dateStr) {
+  if (!dateStr) return '';
+  return new Date(dateStr + 'T12:00:00').toLocaleDateString('it-IT', {
+    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+
+/* ── STATE ── */
+const ans = { q1: '', q2: '', q3: '' };
+let selSlot = null;
+let stripe   = null;
+let cardEl   = null;
+
+const STEPS = ['q1','q2','q3','blocked','form','slot','payment'];
+const PROG  = { q1:14, q2:28, q3:42, blocked:42, form:57, slot:71, payment:85 };
+
+/* ── STEP NAVIGATION ── */
+function showStep(id) {
+  STEPS.forEach(s => document.getElementById('step-' + s).classList.add('hidden'));
+  document.getElementById('step-' + id).classList.remove('hidden');
+  document.getElementById('progress').style.width = (PROG[id] || 14) + '%';
+  document.getElementById('flow').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function go(next) {
+  if (next === 'q2' && !ans.q1) { alert('Seleziona una risposta'); return; }
+  if (next === 'q3' && !ans.q2) { alert('Seleziona una risposta'); return; }
+  if (next === 'slot') {
+    if (!validateForm()) return;
+    renderSlots();
+  }
+  if (next === 'payment') {
+    if (!selSlot) { document.getElementById('slot-err').classList.remove('hidden'); return; }
+    document.getElementById('slot-err').classList.add('hidden');
+    /* controllo doppia prenotazione */
+    const taken = TL.bookings().filter(b =>
+      b.ora  === selSlot.start + '-' + selSlot.end &&
+      b.data === TL.eventDay() &&
+      b.payment !== 'failed'
+    );
+    if (taken.length) {
+      alert('Questo slot è appena stato prenotato. Scegline un altro.');
+      renderSlots(); showStep('slot'); return;
+    }
+    trackEvent('SlotSelected', { slot: selSlot.start });
+    trackEvent('InitiateCheckout');
+    renderSummary();
+    initStripe();
+  }
+  showStep(next);
+}
+
+function afterQ3() {
+  if (!ans.q3) { alert('Seleziona una risposta'); return; }
+  trackEvent('QuestionarioCompletato');
+  if (ans.q3 === 'no') { showStep('blocked'); return; }
+  trackEvent('Lead');
+  showStep('form');
+}
+
+/* ── SELEZIONE OPZIONE (auto-avanza) ── */
+function sel(el, q) {
+  document.querySelectorAll('#step-' + q + ' .opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  ans[q] = el.dataset.val;
+
+  // Avanza automaticamente dopo 350ms (piccola pausa per vedere la selezione)
+  setTimeout(() => {
+    if (q === 'q1') go('q2');
+    else if (q === 'q2') go('q3');
+    else if (q === 'q3') afterQ3();
+  }, 350);
+}
+
+/* ── VALIDAZIONE FORM ── */
+function validateForm() {
+  const nome    = document.getElementById('f-nome').value.trim();
+  const cognome = document.getElementById('f-cognome').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const tel     = document.getElementById('f-tel').value.trim();
+  const priv    = document.getElementById('f-privacy').checked;
+  const err     = document.getElementById('form-err');
+  if (!nome || !cognome || !email || !tel) {
+    err.textContent = 'Compila tutti i campi obbligatori.';
+    err.classList.remove('hidden'); return false;
+  }
+  if (!priv) {
+    err.textContent = 'Devi accettare la Privacy Policy per procedere.';
+    err.classList.remove('hidden'); return false;
+  }
+  err.classList.add('hidden');
+  return true;
+}
+
+/* ── RENDER SLOT ── */
+function renderSlots() {
+  const slots = TL.slots();
+  const bks   = TL.bookings();
+  const day   = TL.eventDay();
+  document.getElementById('event-day-disp').value = formatDay(day);
+  const grid = document.getElementById('slots-grid');
+  grid.innerHTML = '';
+  slots.forEach(s => {
+    const taken = bks.some(b =>
+      b.ora  === s.start + '-' + s.end &&
+      b.data === day &&
+      b.payment !== 'failed'
+    );
+    const div = document.createElement('div');
+    div.className = 'slot' + (s.blocked ? ' slot--blocked' : taken ? ' slot--taken' : '');
+    div.innerHTML = `${s.start} – ${s.end}` +
+      (s.blocked ? '<span class="slot__badge">Bloccato</span>' :
+       taken      ? '<span class="slot__badge">Occupato</span>' : '');
+    if (!s.blocked && !taken) {
+      div.onclick = () => {
+        document.querySelectorAll('.slot').forEach(el => el.classList.remove('selected'));
+        div.classList.add('selected');
+        selSlot = s;
+      };
+    }
+    grid.appendChild(div);
+  });
+}
+
+/* ── RIEPILOGO ── */
+function renderSummary() {
+  const c     = TL.cfg();
+  const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(2) : '—';
+  document.getElementById('summary').innerHTML = `
+    <div class="summary__row"><span>Trattamento</span><strong>${c.stripeDesc || 'Consulenza Total Lift'}</strong></div>
+    <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
+    <div class="summary__row"><span>Data</span><strong>${formatDay(TL.eventDay())}</strong></div>
+    <div class="summary__row"><span>Orario</span><strong>${selSlot ? selSlot.start + ' – ' + selSlot.end : '—'}</strong></div>
+    <div class="summary__row summary__total"><span>Totale</span><strong>€ ${price}</strong></div>
+  `;
+}
+
+/* ── STRIPE ── */
+function initStripe() {
+  const pk = TL.cfg().stripePk;
+  if (!pk || stripe) return;
+  stripe = Stripe(pk);
+  const elements = stripe.elements();
+  cardEl = elements.create('card', {
+    style: {
+      base: {
+        color: '#ffffff', fontFamily: 'DM Sans, sans-serif', fontSize: '16px',
+        '::placeholder': { color: 'rgba(255,255,255,0.28)' }
+      },
+      invalid: { color: '#ff6b6b' }
+    }
+  });
+  cardEl.mount('#card-element');
+  cardEl.on('change', e => {
+    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+  });
+}
+
+async function handlePay() {
+  if (!stripe || !cardEl) { alert('Stripe non configurato. Contatta lo staff.'); return; }
+  const btn = document.getElementById('pay-btn');
+  btn.classList.add('loading'); btn.disabled = true;
+  try {
+    const { paymentMethod, error } = await stripe.createPaymentMethod({ type: 'card', card: cardEl });
+    if (error) {
+      document.getElementById('card-errors').textContent = error.message;
+      btn.classList.remove('loading'); btn.disabled = false; return;
+    }
+    /*
+     * ⚠️  PRODUZIONE: invia paymentMethod.id al tuo backend
+     * Il backend crea il PaymentIntent e restituisce il clientSecret.
+     * Poi chiama stripe.confirmCardPayment(clientSecret).
+     * Demo: salva direttamente come pagato.
+     */
+    saveAndConfirm('paid', TL.cfg().stripeAmount || 0, paymentMethod.id);
+  } catch (e) {
+    console.error(e);
+    btn.classList.remove('loading'); btn.disabled = false;
+  }
+}
+
+/* ── SALVA E MOSTRA SUCCESSO ── */
+function saveAndConfirm(status, amount, ref) {
+  const bks = TL.bookings();
+  const b = {
+    id:         'bk_' + Date.now(),
+    nome:       document.getElementById('f-nome').value.trim(),
+    cognome:    document.getElementById('f-cognome').value.trim(),
+    email:      document.getElementById('f-email').value.trim(),
+    tel:        document.getElementById('f-tel').value.trim(),
+    note:       document.getElementById('f-note').value.trim(),
+    q1: ans.q1, q2: ans.q2, q3: ans.q3,
+    data:       TL.eventDay(),
+    ora:        selSlot ? selSlot.start + '-' + selSlot.end : '',
+    payment:    status,
+    amount,
+    paymentRef: ref || '',
+    promemoria: 'no',
+    createdAt:  new Date().toISOString()
+  };
+  bks.push(b);
+  TL.saveBookings(bks);
+  trackEvent('Purchase', { value: amount / 100, currency: 'EUR' });
+  showSuccess(b);
+}
+
+function showSuccess(b) {
+  document.getElementById('page-landing').style.display  = 'none';
+  const pg = document.getElementById('page-success');
+  pg.style.display = 'flex';
+  document.getElementById('success-details').innerHTML = `
+    <div><span>Nome: </span><strong>${b.nome} ${b.cognome}</strong></div>
+    <div><span>Data: </span><strong>${b.data}</strong></div>
+    <div><span>Orario: </span><strong>${b.ora.replace('-', ' – ')}</strong></div>
+    <div><span>Email: </span><strong>${b.email}</strong></div>
+  `;
+}
+
+/* ── POPOLA DATE DINAMICHE ── */
+function populateDates() {
+  const day = TL.eventDay(); // es. "2025-05-27"
+  const d = new Date(day + 'T12:00:00');
+
+  // Formato breve: "27 Maggio"
+  const short = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
+
+  // Formato completo con giorno settimana: "Mercoledì 27 Maggio"
+  const full = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
+  const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  set('date-tag',    short);      // hero tag: "Total Beauty Day · 27 Maggio"
+  set('date-hero',   fullCap);    // hero date: "Mercoledì 27 Maggio"
+  set('date-strip',  short);      // strip: "Solo 27 Maggio"
+  set('date-banner', short);      // cta banner: "del 27 Maggio"
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initPixel();
+  trackEvent('PageView');
+  populateDates();
+});
+
+</script>
 </body>
 </html>
