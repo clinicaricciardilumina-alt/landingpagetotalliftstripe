@@ -143,21 +143,19 @@
   .agisce__photo { min-height: 300px; }
   .testi__grid { grid-template-columns: 1fr; }
 }
+
+
+/* ── FLOW TITLE ── */
+#flow h2.flow-title { color: #ffffff; }
+#flow h2.flow-title em { color: var(--blue-light); }
+
+/* ── MOBILE ── */
 @media (max-width: 768px) {
-  .hero__content { padding: 8rem 1.8rem 4rem; }
-  .hero__ctas    { flex-direction: column; }
-  .hero__badges  { flex-direction: column; gap: 0.6rem; }
-  .intro__text   { padding: 3.5rem 2rem; }
+  .hero__content   { padding: 8rem 1.8rem 4rem; }
+  .hero__ctas      { flex-direction: column; }
+  .hero__badges    { display: none !important; }
+  .strip           { display: none !important; }
+  .hero__title     { font-size: clamp(3rem, 13vw, 4.5rem); white-space: nowrap; }
+  .intro__text     { padding: 3.5rem 2rem; }
   .agisce__content { padding: 3rem 2rem; }
-}
-
-/* Flow title leggibile */
-.flow-title { color: #ffffff !important; }
-.flow-title em { color: var(--blue-light) !important; }
-
-/* Mobile: nascondi badges e strip */
-@media (max-width: 768px) {
-  .hero__badges { display: none; }
-  .strip { display: none; }
-  .hero__title { font-size: clamp(3.2rem, 14vw, 5rem); white-space: nowrap; }
 }
