@@ -509,6 +509,7 @@ const TL = {
     TL._cfg = { ...TL._cfg, ...data };
     // Salva sempre su localStorage (fonte di verità locale)
     localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+    if (data.eventDay) localStorage.setItem('tl_eventDay', data.eventDay);
     // Tenta anche Firestore in background
     try {
       await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
@@ -603,7 +604,7 @@ const TL = {
   },
 
   /* EVENTO */
-  eventDay() { return TL._cfg.eventDay || '2025-05-27'; },
+  eventDay() { return TL._cfg.eventDay || localStorage.getItem('tl_eventDay') || '2025-05-27'; },
 
   /* REAL-TIME LISTENER prenotazioni (per dashboard) */
   onBookingsChange(callback) {
@@ -793,7 +794,9 @@ async function exportCSV() {
 
 /* ── SLOT MANAGER ── */
 async function renderSlotMgr() {
-  document.getElementById('admin-day').value = TL.eventDay();
+  // Non sovrascrivere il campo se l'utente sta modificando
+  const savedDay = TL.eventDay();
+  document.getElementById('admin-day').value = savedDay;
   const slots = await TL.getSlots();
   const bks   = await TL.getBookings();
   const day   = TL.eventDay();
@@ -818,9 +821,18 @@ async function renderSlotMgr() {
 }
 
 async function saveEventDay() {
-  await TL.saveCfg({ eventDay: document.getElementById('admin-day').value });
-  await TL.loadCfg();
-  await renderSlotMgr();
+  const newDay = document.getElementById('admin-day').value;
+  if (!newDay) { alert('Seleziona una data valida'); return; }
+  // Aggiorna direttamente senza passare per loadCfg che potrebbe sovrascrivere
+  TL._cfg.eventDay = newDay;
+  localStorage.setItem('tl_eventDay', newDay);
+  localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+  try {
+    const { setDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
+  } catch(e) { console.warn('Firestore:', e.message); }
+  // Mantieni il campo con la data salvata
+  document.getElementById('admin-day').value = newDay;
   // Banner "Salvato" inline
   const sp = document.getElementById('saved-day');
   sp.style.opacity = '1';
