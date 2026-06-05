@@ -981,7 +981,8 @@ function showSuccess(b) {
 }
 
 /* ── DATE DINAMICHE ── */
-function populateDates() {
+async function populateDates() {
+  await TL.loadCfg(); // ricarica sempre da Firebase
   const day = TL.eventDay();
   const d   = new Date(day + 'T12:00:00');
   const short   = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
@@ -1007,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await TL.loadCfg();
   initPixel();
   trackEvent('PageView');
-  populateDates();
+  await populateDates();
 });
 
 </script>
