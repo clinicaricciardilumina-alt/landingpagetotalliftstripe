@@ -2,6 +2,13 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NWW43PZP');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Total Lift – Ricciardi Studio Dermistico</title>
 <meta name="description" content="Total Lift: ringiovanimento completo del viso senza bisturi. Prenota il tuo appuntamento per il Total Beauty Day del 27 Maggio a Palagiano.">
@@ -303,6 +310,10 @@ img    { display: block; max-width: 100%; }
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWW43PZP"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- ══════════════ LANDING ══════════════ -->
 <div id="page-landing">
@@ -745,29 +756,43 @@ const TL = {
 
 function initPixel() {
   const pid = TL.cfg().pixelId;
-  if (!pid) return;
+  if (!pid) { console.warn('Meta Pixel: nessun ID configurato'); return; }
 
-  /* Carica SDK Facebook solo se non già presente */
+  // Inizializza fbq subito (accoda gli eventi prima che l'SDK carichi)
   if (!window.fbq) {
-    !function(f,b,e,v,n,t,s){
-      if(f.fbq)return;
-      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
-      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
-    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq = function() {
+      window.fbq.callMethod
+        ? window.fbq.callMethod.apply(window.fbq, arguments)
+        : window.fbq.queue.push(arguments);
+    };
+    window._fbq = window.fbq;
+    window.fbq.push = window.fbq;
+    window.fbq.loaded = true;
+    window.fbq.version = '2.0';
+    window.fbq.queue = [];
   }
 
   fbq('init', pid);
   fbq('track', 'PageView');
+
+  // Carica lo script SDK
+  if (!document.getElementById('fb-pixel-sdk')) {
+    const s = document.createElement('script');
+    s.id = 'fb-pixel-sdk';
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
+  }
+
+  console.log('Meta Pixel inizializzato con ID:', pid);
 }
 
 function trackEvent(name, params = {}) {
   const pid = TL.cfg().pixelId;
   if (!pid) return;
-  if (window.fbq) {
+  if (typeof fbq === 'function') {
     fbq('track', name, params);
+    console.log('Pixel event:', name, params);
   }
 }
 
