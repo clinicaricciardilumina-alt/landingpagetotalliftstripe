@@ -112,7 +112,6 @@
           <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un cambiamento visibile e più definito</div>
           <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più fresco, riposato e armonioso</div>
         </div>
-        <div class="btn-row"><button class="btn--next" onclick="go('q2')">Continua →</button></div>
       </div>
 
       <!-- Q2 -->
@@ -124,10 +123,7 @@
           <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span>Abbastanza</div>
           <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span>Molto</div>
         </div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('q1')">← Indietro</button>
-          <button class="btn--next" onclick="go('q3')">Continua →</button>
-        </div>
+        <div class="btn-row"><button class="btn--back" onclick="go('q1')">← Indietro</button></div>
       </div>
 
       <!-- Q3 -->
@@ -138,10 +134,7 @@
           <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span>Sì, sono disponibile</div>
           <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span>No, al momento non posso venire in sede</div>
         </div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('q2')">← Indietro</button>
-          <button class="btn--next" onclick="afterQ3()">Continua →</button>
-        </div>
+        <div class="btn-row"><button class="btn--back" onclick="go('q2')">← Indietro</button></div>
       </div>
 
       <!-- BLOCKED -->
