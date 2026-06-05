@@ -64,11 +64,18 @@ function afterQ3() {
   showStep('form');
 }
 
-/* ── SELEZIONE OPZIONE ── */
+/* ── SELEZIONE OPZIONE (auto-avanza) ── */
 function sel(el, q) {
   document.querySelectorAll('#step-' + q + ' .opt').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   ans[q] = el.dataset.val;
+
+  // Avanza automaticamente dopo 350ms (piccola pausa per vedere la selezione)
+  setTimeout(() => {
+    if (q === 'q1') go('q2');
+    else if (q === 'q2') go('q3');
+    else if (q === 'q3') afterQ3();
+  }, 350);
 }
 
 /* ── VALIDAZIONE FORM ── */
