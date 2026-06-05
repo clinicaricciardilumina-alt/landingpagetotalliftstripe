@@ -788,12 +788,16 @@ function initPixel() {
 }
 
 function trackEvent(name, params = {}) {
-  const pid = TL.cfg().pixelId;
-  if (!pid) return;
+  // 1. Push su dataLayer (GTM intercetta tutto)
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: name, ...params });
+
+  // 2. fbq diretto se disponibile
   if (typeof fbq === 'function') {
     fbq('track', name, params);
-    console.log('Pixel event:', name, params);
   }
+
+  console.log('[GTM/Pixel] event:', name, params);
 }
 
 
@@ -1010,6 +1014,28 @@ function showSuccess(b) {
   `;
 }
 
+
+// ── TRACCIA SEZIONI VISIBILI ──
+function initSectionTracking() {
+  const sections = [
+    { el: document.getElementById('come-agisce'), name: 'ViewComeAgisce' },
+    { el: document.getElementById('flow'),        name: 'ViewQuestionario' },
+    { el: document.querySelector('.testi'),        name: 'ViewTestimonianze' },
+    { el: document.querySelector('.cta-banner'),   name: 'ViewCTABanner' },
+  ];
+  const seen = new Set();
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !seen.has(e.target)) {
+        seen.add(e.target);
+        const s = sections.find(s => s.el === e.target);
+        if (s) trackEvent(s.name);
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => { if (s.el) obs.observe(s.el); });
+}
+
 /* ── DATE DINAMICHE ── */
 async function populateDates() {
   await TL.loadCfg(); // ricarica sempre da Firebase
@@ -1039,6 +1065,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   initPixel();
   trackEvent('PageView');
   await populateDates();
+  initSectionTracking();
+
+  // Traccia scroll depth (25%, 50%, 75%, 100%)
+  const scrollMilestones = new Set();
+  window.addEventListener('scroll', () => {
+    const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    [25, 50, 75, 90].forEach(m => {
+      if (pct >= m && !scrollMilestones.has(m)) {
+        scrollMilestones.add(m);
+        trackEvent('ScrollDepth', { percent: m });
+      }
+    });
+  }, { passive: true });
+
+  // Traccia tempo sulla pagina (30s, 60s, 120s)
+  [30, 60, 120].forEach(sec => {
+    setTimeout(() => trackEvent('TimeOnPage', { seconds: sec }), sec * 1000);
+  });
 });
 
 </script>
