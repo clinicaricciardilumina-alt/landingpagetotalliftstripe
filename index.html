@@ -94,9 +94,7 @@ img    { display: block; max-width: 100%; }
 .footer a   { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.5rem; }
 .footer a:hover { color: var(--blue); }
 .footer__divider { height: 1px; background: rgba(65,156,201,0.12); margin: 1.5rem auto; max-width: 260px; }
-.footer__social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; }
-.footer__social a { width: 36px; height: 36px; border: 1px solid rgba(65,156,201,0.25); display: flex; align-items: center; justify-content: center; color: var(--blue-light); font-size: 0.72rem; text-decoration: none; transition: all .2s; }
-.footer__social a:hover { border-color: var(--blue); color: var(--blue); }
+
 
 /* ── BADGE ── */
 .badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.22rem 0.65rem; text-transform: uppercase; font-weight: 600; }
@@ -149,7 +147,7 @@ img    { display: block; max-width: 100%; }
 .hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
 .hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .hero__overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,18,28,0.90) 45%, rgba(10,18,28,0.22) 100%); }
-.hero__content { position: relative; z-index: 2; padding: 10rem 4rem 5rem; max-width: 700px; }
+.hero__content { position: relative; z-index: 2; padding: 6rem 4rem 5rem; max-width: 700px; }
 .hero__tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.35rem 1rem; margin-bottom: 1.5rem; font-weight: 500; }
 .hero__title { font-size: clamp(3.8rem, 10vw, 8rem); font-weight: 700; color: #fff; line-height: 1; margin-bottom: 1.5rem; letter-spacing: -0.02em; white-space: nowrap; }
 .hero__title em { font-style: italic; color: var(--blue-light); }
@@ -293,7 +291,7 @@ img    { display: block; max-width: 100%; }
 
 /* ── MOBILE ── */
 @media (max-width: 768px) {
-  .hero__content   { padding: 8rem 1.8rem 4rem; }
+  .hero__content   { padding: 5rem 1.8rem 3rem; }
   .hero__ctas      { flex-direction: column; }
   .hero__badges    { display: none !important; }
   .strip           { display: none !important; }
@@ -537,11 +535,9 @@ img    { display: block; max-width: 100%; }
 
   <!-- FOOTER -->
   <footer class="footer">
-    <img src="assets/logo.png" alt="Ricciardi" style="height:56px;width:auto;margin:0 auto 1rem;display:block;mix-blend-mode:screen;filter:invert(1)">
-    <div class="footer__social">
-      <a href="#">f</a><a href="#">in</a><a href="#">tk</a>
-    </div>
-    <p>Palagiano, Via Imbriani, 40 &nbsp;·&nbsp; 099 888 4995</p>
+    <img src="assets/logo.png" alt="Ricciardi Studio Dentistico Lumina" style="height:64px;width:auto;margin:0 auto 1.5rem;display:block">
+    <p style="color:#419cc9;font-size:0.9rem;font-weight:500;margin-bottom:0.4rem">Palagiano, Via Imbriani, 40</p>
+    <p style="color:#419cc9;font-size:0.9rem;font-weight:500;margin-bottom:1.5rem">099 888 4995</p>
     <div class="footer__divider"></div>
     <p><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="admin/login.html">Accesso staff</a></p>
   </footer>
