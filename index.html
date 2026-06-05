@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Total Lift – Ricciardi Studio Dermistico</title>
-<meta name="description" content="Total Lift: ringiovanimento completo del viso senza bisturi. Prenota il tuo appuntamento per il Total Beauty Day del 27 Maggio a Palagiano.">
+<title>Dashboard – Total Lift Admin</title>
 <style>
 /* ═══════════════════════════════════════════════
    global.css — Variabili, reset, componenti base
@@ -87,14 +86,16 @@ img    { display: block; max-width: 100%; }
 }
 
 /* ── FOOTER ── */
-.footer { background: #ffffff; padding: 3.5rem 2rem; text-align: center; border-top: 1px solid rgba(65,156,201,0.15); }
+.footer { background: var(--dark); padding: 3.5rem 2rem; text-align: center; }
 .footer__logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
 .footer__sub { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.3rem; }
-.footer p   { font-size: 0.8rem; color: var(--mid); font-weight: 300; }
-.footer a   { color: var(--mid); text-decoration: none; margin: 0 0.5rem; }
+.footer p   { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-weight: 300; }
+.footer a   { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.5rem; }
 .footer a:hover { color: var(--blue); }
-.footer__divider { height: 1px; background: rgba(65,156,201,0.2); margin: 1.5rem auto; max-width: 260px; }
-
+.footer__divider { height: 1px; background: rgba(65,156,201,0.12); margin: 1.5rem auto; max-width: 260px; }
+.footer__social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; }
+.footer__social a { width: 36px; height: 36px; border: 1px solid rgba(65,156,201,0.25); display: flex; align-items: center; justify-content: center; color: var(--blue-light); font-size: 0.72rem; text-decoration: none; transition: all .2s; }
+.footer__social a:hover { border-color: var(--blue); color: var(--blue); }
 
 /* ── BADGE ── */
 .badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.22rem 0.65rem; text-transform: uppercase; font-weight: 600; }
@@ -139,423 +140,291 @@ img    { display: block; max-width: 100%; }
 .nav .btn { margin-right: 2rem; }
 
 /* ═══════════════════════════════════════════════
-   landing.css — Stili specifici della landing page
+   dashboard.css — Stili admin login + dashboard
    Ricciardi Studio Dermistico · Total Lift
 ═══════════════════════════════════════════════ */
 
-/* ── HERO ── */
-.hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
-.hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-.hero__overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,18,28,0.90) 45%, rgba(10,18,28,0.22) 100%); }
-.hero__content { position: relative; z-index: 2; padding: 5rem 4rem 5rem; max-width: 700px; }
-.hero__tag { display: inline-block; background: var(--blue); color: #fff; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; padding: 0.35rem 1rem; margin-bottom: 1.5rem; font-weight: 500; }
-.hero__title { font-size: clamp(3.8rem, 10vw, 8rem); font-weight: 700; color: #fff; line-height: 1; margin-bottom: 1.5rem; letter-spacing: -0.02em; white-space: nowrap; }
-.hero__title em { font-style: italic; color: var(--blue-light); }
-.hero__sub { font-size: 1.05rem; color: rgba(255,255,255,0.7); line-height: 1.8; max-width: 440px; margin-bottom: 0.8rem; font-weight: 300; }
-.hero__date { font-size: 0.75rem; color: var(--blue-light); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 2.2rem; }
-.hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-.hero__badges { display: flex; gap: 1.8rem; margin-top: 3rem; flex-wrap: wrap; }
-.hero__badge { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.55); font-size: 0.8rem; }
-.hero__badge::before { content: '✓'; color: var(--blue-light); font-weight: 700; }
+/* ── LOGIN PAGE ── */
+.login-page { min-height: 100vh; background: var(--dark); display: flex; align-items: center; justify-content: center; padding: 2rem; }
+.login-page::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(65,156,201,0.07) 0%, transparent 70%); pointer-events: none; }
+.login-card { background: var(--white); padding: 3.5rem 3rem; max-width: 400px; width: 100%; position: relative; }
+.login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+.login-card__logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); text-align: center; }
+.login-card__sub  { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 2.5rem; }
+.login-card h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; text-align: center; }
+.login-card > p { font-size: 0.82rem; color: var(--mid); margin-bottom: 2rem; text-align: center; font-weight: 300; }
+.login-card .field--light { margin-bottom: 1rem; }
+.login-err  { color: var(--red); font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
+.login-back { display: block; text-align: center; margin-top: 1.2rem; font-size: 0.75rem; color: var(--mid); text-decoration: none; transition: color .2s; }
+.login-back:hover { color: var(--blue); }
 
-/* ── STRIP ── */
-.strip { background: var(--blue); padding: 1.1rem 2rem; display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; }
-.strip__item { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: #fff; font-weight: 500; }
-.strip__dot  { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.35); flex-shrink: 0; }
+/* ── DASHBOARD LAYOUT ── */
+.dash-page   { min-height: 100vh; background: #eef5f9; }
+.dash-header { background: var(--dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(65,156,201,0.12); }
+.dash-header__logo { font-family: 'Playfair Display', serif; color: var(--blue); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+.dash-header__logo span { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-left: 0.5rem; font-weight: 300; }
+.dash-header__actions { display: flex; gap: 0.6rem; align-items: center; }
 
-/* ── INTRO ── */
-.intro { display: grid; grid-template-columns: 1fr 1fr; min-height: 580px; }
-.intro__text { background: var(--dark); padding: 5rem 4.5rem; display: flex; flex-direction: column; justify-content: center; }
-.intro__text h2 { font-size: clamp(2rem, 3.5vw, 2.9rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.5rem; }
-.intro__text h2 em { font-style: italic; color: var(--blue); }
-.intro__text p { font-size: 0.95rem; color: rgba(255,255,255,0.58); line-height: 1.85; font-weight: 300; margin-bottom: 1rem; }
-.intro__bullets { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
-.intro__bullets li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; color: rgba(255,255,255,0.72); }
-.intro__bullets li::before { content: ''; width: 22px; height: 1px; background: var(--blue); flex-shrink: 0; }
-.intro__img { position: relative; overflow: hidden; }
-.intro__img img { width: 100%; height: 100%; object-fit: cover; }
-.intro__img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,17,23,0.45) 0%, transparent 55%); }
+/* ── TABS ── */
+.dash-tabs { background: #fff; border-bottom: 1px solid rgba(65,156,201,0.12); display: flex; padding: 0 2rem; }
+.dash-tab { padding: 0.9rem 1.4rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; color: var(--mid); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+.dash-tab:hover  { color: var(--blue); }
+.dash-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+.dash-panel      { display: none; padding: 2rem; }
+.dash-panel.active { display: block; }
 
-/* ── COME AGISCE ── */
-.agisce { display: grid; grid-template-columns: 1fr 1fr; }
-.agisce__photo { position: relative; overflow: hidden; min-height: 620px; }
-.agisce__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
-.agisce__content { background: var(--blue-pale); padding: 4.5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
-.agisce__content h2 { font-size: clamp(1.9rem, 3vw, 2.6rem); font-weight: 700; color: var(--dark); line-height: 1.1; margin-bottom: 2rem; }
-.agisce__content h2 em { font-style: italic; color: var(--blue); }
-.azione { background: #fff; border-left: 3px solid var(--blue); padding: 1.3rem 1.5rem; margin-bottom: 1rem; transition: box-shadow .2s, transform .2s; }
-.azione:hover { box-shadow: 0 6px 24px rgba(65,156,201,0.15); transform: translateX(4px); }
-.azione__num { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 0.35rem; }
-.azione h3 { font-size: 0.92rem; font-weight: 600; color: var(--dark); margin-bottom: 0.4rem; font-family: 'DM Sans', sans-serif; }
-.azione p  { font-size: 0.8rem; color: var(--mid); line-height: 1.65; font-weight: 300; }
+/* ── STATS ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card  { background: #fff; padding: 1.3rem 1.5rem; border-top: 3px solid var(--blue); }
+.stat-card__label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.4rem; }
+.stat-card__val   { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--dark); line-height: 1; }
+.stat-card__sub   { font-size: 0.72rem; color: var(--blue); margin-top: 0.3rem; }
 
-/* ── FLOW (quiz + form + payment) ── */
-#flow { background: var(--dark); padding: 5rem 2rem; }
-#flow .inner { max-width: 720px; margin: 0 auto; }
-.progress-bar  { height: 2px; background: rgba(255,255,255,0.08); margin-bottom: 2.8rem; overflow: hidden; border-radius: 2px; }
-.progress-fill { height: 100%; background: var(--blue); transition: width .45s ease; }
-.step-indicator { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.5rem; display: block; }
-.quiz-q { font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 400; color: #fff; margin-bottom: 1.8rem; line-height: 1.35; }
-.options { display: grid; gap: 0.7rem; margin-bottom: 2rem; }
-.opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.3rem; border: 1px solid rgba(65,156,201,0.2); background: rgba(65,156,201,0.04); cursor: pointer; font-size: 0.88rem; color: rgba(255,255,255,0.78); font-weight: 300; transition: border-color .2s, background .2s; }
-.opt:hover { border-color: var(--blue); background: rgba(65,156,201,0.1); }
-.opt.selected { border-color: var(--blue); background: rgba(65,156,201,0.16); color: #fff; }
-.opt__marker { width: 24px; height: 24px; border: 1px solid rgba(65,156,201,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--blue-light); font-weight: 600; transition: all .2s; }
-.opt.selected .opt__marker { background: var(--blue); border-color: var(--blue); color: #fff; }
-.btn-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
-.btn--back { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); padding: 0.88rem 1.8rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
-.btn--back:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
-.btn--next { background: var(--blue); color: #fff; padding: 0.88rem 2.5rem; font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: background .2s; }
-.btn--next:hover { background: var(--accent); }
+/* ── FILTERS ── */
+.filters { background: #fff; padding: 1rem 1.2rem; border: 1px solid rgba(65,156,201,0.1); margin-bottom: 1rem; display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end; }
+.filter-group { display: flex; flex-direction: column; gap: 0.25rem; }
+.filter-group label  { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.filter-group input, .filter-group select { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.42rem 0.75rem; font-size: 0.8rem; color: var(--dark); font-family: 'DM Sans', sans-serif; outline: none; min-width: 120px; }
 
-/* BLOCKED */
-.block-msg { background: rgba(65,156,201,0.06); border: 1px solid rgba(65,156,201,0.18); padding: 2.5rem 2rem; text-align: center; }
-.block-msg__icon { font-size: 2.5rem; margin-bottom: 1rem; }
-.block-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
-.block-msg p  { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; }
+/* ── TABLE ── */
+.table-wrap { background: #fff; border: 1px solid rgba(65,156,201,0.1); overflow-x: auto; }
+.table-head { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(65,156,201,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
+.table-head h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); }
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; min-width: 1100px; }
+thead th { padding: 0.7rem 0.9rem; text-align: left; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 600; border-bottom: 1px solid rgba(65,156,201,0.1); white-space: nowrap; background: #fafcfe; }
+tbody tr { border-bottom: 1px solid rgba(65,156,201,0.06); transition: background .12s; }
+tbody tr:hover { background: #f4f9fc; }
+td { padding: 0.7rem 0.9rem; color: var(--dark); vertical-align: middle; white-space: nowrap; }
+td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
+.actions { display: flex; gap: 0.3rem; }
+.act { padding: 0.22rem 0.6rem; font-size: 0.62rem; border: 1px solid rgba(65,156,201,0.22); background: transparent; color: var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; letter-spacing: 0.04em; text-transform: uppercase; }
+.act:hover        { border-color: var(--blue); color: var(--blue); }
+.act-danger       { border-color: rgba(231,76,60,0.22); color: var(--red); }
+.act-danger:hover { border-color: var(--red); background: rgba(231,76,60,0.04); }
+.act-green        { border-color: rgba(39,174,96,0.25); color: var(--green); }
+.act-green:hover  { border-color: var(--green); background: rgba(39,174,96,0.05); }
 
-/* SLOTS */
-.slots-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.9rem; margin-top: 1.5rem; font-weight: 500; display: block; }
-.slots-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 0.6rem; margin-bottom: 1.5rem; }
-.slot { padding: 0.75rem 1rem; border: 1px solid rgba(65,156,201,0.2); font-size: 0.82rem; cursor: pointer; color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.03); transition: all .2s; text-align: center; line-height: 1.3; }
-.slot:hover:not(.slot--taken):not(.slot--blocked) { border-color: var(--blue); color: #fff; background: rgba(65,156,201,0.1); }
-.slot.selected { border-color: var(--blue); background: var(--blue); color: #fff; }
-.slot--taken   { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
-.slot--blocked { opacity: 0.2; cursor: not-allowed; }
-.slot__badge   { font-size: 0.58rem; display: block; margin-top: 2px; opacity: 0.75; }
+/* ── SLOT MANAGER ── */
+.slot-mgr    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+.slot-mgr h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
+.slot-items  { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 0.6rem; margin-bottom: 1.2rem; }
+.slot-item   { display: flex; align-items: center; justify-content: space-between; background: #f4f9fc; border: 1px solid rgba(65,156,201,0.12); padding: 0.65rem 0.9rem; }
+.slot-item__time   { font-size: 0.85rem; font-weight: 500; color: var(--dark); }
+.slot-item__status { font-size: 0.65rem; color: var(--mid); margin-top: 1px; }
+.slot-item__acts   { display: flex; gap: 0.3rem; }
+.add-slot { display: flex; gap: 0.7rem; align-items: flex-end; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid rgba(65,156,201,0.1); }
+.add-slot .input-group { display: flex; flex-direction: column; gap: 0.2rem; }
+.add-slot .input-group label { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.add-slot input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.5rem 0.8rem; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; }
 
-/* SUMMARY */
-.summary { background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 1.6rem; margin-bottom: 1.5rem; }
-.summary__row  { display: flex; justify-content: space-between; align-items: baseline; padding: 0.28rem 0; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
-.summary__row strong { color: #fff; }
-.summary__total { border-top: 1px solid rgba(65,156,201,0.18); margin-top: 0.5rem; padding-top: 0.5rem; }
-.summary__total .summary__row { font-size: 1.05rem; }
-.summary__total strong { color: var(--blue); font-size: 1.2rem; }
+/* ── SETTINGS ── */
+.settings-card    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
+.settings-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
+.setting-row { display: grid; grid-template-columns: 180px 1fr; gap: 1rem; align-items: center; margin-bottom: 0.9rem; }
+.setting-row label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
+.setting-row input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.55rem 0.9rem; font-size: 0.88rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; transition: border-color .2s; width: 100%; }
+.setting-row input:focus { border-color: var(--blue); }
+.settings-note { font-size: 0.75rem; color: var(--mid); line-height: 1.6; margin-top: 0.5rem; }
+.save-indicator { font-size: 0.72rem; color: var(--green); margin-left: 0.5rem; opacity: 0; transition: opacity .3s; }
+.save-indicator.show { opacity: 1; }
 
-/* STRIPE */
-#stripe-el-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(65,156,201,0.2); padding: 1.2rem; margin-bottom: 0.5rem; }
-#card-errors { color: #ff6b6b; font-size: 0.8rem; margin: 0.5rem 0 1rem; min-height: 1.1rem; }
-.pay-btn { width: 100%; background: var(--blue); color: #fff; padding: 1.18rem; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 0.6rem; transition: background .2s; }
-.pay-btn:hover:not(:disabled) { background: var(--accent); }
-.pay-btn:disabled { opacity: 0.52; cursor: not-allowed; }
-.pay-spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.28); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
-.pay-btn.loading .pay-spinner { display: block; }
-.pay-btn.loading .pay-label { display: none; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.pay-note { font-size: 0.7rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 0.8rem; }
-
-/* TESTIMONIALS */
-.testi { background: var(--blue-pale); padding: 5rem 2rem; }
-.testi__inner  { max-width: 920px; margin: 0 auto; }
-.testi__header { text-align: center; margin-bottom: 3rem; }
-.testi__header h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; color: var(--dark); }
-.testi__header h2 em { font-style: italic; color: var(--blue); }
-.testi__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.testi__card { background: #fff; padding: 2.2rem 2rem 1.8rem; border-bottom: 3px solid var(--blue); position: relative; }
-.testi__card::before { content: '\201C'; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--blue-light); line-height: 1; position: absolute; top: -0.6rem; left: 1.4rem; opacity: 0.55; }
-.testi__card p    { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; color: var(--dark); line-height: 1.68; margin-bottom: 1.2rem; margin-top: 1.5rem; }
-.testi__card cite { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue); font-style: normal; font-weight: 600; }
-
-/* CTA BANNER */
-.cta-banner { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 420px; text-align: center; padding: 5rem 2rem; }
-.cta-banner__img     { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
-.cta-banner__overlay { position: absolute; inset: 0; background: rgba(10,18,28,0.80); }
-.cta-banner__content { position: relative; z-index: 2; max-width: 580px; }
-.cta-banner__content h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
-.cta-banner__content h2 em { font-style: italic; color: var(--blue-light); }
-.cta-banner__content p  { color: rgba(255,255,255,0.62); font-size: 0.95rem; margin-bottom: 2.2rem; font-weight: 300; line-height: 1.75; }
-
-/* SUCCESS */
-.success-page { min-height: 100vh; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; }
-.success-page__img     { width: 100%; max-width: 480px; height: 280px; object-fit: cover; margin-bottom: 2.5rem; }
-.success-page__check   { width: 80px; height: 80px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: #fff; }
-.success-page h2       { font-size: clamp(2rem,5vw,3rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
-.success-page h2 em    { font-style: italic; color: var(--blue-light); }
-.success-page > p      { color: rgba(255,255,255,0.58); font-size: 0.95rem; line-height: 1.85; max-width: 480px; font-weight: 300; margin: 0 auto; }
-.success-page__details { margin-top: 2rem; background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: left; max-width: 400px; width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
-.success-page__details strong { color: #fff; }
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .intro   { grid-template-columns: 1fr; }
-  .intro__img { min-height: 300px; }
-  .agisce  { grid-template-columns: 1fr; }
-  .agisce__photo { min-height: 300px; }
-  .testi__grid { grid-template-columns: 1fr; }
-}
-
-
-/* ── FLOW TITLE ── */
-#flow h2.flow-title { color: #ffffff; }
-#flow h2.flow-title em { color: var(--blue-light); }
-
-/* ── MOBILE ── */
-@media (max-width: 768px) {
-  .hero__content   { padding: 5rem 1.8rem 3rem; }
-  .hero__ctas      { flex-direction: column; }
-  .hero__badges    { display: none !important; }
-  .strip           { display: none !important; }
-  .hero__title     { font-size: clamp(3rem, 13vw, 4.5rem); white-space: nowrap; }
-  .intro__text     { padding: 3.5rem 2rem; }
-  .agisce__content { padding: 3rem 2rem; }
-}
+/* ── MODAL ── */
+.modal-bg  { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 500; align-items: center; justify-content: center; padding: 1rem; }
+.modal-bg.open { display: flex; }
+.modal { background: #fff; padding: 2rem; max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+.modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
+.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 1.5rem; }
+.modal-actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+.modal .field--light { margin-bottom: 0.9rem; }
 
 </style>
 </head>
-<body>
+<body class="dash-page">
 
-<!-- ══════════════ LANDING ══════════════ -->
-<div id="page-landing">
+<!-- HEADER -->
+<div class="dash-header">
+  <a href="dashboard.html" class="dash-header__logo"><img src="../assets/logo.png" alt="Ricciardi" style="height:36px;width:auto;display:block;filter:invert(1)"></a>
+  <div class="dash-header__actions">
+    <button class="btn btn--outline btn--sm" onclick="exportCSV()">↓ Esporta CSV</button>
+    <button class="btn btn--outline btn--sm" onclick="logout()">Esci</button>
+  </div>
+</div>
 
-  <nav class="nav">
-    <a href="index.html" class="nav__logo"><img src="../assets/logo.png" alt="Ricciardi Studio Dentistico" class="nav-logo"></a>
-    <a href="#flow" class="btn btn--primary btn--sm" onclick="trackEvent('ClickPrenotazione')">Prenota ora</a>
-  </nav>
+<!-- TABS -->
+<div class="dash-tabs">
+  <button class="dash-tab active" onclick="switchTab('prenotazioni', this)">📋 Prenotazioni</button>
+  <button class="dash-tab" onclick="switchTab('slot-mgr', this)">🕐 Gestione Slot</button>
+  <button class="dash-tab" onclick="switchTab('impostazioni', this)">⚙️ Impostazioni</button>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <img class="hero__img" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&q=80&auto=format&fit=crop" alt="Total Lift trattamento">
-    <div class="hero__overlay"></div>
-    <div class="hero__content">
-      <span class="hero__tag">Total Beauty Day · <span id="date-tag"></span></span>
-      <h1 class="hero__title">Total <em>Lift</em></h1>
-      <p class="hero__sub">Ringiovanimento completo del volto senza bisturi.<br>Tre azioni sinergiche, un risultato naturale e duraturo.</p>
-      <p class="hero__date"><span id="date-hero"></span> · Palagiano</p>
-      <div class="hero__ctas">
-        <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
-        <a href="#come-agisce" class="btn btn--ghost">Come funziona</a>
-      </div>
-      <div class="hero__badges">
-        <div class="hero__badge">Senza bisturi</div>
-        <div class="hero__badge">Risultati immediati</div>
-        <div class="hero__badge">Percorso personalizzato</div>
-      </div>
-    </div>
-  </section>
+<!-- ═══ PANEL: PRENOTAZIONI ═══ -->
+<div id="panel-prenotazioni" class="dash-panel active">
 
-  <!-- STRIP -->
-  <div class="strip">
-    <span class="strip__item">Non invasivo</span><span class="strip__dot"></span>
-    <span class="strip__item">Zero downtime</span><span class="strip__dot"></span>
-    <span class="strip__item">Risultati immediati</span><span class="strip__dot"></span>
-    <span class="strip__item">Posti limitati</span><span class="strip__dot"></span>
-    <span class="strip__item">Solo <span id="date-strip"></span></span>
+  <div class="stats-grid">
+    <div class="stat-card"><p class="stat-card__label">Totale</p><p class="stat-card__val" id="s-tot">0</p><p class="stat-card__sub">prenotazioni</p></div>
+    <div class="stat-card"><p class="stat-card__label">Pagate</p><p class="stat-card__val" id="s-paid">0</p><p class="stat-card__sub">completate</p></div>
+    <div class="stat-card"><p class="stat-card__label">Incasso</p><p class="stat-card__val" id="s-inc">€0</p><p class="stat-card__sub">totale</p></div>
+    <div class="stat-card"><p class="stat-card__label">Promemoria</p><p class="stat-card__val" id="s-prom">0</p><p class="stat-card__sub">da inviare</p></div>
+    <div class="stat-card"><p class="stat-card__label">Slot liberi</p><p class="stat-card__val" id="s-free">0</p><p class="stat-card__sub">disponibili</p></div>
   </div>
 
-  <!-- INTRO -->
-  <section class="intro">
-    <div class="intro__text">
-      <span class="label label--light">Perché Total Lift</span>
-      <h2>Il trattamento che<br><em>ridà giovinezza</em><br>al tuo viso</h2>
-      <p>Con il passare degli anni la pelle subisce trasformazioni naturali. Total Lift è un programma innovativo per contrastare questi effetti in soli 3 step, dalla superficie al muscolo profondo.</p>
-      <p>In questa giornata speciale proponiamo soluzioni personalizzate pensate solo per chi partecipa.</p>
-      <ul class="intro__bullets">
-        <li>Non invasivo — zero bisturi, zero cicatrici</li>
-        <li>Rapido — torni subito alla tua routine</li>
-        <li>Naturale — rigenerazione profonda dei tessuti</li>
-        <li>Duraturo — risultati che migliorano nel tempo</li>
-      </ul>
+  <div class="filters">
+    <div class="filter-group">
+      <label>Giorno</label>
+      <input type="date" id="f-day" onchange="renderBookings()">
     </div>
-    <div class="intro__img">
-      <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop" alt="Trattamento viso">
-      <div class="intro__img-overlay"></div>
+    <div class="filter-group">
+      <label>Orario</label>
+      <input type="text" id="f-time" placeholder="es. 09:00" style="width:90px" oninput="renderBookings()">
     </div>
-  </section>
-
-  <!-- COME AGISCE -->
-  <section class="agisce" id="come-agisce">
-    <div class="agisce__photo">
-      <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80&auto=format&fit=crop" alt="Total Lift azione">
+    <div class="filter-group">
+      <label>Stato pagamento</label>
+      <select id="f-payment" onchange="renderBookings()">
+        <option value="">Tutti</option>
+        <option value="paid">Pagato</option>
+        <option value="pending">In attesa</option>
+        <option value="failed">Fallito</option>
+      </select>
     </div>
-    <div class="agisce__content">
-      <span class="label">Come agisce Total Lift</span>
-      <h2>3 azioni sinergiche,<br><em>un solo risultato</em></h2>
-      <div class="azione">
-        <div class="azione__num">Azione 01 · Superficiale</div>
-        <h3>Efficace su:</h3>
-        <p>Palpebre cadenti · Pelle flaccida · Rughe da pelle in eccesso · Macchie cutanee</p>
-      </div>
-      <div class="azione">
-        <div class="azione__num">Azione 02 · Intermedia</div>
-        <h3>Efficace su:</h3>
-        <p>Rilassamento cutaneo · Lifting viso e décolleté · Contouring del viso · Resurfacing frazionato</p>
-      </div>
-      <div class="azione">
-        <div class="azione__num">Azione 03 · Profonda</div>
-        <h3>Efficace su:</h3>
-        <p>Fronte e guance · Doppio mento · Sollevamento sopracciglia · Rinforzo della pelle del collo</p>
-      </div>
+    <div class="filter-group">
+      <label>Promemoria</label>
+      <select id="f-reminder" onchange="renderBookings()">
+        <option value="">Tutti</option>
+        <option value="no">Non inviato</option>
+        <option value="si">Inviato</option>
+      </select>
     </div>
-  </section>
+    <button class="btn btn--outline btn--sm" onclick="clearFilters()">Reset</button>
+  </div>
 
-  <!-- FLOW: quiz + form + payment -->
-  <section id="flow">
-    <div class="inner">
-      <span class="label label--light">Prenota il tuo Total Lift</span>
-      <h2 class="flow-title">Tre domande,<br><em>soluzioni su misura</em></h2>
-      <p class="sub" style="font-size:0.9rem;color:rgba(255,255,255,0.48);margin-bottom:2.5rem;font-weight:300">Rispondi al questionario per personalizzare il tuo percorso.</p>
-      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
-
-      <!-- Q1 -->
-      <div id="step-q1">
-        <span class="step-indicator">Domanda 1 di 3</span>
-        <p class="quiz-q">Quale risultato desideri ottenere principalmente?</p>
-        <div class="options">
-          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span>Correggere una piccola asimmetria del viso</div>
-          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span>Prevenire i segni dell'invecchiamento</div>
-          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un cambiamento visibile e più definito</div>
-          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più fresco, riposato e armonioso</div>
-        </div>
-      </div>
-
-      <!-- Q2 -->
-      <div id="step-q2" class="hidden">
-        <span class="step-indicator">Domanda 2 di 3</span>
-        <p class="quiz-q">Quanto vorresti migliorare questo aspetto?</p>
-        <div class="options">
-          <div class="opt" data-val="poco"       onclick="sel(this,'q2')"><span class="opt__marker">A</span>Poco</div>
-          <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span>Abbastanza</div>
-          <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span>Molto</div>
-        </div>
-        <div class="btn-row"><button class="btn--back" onclick="go('q1')">← Indietro</button></div>
-      </div>
-
-      <!-- Q3 -->
-      <div id="step-q3" class="hidden">
-        <span class="step-indicator">Domanda 3 di 3</span>
-        <p class="quiz-q">La nostra sede è a Palagiano. Sei disponibile a venire in studio per la visita e il trattamento?</p>
-        <div class="options">
-          <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span>Sì, sono disponibile</div>
-          <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span>No, al momento non posso venire in sede</div>
-        </div>
-        <div class="btn-row"><button class="btn--back" onclick="go('q2')">← Indietro</button></div>
-      </div>
-
-      <!-- BLOCKED -->
-      <div id="step-blocked" class="hidden">
-        <div class="block-msg">
-          <div class="block-msg__icon">📍</div>
-          <h3>Trattamento in sede</h3>
-          <p>Il trattamento viene effettuato presso la nostra sede di <strong style="color:var(--blue-light)">Palagiano</strong>.<br>Per completare la prenotazione è necessario essere disponibili a venire in studio.</p>
-        </div>
-        <div class="btn-row mt-2">
-          <button class="btn--back" onclick="go('q3')">← Torna alla domanda</button>
-        </div>
-      </div>
-
-      <!-- FORM DATI -->
-      <div id="step-form" class="hidden">
-        <span class="step-indicator">Passo 4 di 6 · I tuoi dati</span>
-        <p class="quiz-q">Inserisci i tuoi dati per la prenotazione</p>
-        <div class="grid-2 mb-1">
-          <div class="field"><label>Nome *</label><input type="text" id="f-nome" placeholder="Maria" autocomplete="given-name"></div>
-          <div class="field"><label>Cognome *</label><input type="text" id="f-cognome" placeholder="Rossi" autocomplete="family-name"></div>
-        </div>
-        <div class="field mb-1"><label>Email *</label><input type="email" id="f-email" placeholder="maria@email.it" autocomplete="email"></div>
-        <div class="field mb-1"><label>Telefono *</label><input type="tel" id="f-tel" placeholder="+39 333 000 0000" autocomplete="tel"></div>
-        <div class="field mb-2"><label>Note (opzionale)</label><textarea id="f-note" rows="3" placeholder="Eventuali note o richieste particolari..."></textarea></div>
-        <label class="privacy-row mb-2">
-          <input type="checkbox" id="f-privacy">
-          <span>Ho letto e accetto la <a href="https://luminaricciardi.it/privacy-policy/" target="_blank">Privacy Policy</a>. Acconsento al trattamento dei miei dati personali per la gestione della prenotazione. *</span>
-        </label>
-        <div id="form-err" class="err hidden"></div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('q3')">← Indietro</button>
-          <button class="btn--next" onclick="go('slot')">Continua →</button>
-        </div>
-      </div>
-
-      <!-- SLOT -->
-      <div id="step-slot" class="hidden">
-        <span class="step-indicator">Passo 5 di 6 · Scegli l'orario</span>
-        <p class="quiz-q">Seleziona il tuo orario preferito</p>
-        <div class="field mb-1">
-          <label>Giorno evento</label>
-          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.4);cursor:default">
-        </div>
-        <span class="slots-label">Orari disponibili (durata 1 ora)</span>
-        <div class="slots-grid" id="slots-grid"></div>
-        <div id="slot-err" class="err hidden">Seleziona un orario per continuare.</div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('form')">← Indietro</button>
-          <button class="btn--next" onclick="go('payment')">Continua →</button>
-        </div>
-      </div>
-
-      <!-- PAYMENT -->
-      <div id="step-payment" class="hidden">
-        <span class="step-indicator">Passo 6 di 6 · Pagamento</span>
-        <p class="quiz-q">Conferma e completa il pagamento</p>
-        <div class="summary" id="summary"></div>
-        <div id="stripe-el-wrap"><div id="card-element"></div></div>
-        <div id="card-errors"></div>
-        <button class="pay-btn" id="pay-btn" onclick="handlePay()">
-          <div class="pay-spinner"></div>
-          <span class="pay-label">💳 &nbsp;Paga e Prenota</span>
-        </button>
-        <p class="pay-note">Pagamento sicuro gestito da Stripe · Crittografia SSL</p>
-        <div class="btn-row mt-2">
-          <button class="btn--back" onclick="go('slot')">← Indietro</button>
-        </div>
-      </div>
-
+  <div class="table-wrap">
+    <div class="table-head">
+      <h3>Elenco prenotazioni</h3>
+      <button class="btn btn--outline btn--sm" onclick="exportCSV()">↓ CSV</button>
     </div>
-  </section>
+    <table>
+      <thead><tr>
+        <th>#</th><th>Nome e cognome</th><th>Telefono</th><th>Email</th>
+        <th>Giorno</th><th>Orario</th>
+        <th>Q1 – Risultato</th><th>Q2 – Grado</th><th>Q3 – Sede</th>
+        <th>Pagamento</th><th>Importo</th><th>Note</th>
+        <th>Promemoria</th><th>Prenotato il</th><th>Azioni</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
 
-  <!-- TESTIMONIALS -->
-  <section class="testi">
-    <div class="testi__inner">
-      <div class="testi__header">
-        <span class="label">Cosa dicono del trattamento</span>
-        <h2>Le <em>esperienze</em> reali<br>delle nostre pazienti</h2>
-      </div>
-      <div class="testi__grid">
-        <div class="testi__card">
-          <p>"Ho provato il trattamento durante un open day e subito ho capito l'efficacia. Ho seguito le tre fasi, adesso la mia pelle è più giovane e tonica."</p>
-          <cite>Tonia, 41 anni</cite>
-        </div>
-        <div class="testi__card">
-          <p>"Sono rimasta sorpresa dalla semplicità e dall'efficacia. I risultati sono stati immediati e naturali. Lo consiglio a tutte!"</p>
-          <cite>Laura, 55 anni</cite>
-        </div>
-      </div>
-    </div>
-  </section>
+</div>
 
-  <!-- CTA BANNER -->
-  <div class="cta-banner">
-    <img class="cta-banner__img" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop" alt="">
-    <div class="cta-banner__overlay"></div>
-    <div class="cta-banner__content">
-      <h2>Posti limitati.<br><em>Prenota ora.</em></h2>
-      <p>Solo per il Total Beauty Day del <span id="date-banner"></span>. Soluzioni personalizzate pensate esclusivamente per te.</p>
-      <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
+<!-- ═══ PANEL: GESTIONE SLOT ═══ -->
+<div id="panel-slot-mgr" class="dash-panel">
+
+  <div class="slot-mgr">
+    <h3>Giorno evento</h3>
+    <div class="setting-row">
+      <label>Data evento</label>
+      <input type="date" id="admin-day" onchange="saveEventDay()">
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <img src="assets/logo.png" alt="Ricciardi Studio Dentistico Lumina" style="height:100px;width:auto;margin:0 auto 1.5rem;display:block">
-    <p style="color:#419cc9;font-size:0.9rem;font-weight:500;margin-bottom:0.4rem">Palagiano, Via Imbriani, 40</p>
-    <p style="color:#419cc9;font-size:0.9rem;font-weight:500;margin-bottom:1.5rem">099 888 4995</p>
-    <div class="footer__divider"></div>
-    <p><a href="https://luminaricciardi.it/privacy-policy/" target="_blank">Privacy Policy</a> &nbsp;·&nbsp; <a href="admin/login.html">Accesso staff</a></p>
-  </footer>
+  <div class="slot-mgr">
+    <h3>Slot appuntamenti</h3>
+    <div class="slot-items" id="slot-list"></div>
+    <div class="add-slot">
+      <div class="input-group">
+        <label>Inizio</label>
+        <input type="time" id="ns-start">
+      </div>
+      <div class="input-group">
+        <label>Fine</label>
+        <input type="time" id="ns-end">
+      </div>
+      <button class="btn btn--primary btn--sm" onclick="addSlot()">+ Aggiungi slot</button>
+    </div>
+  </div>
 
-</div><!-- /page-landing -->
+</div>
 
-<!-- ══════════════ SUCCESS ══════════════ -->
-<div id="page-success" class="success-page">
-  <img class="success-page__img" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80&auto=format&fit=crop" alt="Conferma prenotazione">
-  <div class="success-page__check">✓</div>
-  <h2>Prenotazione <em>confermata.</em></h2>
-  <p>Grazie, abbiamo ricevuto la tua richiesta per il trattamento Total Lift.<br>La nostra segreteria ti ricorderà l'appuntamento prima della visita.</p>
-  <div class="success-page__details" id="success-details"></div>
+<!-- ═══ PANEL: IMPOSTAZIONI ═══ -->
+<div id="panel-impostazioni" class="dash-panel">
+
+  <div class="settings-card">
+    <h3>Meta Pixel <span class="save-indicator" id="si-pixel">✓ Salvato</span></h3>
+    <div class="setting-row">
+      <label>Pixel ID</label>
+      <input type="text" id="cfg-pixel" placeholder="es. 1234567890123456"
+             oninput="saveCfgField('pixelId','cfg-pixel','si-pixel')">
+    </div>
+    <p class="settings-note">
+      Eventi tracciati: PageView · ClickPrenotazione · QuestionarioCompletato ·
+      Lead · SlotSelected · InitiateCheckout · Purchase
+    </p>
+  </div>
+
+  <div class="settings-card">
+    <h3>Stripe <span class="save-indicator" id="si-stripe">✓ Salvato</span></h3>
+    <div class="setting-row">
+      <label>Publishable Key</label>
+      <input type="text" id="cfg-pk" placeholder="pk_live_..."
+             oninput="saveCfgFields(['stripePk'],['cfg-pk'],'si-stripe')">
+    </div>
+    <div class="setting-row">
+      <label>Prezzo (centesimi)</label>
+      <input type="number" id="cfg-amount" placeholder="es. 15000 = €150,00"
+             oninput="saveCfgFields(['stripeAmount'],['cfg-amount'],'si-stripe')">
+    </div>
+    <div class="setting-row">
+      <label>Descrizione</label>
+      <input type="text" id="cfg-desc" placeholder="Consulenza Total Lift"
+             oninput="saveCfgFields(['stripeDesc'],['cfg-desc'],'si-stripe')">
+    </div>
+    <p class="settings-note">
+      ⚠️ Per i pagamenti reali è necessario un backend che crei il PaymentIntent.
+      La Publishable Key da sola non è sufficiente per finalizzare i pagamenti.
+    </p>
+  </div>
+
+  <div class="settings-card">
+    <h3>Accesso dashboard <span class="save-indicator" id="si-auth">✓ Salvato</span></h3>
+    <div class="setting-row">
+      <label>Username</label>
+      <input type="text" value="admin" readonly style="background:#eee;cursor:not-allowed">
+    </div>
+    <div class="setting-row">
+      <label>Password</label>
+      <input type="text" id="cfg-pw" placeholder="ricciardi2025"
+             oninput="saveCfgFields(['adminPw'],['cfg-pw'],'si-auth')">
+    </div>
+  </div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <h3>Modifica prenotazione</h3>
+    <input type="hidden" id="edit-id">
+    <div class="grid-2">
+      <div class="field field--light mb-1"><label>Nome</label><input type="text" id="e-nome"></div>
+      <div class="field field--light mb-1"><label>Cognome</label><input type="text" id="e-cognome"></div>
+    </div>
+    <div class="field field--light mb-1"><label>Email</label><input type="email" id="e-email"></div>
+    <div class="field field--light mb-1"><label>Telefono</label><input type="tel" id="e-tel"></div>
+    <div class="field field--light mb-1"><label>Orario (es. 09:00-10:00)</label><input type="text" id="e-ora"></div>
+    <div class="field field--light mb-1">
+      <label>Note</label>
+      <textarea id="e-note" rows="3" style="width:100%;padding:0.7rem;border:1px solid rgba(65,156,201,0.22);background:#f8fbfd;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--text);outline:none;resize:vertical"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn--primary btn--sm" onclick="saveEdit()">Salva modifiche</button>
+      <button class="btn btn--outline btn--sm" onclick="closeModal()">Annulla</button>
+    </div>
+  </div>
 </div>
 
 
-<script src="https://js.stripe.com/v3/"></script>
-<script type="module" id="app-module">
+
+<script type="module">
 /* ═══════════════════════════════════════════════
    storage.js — Firebase Firestore + fallback localStorage
    Ricciardi Studio Dermistico · Total Lift
@@ -725,54 +594,10 @@ const TL = {
 
 
 /* ═══════════════════════════════════════════════
-   pixel.js — Meta Pixel tracking
-   Ricciardi Studio Dermistico · Total Lift
-
-   Eventi tracciati:
-   - PageView
-   - ClickPrenotazione
-   - QuestionarioCompletato
-   - Lead
-   - SlotSelected
-   - InitiateCheckout
-   - Purchase
-═══════════════════════════════════════════════ */
-
-function initPixel() {
-  const pid = TL.cfg().pixelId;
-  if (!pid) return;
-
-  /* Carica SDK Facebook solo se non già presente */
-  if (!window.fbq) {
-    !function(f,b,e,v,n,t,s){
-      if(f.fbq)return;
-      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
-      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
-    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-  }
-
-  fbq('init', pid);
-  fbq('track', 'PageView');
-}
-
-function trackEvent(name, params = {}) {
-  const pid = TL.cfg().pixelId;
-  if (!pid) return;
-  if (window.fbq) {
-    fbq('track', name, params);
-  }
-}
-
-
-/* ═══════════════════════════════════════════════
-   landing.js — Quiz, form, slot, Stripe, successo
+   dashboard.js — Logica admin dashboard (Firebase)
    Ricciardi Studio Dermistico · Total Lift
 ═══════════════════════════════════════════════ */
 
-/* ── UTILITY ── */
 function formatDay(dateStr) {
   if (!dateStr) return '';
   return new Date(dateStr + 'T12:00:00').toLocaleDateString('it-IT', {
@@ -780,238 +605,290 @@ function formatDay(dateStr) {
   });
 }
 
-/* ── STATE ── */
-const ans = { q1: '', q2: '', q3: '' };
-let selSlot = null;
-let stripe  = null;
-let cardEl  = null;
-
-const STEPS = ['q1','q2','q3','blocked','form','slot','payment'];
-const PROG  = { q1:14, q2:28, q3:42, blocked:42, form:57, slot:71, payment:85 };
-
-/* ── STEP NAVIGATION ── */
-function showStep(id) {
-  STEPS.forEach(s => document.getElementById('step-' + s).classList.add('hidden'));
-  document.getElementById('step-' + id).classList.remove('hidden');
-  document.getElementById('progress').style.width = (PROG[id] || 14) + '%';
-  document.getElementById('flow').scrollIntoView({ behavior: 'smooth', block: 'start' });
+function q1Label(v) {
+  const m = { asimmetria: 'Asimmetria', prevenzione: 'Prevenzione', cambiamento: 'Cambiamento visibile', fresco: 'Aspetto fresco' };
+  return m[v] || v || '—';
 }
 
-async function go(next) {
-  if (next === 'q2' && !ans.q1) { alert('Seleziona una risposta'); return; }
-  if (next === 'q3' && !ans.q2) { alert('Seleziona una risposta'); return; }
-  if (next === 'slot') {
-    if (!validateForm()) return;
-    await renderSlots();
+/* ── AUTH ── */
+function checkAuth() {
+  if (sessionStorage.getItem('tl_auth') !== '1') window.location.href = 'login.html';
+}
+function logout() { sessionStorage.removeItem('tl_auth'); window.location.href = 'login.html'; }
+
+/* ── TABS ── */
+function switchTab(name, btn) {
+  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
+  if (name === 'slot-mgr')    renderSlotMgr();
+  if (name === 'impostazioni') loadSettings();
+}
+
+/* ── STATS ── */
+let _allBookings = [];
+
+function updateStats(bks, slots) {
+  const paid = bks.filter(b => b.payment === 'paid');
+  const prom = bks.filter(b => b.promemoria === 'no');
+  const day  = TL.eventDay();
+  const taken = bks.filter(b => b.data === day && b.payment !== 'failed').map(b => b.ora);
+  const free  = slots.filter(s => !s.blocked && !taken.includes(s.start + '-' + s.end)).length;
+  document.getElementById('s-tot').textContent  = bks.length;
+  document.getElementById('s-paid').textContent = paid.length;
+  document.getElementById('s-inc').textContent  = '€' + paid.reduce((a, b) => a + (b.amount / 100 || 0), 0).toFixed(0);
+  document.getElementById('s-prom').textContent = prom.length;
+  document.getElementById('s-free').textContent = free;
+}
+
+/* ── TABELLA PRENOTAZIONI ── */
+async function renderBookings() {
+  _allBookings = await TL.getBookings();
+  const slots  = await TL.getSlots();
+  updateStats(_allBookings, slots);
+  applyFilters();
+}
+
+function applyFilters() {
+  let bks = [..._allBookings];
+  const fd = document.getElementById('f-day').value;
+  const fp = document.getElementById('f-payment').value;
+  const fr = document.getElementById('f-reminder').value;
+  const ft = document.getElementById('f-time').value.trim();
+  if (fd) bks = bks.filter(b => b.data === fd);
+  if (fp) bks = bks.filter(b => b.payment === fp);
+  if (fr) bks = bks.filter(b => b.promemoria === fr);
+  if (ft) bks = bks.filter(b => b.ora && b.ora.startsWith(ft));
+
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = '';
+  if (!bks.length) {
+    tb.innerHTML = '<tr><td colspan="15" style="text-align:center;padding:2.5rem;color:var(--mid)">Nessuna prenotazione trovata.</td></tr>';
+    return;
   }
-  if (next === 'payment') {
-    if (!selSlot) { document.getElementById('slot-err').classList.remove('hidden'); return; }
-    document.getElementById('slot-err').classList.add('hidden');
-    // controllo doppia prenotazione
-    const bks = await TL.getBookings();
-    const taken = bks.filter(b =>
-      b.ora  === selSlot.start + '-' + selSlot.end &&
-      b.data === TL.eventDay() &&
-      b.payment !== 'failed'
-    );
-    if (taken.length) {
-      alert('Questo slot è appena stato prenotato. Scegline un altro.');
-      await renderSlots(); showStep('slot'); return;
-    }
-    trackEvent('SlotSelected', { slot: selSlot.start });
-    trackEvent('InitiateCheckout');
-    await renderSummary();
-    initStripe();
-  }
-  showStep(next);
+  bks.forEach((b, i) => {
+    const pmB = b.payment === 'paid' ? 'badge--paid' : b.payment === 'failed' ? 'badge--failed' : 'badge--pending';
+    const pmL = b.payment === 'paid' ? 'Pagato' : b.payment === 'failed' ? 'Fallito' : 'In attesa';
+    const prB = b.promemoria === 'si' ? 'badge--yes' : 'badge--no';
+    const dt  = b.createdAt ? new Date(b.createdAt).toLocaleString('it-IT') : '—';
+    const ora = b.ora ? b.ora.replace('-', ' – ') : '—';
+    const tr  = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${i + 1}</td>
+      <td><strong>${b.nome} ${b.cognome}</strong></td>
+      <td>${b.tel || '—'}</td>
+      <td style="font-size:0.73rem">${b.email || '—'}</td>
+      <td>${b.data || '—'}</td>
+      <td><strong>${ora}</strong></td>
+      <td class="wrap">${q1Label(b.q1)}</td>
+      <td>${b.q2 || '—'}</td>
+      <td>${b.q3 === 'si' ? '✅ Sì' : '❌ No'}</td>
+      <td><span class="badge ${pmB}">${pmL}</span></td>
+      <td>${b.amount ? '€' + (b.amount / 100).toFixed(2) : '—'}</td>
+      <td class="wrap">${b.note || '—'}</td>
+      <td>
+        <span class="badge ${prB}">${b.promemoria === 'si' ? 'Inviato' : 'Non inviato'}</span><br>
+        <button class="act ${b.promemoria === 'si' ? 'act-danger' : 'act-green'}" style="margin-top:4px" onclick="toggleProm('${b.id}','${b.promemoria}')">
+          ${b.promemoria === 'si' ? '↩ Reset' : '✓ Segna inviato'}
+        </button>
+      </td>
+      <td style="font-size:0.72rem;color:var(--mid)">${dt}</td>
+      <td>
+        <div class="actions">
+          <button class="act" onclick="openEdit('${b.id}')">✏️</button>
+          <button class="act act-danger" onclick="delBooking('${b.id}')">🗑</button>
+        </div>
+      </td>
+    `;
+    tb.appendChild(tr);
+  });
 }
 
-function afterQ3() {
-  if (!ans.q3) { alert('Seleziona una risposta'); return; }
-  trackEvent('QuestionarioCompletato');
-  if (ans.q3 === 'no') { showStep('blocked'); return; }
-  trackEvent('Lead');
-  showStep('form');
+function clearFilters() {
+  ['f-day','f-time'].forEach(id => document.getElementById(id).value = '');
+  ['f-payment','f-reminder'].forEach(id => document.getElementById(id).value = '');
+  applyFilters();
 }
 
-/* ── SELEZIONE OPZIONE (auto-avanza) ── */
-function sel(el, q) {
-  document.querySelectorAll('#step-' + q + ' .opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  ans[q] = el.dataset.val;
-  setTimeout(() => {
-    if (q === 'q1') go('q2');
-    else if (q === 'q2') go('q3');
-    else if (q === 'q3') afterQ3();
-  }, 350);
+async function toggleProm(id, current) {
+  const next = current === 'si' ? 'no' : 'si';
+  await TL.updateBooking(id, { promemoria: next });
+  await renderBookings();
 }
 
-/* ── VALIDAZIONE FORM ── */
-function validateForm() {
-  const nome    = document.getElementById('f-nome').value.trim();
-  const cognome = document.getElementById('f-cognome').value.trim();
-  const email   = document.getElementById('f-email').value.trim();
-  const tel     = document.getElementById('f-tel').value.trim();
-  const priv    = document.getElementById('f-privacy').checked;
-  const err     = document.getElementById('form-err');
-  if (!nome || !cognome || !email || !tel) {
-    err.textContent = 'Compila tutti i campi obbligatori.';
-    err.classList.remove('hidden'); return false;
-  }
-  if (!priv) {
-    err.textContent = 'Devi accettare la Privacy Policy per procedere.';
-    err.classList.remove('hidden'); return false;
-  }
-  err.classList.add('hidden');
-  return true;
+async function delBooking(id) {
+  if (!confirm('Eliminare questa prenotazione? L\'azione è irreversibile.')) return;
+  await TL.deleteBooking(id);
+  await renderBookings();
 }
 
-/* ── RENDER SLOT ── */
-async function renderSlots() {
+/* ── EDIT MODAL ── */
+function openEdit(id) {
+  const b = _allBookings.find(x => x.id === id);
+  if (!b) return;
+  document.getElementById('edit-id').value    = id;
+  document.getElementById('e-nome').value     = b.nome;
+  document.getElementById('e-cognome').value  = b.cognome;
+  document.getElementById('e-email').value    = b.email;
+  document.getElementById('e-tel').value      = b.tel;
+  document.getElementById('e-ora').value      = b.ora;
+  document.getElementById('e-note').value     = b.note || '';
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
+
+async function saveEdit() {
+  const id = document.getElementById('edit-id').value;
+  await TL.updateBooking(id, {
+    nome:    document.getElementById('e-nome').value,
+    cognome: document.getElementById('e-cognome').value,
+    email:   document.getElementById('e-email').value,
+    tel:     document.getElementById('e-tel').value,
+    ora:     document.getElementById('e-ora').value,
+    note:    document.getElementById('e-note').value,
+  });
+  closeModal();
+  await renderBookings();
+}
+
+/* ── CSV EXPORT ── */
+async function exportCSV() {
+  const bks = await TL.getBookings();
+  if (!bks.length) { alert('Nessun dato da esportare.'); return; }
+  const H = ['ID','Nome','Cognome','Email','Telefono','Data','Orario','Q1','Q2','Q3','Pagamento','Importo','Note','Promemoria','Creato il'];
+  const R = bks.map(b => [b.id,b.nome,b.cognome,b.email,b.tel,b.data,b.ora,b.q1,b.q2,b.q3,b.payment,b.amount?b.amount/100:'',b.note||'',b.promemoria,b.createdAt]);
+  const csv = [H,...R].map(r => r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
+  a.download = 'totallift_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+/* ── SLOT MANAGER ── */
+async function renderSlotMgr() {
+  document.getElementById('admin-day').value = TL.eventDay();
   const slots = await TL.getSlots();
   const bks   = await TL.getBookings();
   const day   = TL.eventDay();
-  document.getElementById('event-day-disp').value = formatDay(day);
-  const grid = document.getElementById('slots-grid');
-  grid.innerHTML = '';
+  const list  = document.getElementById('slot-list');
+  list.innerHTML = '';
   slots.forEach(s => {
-    const taken = bks.some(b =>
-      b.ora  === s.start + '-' + s.end &&
-      b.data === day &&
-      b.payment !== 'failed'
-    );
+    const taken = bks.some(b => b.ora === s.start+'-'+s.end && b.data === day && b.payment !== 'failed');
     const div = document.createElement('div');
-    div.className = 'slot' + (s.blocked ? ' slot--blocked' : taken ? ' slot--taken' : '');
-    div.innerHTML = `${s.start} – ${s.end}` +
-      (s.blocked ? '<span class="slot__badge">Bloccato</span>' :
-       taken      ? '<span class="slot__badge">Occupato</span>' : '');
-    if (!s.blocked && !taken) {
-      div.onclick = () => {
-        document.querySelectorAll('.slot').forEach(el => el.classList.remove('selected'));
-        div.classList.add('selected');
-        selSlot = s;
-      };
-    }
-    grid.appendChild(div);
+    div.className = 'slot-item';
+    div.innerHTML = `
+      <div>
+        <div class="slot-item__time">${s.start} – ${s.end}</div>
+        <div class="slot-item__status">${s.blocked ? '🔒 Bloccato' : taken ? '✅ Prenotato' : '🟢 Libero'}</div>
+      </div>
+      <div class="slot-item__acts">
+        <button class="act ${s.blocked?'act-green':''}" onclick="toggleBlock('${s.id}',${s.blocked})">${s.blocked?'Sblocca':'Blocca'}</button>
+        ${!taken ? `<button class="act act-danger" onclick="removeSlot('${s.id}')">Elimina</button>` : '<button class="act" disabled style="opacity:.3">—</button>'}
+      </div>
+    `;
+    list.appendChild(div);
   });
 }
 
-/* ── RIEPILOGO ── */
-async function renderSummary() {
-  const c     = TL.cfg();
-  const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(2) : '—';
-  document.getElementById('summary').innerHTML = `
-    <div class="summary__row"><span>Trattamento</span><strong>${c.stripeDesc || 'Consulenza Total Lift'}</strong></div>
-    <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
-    <div class="summary__row"><span>Data</span><strong>${formatDay(TL.eventDay())}</strong></div>
-    <div class="summary__row"><span>Orario</span><strong>${selSlot ? selSlot.start + ' – ' + selSlot.end : '—'}</strong></div>
-    <div class="summary__row summary__total"><span>Totale</span><strong>€ ${price}</strong></div>
-  `;
+async function saveEventDay() {
+  await TL.saveCfg({ eventDay: document.getElementById('admin-day').value });
+  await TL.loadCfg(); // ricarica per aggiornare TL._cfg con la nuova data
+  await renderSlotMgr();
 }
 
-/* ── STRIPE ── */
-function initStripe() {
-  const pk = TL.cfg().stripePk;
-  if (!pk || stripe) return;
-  stripe = Stripe(pk);
-  const elements = stripe.elements();
-  cardEl = elements.create('card', {
-    style: {
-      base: { color: '#ffffff', fontFamily: 'DM Sans, sans-serif', fontSize: '16px', '::placeholder': { color: 'rgba(255,255,255,0.28)' } },
-      invalid: { color: '#ff6b6b' }
-    }
+async function toggleBlock(id, current) {
+  await TL.saveSlot(id, { blocked: !current });
+  await renderSlotMgr();
+}
+
+async function removeSlot(id) {
+  if (!confirm('Eliminare questo slot?')) return;
+  await TL.deleteSlot(id);
+  await renderSlotMgr();
+}
+
+async function addSlot() {
+  const start = document.getElementById('ns-start').value;
+  const end   = document.getElementById('ns-end').value;
+  if (!start || !end) { alert('Inserisci orario di inizio e fine.'); return; }
+  await TL.addSlot({ id: 's' + Date.now(), start, end, blocked: false });
+  document.getElementById('ns-start').value = '';
+  document.getElementById('ns-end').value   = '';
+  await renderSlotMgr();
+}
+
+/* ── SETTINGS ── */
+function loadSettings() {
+  const c = TL.cfg();
+  document.getElementById('cfg-pixel').value  = c.pixelId  || '';
+  document.getElementById('cfg-pk').value     = c.stripePk || '';
+  document.getElementById('cfg-amount').value = c.stripeAmount || '';
+  document.getElementById('cfg-desc').value   = c.stripeDesc || 'Consulenza Total Lift';
+  document.getElementById('cfg-pw').value     = c.adminPw  || 'ricciardi2025';
+}
+
+async function saveCfgField(key, inputId, indId) {
+  await TL.saveCfg({ [key]: document.getElementById(inputId).value });
+  flashSave(indId);
+}
+
+async function saveCfgFields(keys, inputIds, indId) {
+  const obj = {};
+  keys.forEach((k, i) => {
+    const v = document.getElementById(inputIds[i]).value;
+    obj[k] = k === 'stripeAmount' ? parseInt(v) || 0 : v;
   });
-  cardEl.mount('#card-element');
-  cardEl.on('change', e => {
-    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-  });
+  await TL.saveCfg(obj);
+  flashSave(indId);
 }
 
-async function handlePay() {
-  if (!stripe || !cardEl) { alert('Stripe non configurato. Contatta lo staff.'); return; }
-  const btn = document.getElementById('pay-btn');
-  btn.classList.add('loading'); btn.disabled = true;
-  try {
-    const { paymentMethod, error } = await stripe.createPaymentMethod({ type: 'card', card: cardEl });
-    if (error) {
-      document.getElementById('card-errors').textContent = error.message;
-      btn.classList.remove('loading'); btn.disabled = false; return;
-    }
-    // ⚠️ PRODUZIONE: invia paymentMethod.id al backend → crea PaymentIntent → conferma
-    await saveAndConfirm('paid', TL.cfg().stripeAmount || 0, paymentMethod.id);
-  } catch (e) {
-    console.error(e);
-    btn.classList.remove('loading'); btn.disabled = false;
-  }
-}
-
-/* ── SALVA SU FIRESTORE E MOSTRA SUCCESSO ── */
-async function saveAndConfirm(status, amount, ref) {
-  const b = {
-    nome:       document.getElementById('f-nome').value.trim(),
-    cognome:    document.getElementById('f-cognome').value.trim(),
-    email:      document.getElementById('f-email').value.trim(),
-    tel:        document.getElementById('f-tel').value.trim(),
-    note:       document.getElementById('f-note').value.trim(),
-    q1: ans.q1, q2: ans.q2, q3: ans.q3,
-    data:       TL.eventDay(),
-    ora:        selSlot ? selSlot.start + '-' + selSlot.end : '',
-    payment:    status,
-    amount,
-    paymentRef: ref || '',
-    promemoria: 'no',
-    createdAt:  new Date().toISOString()
-  };
-  const id = await TL.addBooking(b);
-  b.id = id;
-  trackEvent('Purchase', { value: amount / 100, currency: 'EUR' });
-  showSuccess(b);
-}
-
-function showSuccess(b) {
-  document.getElementById('page-landing').style.display = 'none';
-  const pg = document.getElementById('page-success');
-  pg.style.display = 'flex';
-  document.getElementById('success-details').innerHTML = `
-    <div><span>Nome: </span><strong>${b.nome} ${b.cognome}</strong></div>
-    <div><span>Data: </span><strong>${b.data}</strong></div>
-    <div><span>Orario: </span><strong>${b.ora.replace('-', ' – ')}</strong></div>
-    <div><span>Email: </span><strong>${b.email}</strong></div>
-  `;
-}
-
-/* ── DATE DINAMICHE ── */
-async function populateDates() {
-  await TL.loadCfg(); // ricarica sempre da Firebase
-  const day = TL.eventDay();
-  const d   = new Date(day + 'T12:00:00');
-  const short   = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
-  const full    = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
-  const fullCap = full.charAt(0).toUpperCase() + full.slice(1);
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('date-tag',    short);
-  set('date-hero',   fullCap);
-  set('date-strip',  short);
-  set('date-banner', short);
+function flashSave(id) {
+  const el = document.getElementById(id);
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2000);
 }
 
 
-// Esponi funzioni globali (necessario con type="module")
-window.go     = go;
-window.sel    = sel;
-window.afterQ3 = afterQ3;
-window.handlePay = handlePay;
-window.trackEvent = trackEvent;
+// Esponi funzioni globali
+window.switchTab    = switchTab;
+window.renderBookings = renderBookings;
+window.clearFilters = clearFilters;
+window.toggleProm   = toggleProm;
+window.delBooking   = delBooking;
+window.openEdit     = openEdit;
+window.closeModal   = closeModal;
+window.saveEdit     = saveEdit;
+window.exportCSV    = exportCSV;
+window.renderSlotMgr = renderSlotMgr;
+window.saveEventDay = saveEventDay;
+window.toggleBlock  = toggleBlock;
+window.removeSlot   = removeSlot;
+window.addSlot      = addSlot;
+window.loadSettings = loadSettings;
+window.saveCfgField = saveCfgField;
+window.saveCfgFields= saveCfgFields;
+window.logout       = logout;
 
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', async () => {
+  checkAuth();
   await TL.loadCfg();
-  initPixel();
-  trackEvent('PageView');
-  await populateDates();
+  await renderBookings();
+  document.getElementById('modal-bg').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-bg')) closeModal();
+  });
+
+  // Real-time aggiornamento prenotazioni
+  TL.onBookingsChange(async (bks) => {
+    _allBookings = bks;
+    const slots = await TL.getSlots();
+    updateStats(bks, slots);
+    applyFilters();
+  });
 });
 
 </script>
-
 </body>
 </html>
