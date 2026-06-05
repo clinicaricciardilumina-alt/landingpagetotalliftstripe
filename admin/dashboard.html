@@ -793,6 +793,7 @@ async function renderSlotMgr() {
 
 async function saveEventDay() {
   await TL.saveCfg({ eventDay: document.getElementById('admin-day').value });
+  await TL.loadCfg(); // ricarica per aggiornare TL._cfg con la nuova data
   await renderSlotMgr();
 }
 
