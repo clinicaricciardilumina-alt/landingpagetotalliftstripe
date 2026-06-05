@@ -250,6 +250,14 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
   </div>
 </div>
 
+<!-- SAVED BANNER -->
+<div id="saved-banner" style="
+  display:none;position:fixed;top:60px;left:0;right:0;z-index:300;
+  background:var(--green);color:#fff;text-align:center;
+  padding:0.75rem;font-size:0.85rem;font-family:'DM Sans',sans-serif;
+  font-weight:500;letter-spacing:0.05em;transition:opacity .3s;
+">✓ Salvato con successo</div>
+
 <!-- TABS -->
 <div class="dash-tabs">
   <button class="dash-tab active" onclick="switchTab('prenotazioni', this)">📋 Prenotazioni</button>
@@ -323,7 +331,16 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
     <h3>Giorno evento</h3>
     <div class="setting-row">
       <label>Data evento</label>
-      <input type="date" id="admin-day" onchange="saveEventDay()">
+      <input type="date" id="admin-day">
+      </div>
+      <div class="setting-row">
+        <label></label>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <button class="btn btn--primary btn--sm" onclick="saveEventDay()">Salva data</button>
+          <span id="saved-day" style="font-size:0.75rem;color:var(--green);opacity:0;transition:opacity .3s">✓ Salvato</span>
+        </div>
+      </div>
+      <div style="display:none">
     </div>
   </div>
 
@@ -793,8 +810,15 @@ async function renderSlotMgr() {
 
 async function saveEventDay() {
   await TL.saveCfg({ eventDay: document.getElementById('admin-day').value });
-  await TL.loadCfg(); // ricarica per aggiornare TL._cfg con la nuova data
+  await TL.loadCfg();
   await renderSlotMgr();
+  // Banner "Salvato" inline
+  const sp = document.getElementById('saved-day');
+  sp.style.opacity = '1';
+  clearTimeout(sp._t);
+  sp._t = setTimeout(() => sp.style.opacity = '0', 2500);
+  // Banner in alto
+  showSavedBanner('Data evento aggiornata');
 }
 
 async function toggleBlock(id, current) {
@@ -831,6 +855,7 @@ function loadSettings() {
 async function saveCfgField(key, inputId, indId) {
   await TL.saveCfg({ [key]: document.getElementById(inputId).value });
   flashSave(indId);
+  showSavedBanner();
 }
 
 async function saveCfgFields(keys, inputIds, indId) {
@@ -841,7 +866,21 @@ async function saveCfgFields(keys, inputIds, indId) {
   });
   await TL.saveCfg(obj);
   flashSave(indId);
+  showSavedBanner();
 }
+
+function showSavedBanner(msg) {
+  const el = document.getElementById('saved-banner');
+  el.textContent = '✓ ' + (msg || 'Salvato con successo');
+  el.style.display = 'block';
+  el.style.opacity = '1';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => {
+    el.style.opacity = '0';
+    setTimeout(() => el.style.display = 'none', 300);
+  }, 2500);
+}
+window.showSavedBanner = showSavedBanner;
 
 function flashSave(id) {
   const el = document.getElementById(id);
