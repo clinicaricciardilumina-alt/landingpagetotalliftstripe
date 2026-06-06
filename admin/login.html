@@ -335,7 +335,7 @@ const TL = {
     try {
       const snap = await getDoc(doc(db, 'config', 'main'));
       if (snap.exists()) {
-        TL._cfg = { ...snap.data(), ...local };
+        TL._cfg = { ...local, ...snap.data() };  // Firestore vince su localStorage
       }
     } catch(e) {
       console.warn('Firestore loadCfg fallback:', e.message);
