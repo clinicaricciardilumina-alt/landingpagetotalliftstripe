@@ -76,7 +76,7 @@ img    { display: block; max-width: 100%; }
 
 /* ── NAV ── */
 .nav {
-  position: relative; top: 0; left: 0; right: 0; z-index: 200;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0;
   background: #ffffff;
@@ -324,28 +324,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </nav>
 
   <!-- HERO -->
-  <!-- VIDEO HERO — solo video, nessun testo -->
-  <section class="hero hero--video-only">
-    <!-- Video desktop -->
-    <video class="hero__img hero__video--desktop" autoplay muted loop playsinline preload="auto">
-      <source src="https://res.cloudinary.com/drnrhvjd1/video/upload/q_auto/f_auto/v1780763264/0606_1_bukv9u.mp4" type="video/mp4">
-    </video>
-    <!-- Video mobile -->
-    <video class="hero__img hero__video--mobile" autoplay muted loop playsinline preload="auto">
-      <source src="https://res.cloudinary.com/drnrhvjd1/video/upload/q_auto/f_auto/v1780763703/0606_1_1_yoys8l.mp4" type="video/mp4">
-    </video>
-  </section>
-
-  <!-- SEZIONE TITOLO — sfondo scuro sotto il video -->
-  <section class="hero-text-section">
-    <div class="hero-text-inner">
-      <span class="hero__tag" style="background:var(--blue);color:#fff;display:inline-block;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;padding:0.35rem 1rem;margin-bottom:1.5rem;font-weight:500">Total Beauty Day · <span id="date-tag"></span></span>
+  <section class="hero">
+    <img class="hero__img" src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=1600&q=80&auto=format&fit=crop" alt="Total Lift trattamento">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__tag">Total Beauty Day · <span id="date-tag"></span></span>
       <h1 class="hero__title">Total <em>Lift</em></h1>
       <p class="hero__sub">Ringiovanimento completo del volto senza bisturi.<br>Tre azioni sinergiche, un risultato naturale e duraturo.</p>
       <p class="hero__date"><span id="date-hero"></span> · Palagiano</p>
       <div class="hero__ctas">
         <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
-        <a href="#come-agisce" class="btn btn--ghost" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.8)">Come funziona</a>
+        <a href="#come-agisce" class="btn btn--ghost">Come funziona</a>
       </div>
       <div class="hero__badges">
         <div class="hero__badge">Senza bisturi</div>
