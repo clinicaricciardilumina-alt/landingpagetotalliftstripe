@@ -330,11 +330,15 @@ const TL = {
   /* CONFIG */
   _cfg: {},
   async loadCfg() {
+    const local = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
+    TL._cfg = local;
     try {
       const snap = await getDoc(doc(db, 'config', 'main'));
-      TL._cfg = snap.exists() ? snap.data() : {};
+      if (snap.exists()) {
+        TL._cfg = { ...snap.data(), ...local };
+      }
     } catch(e) {
-      TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
+      console.warn('Firestore loadCfg fallback:', e.message);
     }
     return TL._cfg;
   },
