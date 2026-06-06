@@ -666,7 +666,7 @@ function updateStats(bks, slots) {
   const paid = bks.filter(b => b.payment === 'paid');
   const prom = bks.filter(b => b.promemoria === 'no');
   const day  = TL.eventDay();
-  const taken = bks.filter(b => b.data === day && b.payment !== 'failed').map(b => b.ora);
+  const taken = bks.filter(b => b.data === day && b.payment === 'paid').map(b => b.ora);
   const free  = slots.filter(s => !s.blocked && !taken.includes(s.start + '-' + s.end)).length;
   document.getElementById('s-tot').textContent  = bks.length;
   document.getElementById('s-paid').textContent = paid.length;
@@ -717,7 +717,12 @@ function applyFilters() {
       <td class="wrap">${q1Label(b.q1)}</td>
       <td>${b.q2 || '—'}</td>
       <td>${b.q3 === 'si' ? '✅ Sì' : '❌ No'}</td>
-      <td><span class="badge ${pmB}">${pmL}</span></td>
+      <td>
+        <div style="display:flex;align-items:center;gap:0.5rem">
+          <div style="width:12px;height:12px;border-radius:2px;background:${b.payment==='paid'?'#27ae60':b.payment==='failed'?'#e74c3c':'#e67e22'};flex-shrink:0"></div>
+          <span class="badge ${pmB}">${pmL}</span>
+        </div>
+      </td>
       <td>${b.amount ? '€' + (b.amount / 100).toFixed(2) : '—'}</td>
       <td class="wrap">${b.note || '—'}</td>
       <td>
