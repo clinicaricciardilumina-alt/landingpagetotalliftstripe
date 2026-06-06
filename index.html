@@ -915,7 +915,7 @@ async function go(next) {
     const taken = bks.filter(b =>
       b.ora  === selSlot.start + '-' + selSlot.end &&
       b.data === TL.eventDay() &&
-      b.payment !== 'failed'
+      b.payment === 'paid'
     );
     if (taken.length) {
       alert('Questo slot è appena stato prenotato. Scegline un altro.');
@@ -983,7 +983,7 @@ async function renderSlots() {
     const taken = bks.some(b =>
       b.ora  === s.start + '-' + s.end &&
       b.data === day &&
-      b.payment !== 'failed'
+      b.payment === 'paid'
     );
     const div = document.createElement('div');
     div.className = 'slot' + (s.blocked ? ' slot--blocked' : taken ? ' slot--taken' : '');
