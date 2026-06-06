@@ -18,41 +18,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--blue:#419cc9;--blue-light:#a2d7ea;--dark:#0d1117;--white:#fff;--mid:#5a7a8a}
-body{font-family:'DM Sans',sans-serif;background:var(--dark);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
+body{font-family:'DM Sans',sans-serif;background:#ffffff;color:var(--dark);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}
 
 .logo{margin-bottom:3rem}
-.logo img{height:60px;width:auto}
+.logo img{height:100px;width:auto}
 
 .check-circle{
   width:90px;height:90px;border-radius:50%;background:var(--blue);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 2rem;font-size:2.5rem;
+  margin:0 auto 2rem;font-size:2.5rem;color:#fff;
 }
 
 h1{
   font-family:'Playfair Display',serif;
   font-size:clamp(2rem,6vw,3.5rem);
-  font-weight:700;color:#fff;margin-bottom:1rem;line-height:1.1;
+  font-weight:700;color:var(--dark);margin-bottom:1rem;line-height:1.1;
 }
-h1 em{font-style:italic;color:var(--blue-light)}
+h1 em{font-style:italic;color:var(--blue)}
 
 .subtitle{
-  font-size:1rem;color:rgba(255,255,255,0.65);
+  font-size:1rem;color:var(--mid);
   line-height:1.8;max-width:500px;margin:0 auto 2.5rem;font-weight:300;
 }
 
 .details-box{
-  background:rgba(65,156,201,0.08);border:1px solid rgba(65,156,201,0.2);
+  background:var(--blue-pale);border:1px solid rgba(65,156,201,0.25);
   padding:1.5rem 2rem;max-width:420px;width:100%;
   display:flex;flex-direction:column;gap:0.6rem;
   margin:0 auto 2.5rem;text-align:left;
 }
 .detail-row{display:flex;justify-content:space-between;font-size:0.85rem}
-.detail-row span{color:rgba(255,255,255,0.5)}
-.detail-row strong{color:#fff}
+.detail-row span{color:var(--mid)}
+.detail-row strong{color:var(--dark)}
 
 .note{
-  font-size:0.82rem;color:rgba(255,255,255,0.4);
+  font-size:0.82rem;color:var(--mid);
   max-width:420px;margin:0 auto 2.5rem;line-height:1.7;
 }
 
@@ -65,7 +65,7 @@ h1 em{font-style:italic;color:var(--blue-light)}
 .btn-back:hover{background:#2d7aab}
 
 .footer-note{
-  margin-top:3rem;font-size:0.75rem;color:rgba(255,255,255,0.2);
+  margin-top:3rem;font-size:0.75rem;color:var(--mid);
 }
 </style>
 </head>
@@ -94,7 +94,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <p class="note">
-  Per informazioni: <strong style="color:var(--blue-light)">099 888 4995</strong>
+  Per informazioni: <strong style="color:var(--blue)">099 888 4995</strong>
 </p>
 
 <div style="display:flex;gap:1.2rem;justify-content:center;margin-bottom:2.5rem">
@@ -123,8 +123,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </svg>
   </a>
 </div>
-
-<a href="/" class="btn-back">← Torna alla home</a>
 
 <p class="footer-note">Ricciardi Studio Dentistico · Palagiano, Via Imbriani 40</p>
 
