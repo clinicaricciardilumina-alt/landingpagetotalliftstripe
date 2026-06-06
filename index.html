@@ -620,7 +620,7 @@ const TL = {
     try {
       const snap = await getDoc(doc(db, 'config', 'main'));
       if (snap.exists()) {
-        TL._cfg = { ...snap.data(), ...local };
+        TL._cfg = { ...local, ...snap.data() };  // Firestore vince su localStorage
       }
     } catch(e) {
       console.warn('Firestore loadCfg fallback:', e.message);
@@ -787,14 +787,22 @@ function initPixel() {
   console.log('Meta Pixel inizializzato con ID:', pid);
 }
 
+// Eventi standard Meta Pixel
+const META_STANDARD_EVENTS = ['PageView','Purchase','Lead','InitiateCheckout',
+  'AddToCart','ViewContent','Search','Subscribe','Contact','FindLocation'];
+
 function trackEvent(name, params = {}) {
   // 1. Push su dataLayer (GTM intercetta tutto)
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: name, ...params });
 
-  // 2. fbq diretto se disponibile
+  // 2. fbq: standard o custom
   if (typeof fbq === 'function') {
-    fbq('track', name, params);
+    if (META_STANDARD_EVENTS.includes(name)) {
+      fbq('track', name, params);
+    } else {
+      fbq('trackCustom', name, params);
+    }
   }
 
   console.log('[GTM/Pixel] event:', name, params);
@@ -1062,6 +1070,7 @@ window.trackEvent = trackEvent;
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded', async () => {
   await TL.loadCfg();
+  console.log('[Config da Firestore]', TL.cfg());
   initPixel();
   trackEvent('PageView');
   await populateDates();
