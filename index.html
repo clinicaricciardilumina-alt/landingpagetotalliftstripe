@@ -925,6 +925,8 @@ async function go(next) {
     trackEvent('InitiateCheckout');
     await renderSummary();
     initStripe();
+    // Salva lead su Firestore anche se non paga
+    await saveLead();
   }
   showStep(next);
 }
@@ -1012,6 +1014,31 @@ async function renderSummary() {
   `;
 }
 
+/* ── SALVA LEAD (prima del pagamento) ── */
+let _leadId = null;
+
+async function saveLead() {
+  if (_leadId) return; // già salvato
+  const lead = {
+    nome:      document.getElementById('f-nome').value.trim(),
+    cognome:   document.getElementById('f-cognome').value.trim(),
+    email:     document.getElementById('f-email').value.trim(),
+    tel:       document.getElementById('f-tel').value.trim(),
+    note:      document.getElementById('f-note').value.trim(),
+    q1: ans.q1, q2: ans.q2, q3: ans.q3,
+    data:      TL.eventDay(),
+    ora:       selSlot ? selSlot.start + '-' + selSlot.end : '',
+    payment:   'pending',
+    amount:    0,
+    paymentRef: '',
+    promemoria: 'no',
+    leadOnly:  true, // flag: ha lasciato i dati ma non ha pagato
+    createdAt: new Date().toISOString()
+  };
+  _leadId = await TL.addBooking(lead);
+  console.log('[Lead salvato]', _leadId);
+}
+
 /* ── STRIPE ── */
 function initStripe() {
   const pk = TL.cfg().stripePk;
@@ -1050,37 +1077,60 @@ async function handlePay() {
 
 /* ── SALVA SU FIRESTORE E MOSTRA SUCCESSO ── */
 async function saveAndConfirm(status, amount, ref) {
-  const b = {
-    nome:       document.getElementById('f-nome').value.trim(),
-    cognome:    document.getElementById('f-cognome').value.trim(),
-    email:      document.getElementById('f-email').value.trim(),
-    tel:        document.getElementById('f-tel').value.trim(),
-    note:       document.getElementById('f-note').value.trim(),
-    q1: ans.q1, q2: ans.q2, q3: ans.q3,
-    data:       TL.eventDay(),
-    ora:        selSlot ? selSlot.start + '-' + selSlot.end : '',
+  const updateData = {
     payment:    status,
     amount,
     paymentRef: ref || '',
-    promemoria: 'no',
-    createdAt:  new Date().toISOString()
+    leadOnly:   false,
+    paidAt:     new Date().toISOString()
   };
-  const id = await TL.addBooking(b);
-  b.id = id;
+
+  let bookingId = _leadId;
+
+  if (_leadId) {
+    // Aggiorna il lead esistente con i dati del pagamento
+    await TL.updateBooking(_leadId, updateData);
+  } else {
+    // Fallback: crea nuovo record
+    const b = {
+      nome:       document.getElementById('f-nome').value.trim(),
+      cognome:    document.getElementById('f-cognome').value.trim(),
+      email:      document.getElementById('f-email').value.trim(),
+      tel:        document.getElementById('f-tel').value.trim(),
+      note:       document.getElementById('f-note').value.trim(),
+      q1: ans.q1, q2: ans.q2, q3: ans.q3,
+      data:       TL.eventDay(),
+      ora:        selSlot ? selSlot.start + '-' + selSlot.end : '',
+      ...updateData,
+      promemoria: 'no',
+      createdAt:  new Date().toISOString()
+    };
+    bookingId = await TL.addBooking(b);
+  }
+
   trackEvent('Purchase', { value: amount / 100, currency: 'EUR' });
-  showSuccess(b);
+
+  showSuccess({
+    id:      bookingId,
+    nome:    document.getElementById('f-nome').value.trim(),
+    cognome: document.getElementById('f-cognome').value.trim(),
+    email:   document.getElementById('f-email').value.trim(),
+    data:    TL.eventDay(),
+    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
+    amount
+  });
 }
 
 function showSuccess(b) {
-  document.getElementById('page-landing').style.display = 'none';
-  const pg = document.getElementById('page-success');
-  pg.style.display = 'flex';
-  document.getElementById('success-details').innerHTML = `
-    <div><span>Nome: </span><strong>${b.nome} ${b.cognome}</strong></div>
-    <div><span>Data: </span><strong>${b.data}</strong></div>
-    <div><span>Orario: </span><strong>${b.ora.replace('-', ' – ')}</strong></div>
-    <div><span>Email: </span><strong>${b.email}</strong></div>
-  `;
+  // Redirect alla pagina /grazie con parametri
+  const params = new URLSearchParams({
+    nome:    b.nome,
+    cognome: b.cognome,
+    data:    b.data,
+    ora:     b.ora,
+    amount:  b.amount || 0
+  });
+  window.location.href = '/grazie?' + params.toString();
 }
 
 
