@@ -399,35 +399,69 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
+
+  <!-- SEZIONE INFO PRENOTAZIONE -->
+  <section id="info-prenotazione" style="background:#f0f8fd;padding:4rem 2rem">
+    <div style="max-width:900px;margin:0 auto">
+      <span style="font-size:0.63rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--blue);margin-bottom:0.8rem;display:block;font-weight:500">Cosa include</span>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--dark);margin-bottom:2.5rem;line-height:1.1">Riserva il tuo slot per il<br><em style="font-style:italic;color:var(--blue)">Total Beauty Day</em></h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+
+        <!-- Testo -->
+        <div>
+          <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
+            Per il Total Beauty Day, puoi prenotare uno slot individuale di <strong style="color:var(--dark)">1 ora</strong> presso il nostro Studio a Palagiano.
+          </p>
+          <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
+            Non si tratta di una semplice visita: durante l'appuntamento farai una <strong style="color:var(--dark)">prima seduta Total Lift</strong> e riceverai una valutazione approfondita del tuo viso, con un'analisi personalizzata delle zone da trattare e degli obiettivi estetici che desideri raggiungere.
+          </p>
+          <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300">
+            In questo modo blocchi il tuo orario, vivi già il primo trattamento e ricevi un'indicazione chiara e personalizzata sul percorso più adatto a te.
+          </p>
+        </div>
+
+        <!-- Card prezzo -->
+        <div style="background:var(--dark);padding:2rem;display:flex;flex-direction:column;gap:1.2rem">
+          <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Costo prenotazione</p>
+          <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1" id="info-price">€ —</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300">
+            Pagamento sicuro e immediato tramite <strong style="color:#fff">Stripe</strong>.<br>Il tuo slot è garantito solo dopo il pagamento.
+          </p>
+          <div style="height:1px;background:rgba(65,156,201,0.2)"></div>
+          <div style="display:flex;flex-direction:column;gap:0.6rem">
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
+              <span style="color:var(--blue-light)">✓</span> Prima seduta Total Lift inclusa
+            </div>
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
+              <span style="color:var(--blue-light)">✓</span> Analisi personalizzata del viso
+            </div>
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
+              <span style="color:var(--blue-light)">✓</span> Slot orario garantito
+            </div>
+          </div>
+          <a href="#flow" class="btn btn--primary" style="text-align:center;margin-top:0.5rem">Prenota il tuo slot</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile: una colonna -->
+  <style>
+    @media(max-width:768px){
+      #info-prenotazione > div > div[style*="grid-template-columns"]{
+        grid-template-columns:1fr !important;
+      }
+    }
+  </style>
+
   <!-- FLOW: quiz + form + payment -->
   <section id="flow">
     <div class="inner">
       <span class="label label--light">Prenota il tuo Total Lift</span>
       <h2 class="flow-title">Tre domande,<br><em>soluzioni su misura</em></h2>
       <p class="sub" style="font-size:0.9rem;color:rgba(255,255,255,0.48);margin-bottom:2.5rem;font-weight:300">Rispondi al questionario per personalizzare il tuo percorso.</p>
-
-      <!-- INFO PRENOTAZIONE -->
-      <div style="background:rgba(65,156,201,0.08);border:1px solid rgba(65,156,201,0.25);padding:2rem 2.2rem;margin-bottom:2.5rem">
-        <p style="font-size:0.63rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--blue-light);margin-bottom:0.8rem;font-weight:500">Cosa include la prenotazione</p>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:1rem;line-height:1.2">Riserva il tuo slot per il Total Beauty Day</h3>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;margin-bottom:0.8rem">
-          Per il Total Beauty Day, puoi prenotare uno slot individuale di <strong style="color:#fff">1 ora</strong> presso il nostro Studio a Palagiano.
-        </p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;margin-bottom:0.8rem">
-          Non si tratta di una semplice visita: durante l'appuntamento farai una <strong style="color:#fff">prima seduta Total Lift</strong> e riceverai una valutazione approfondita del tuo viso, con un'analisi personalizzata delle zone da trattare e degli obiettivi estetici che desideri raggiungere.
-        </p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;margin-bottom:0.8rem">
-          La prenotazione ha un costo di <strong style="color:#fff" id="info-price-inline">€ —</strong> e viene completata online in modo sicuro tramite <strong style="color:#fff">Stripe</strong>.
-        </p>
-        <p style="font-size:0.88rem;color:rgba(255,255,255,0.7);line-height:1.8;font-weight:300;margin-bottom:1.2rem">
-          In questo modo blocchi il tuo orario, vivi già il primo trattamento e ricevi un'indicazione chiara e personalizzata sul percorso più adatto a te.
-        </p>
-        <div style="display:flex;align-items:center;gap:1rem;background:rgba(65,156,201,0.15);border:1px solid rgba(65,156,201,0.35);padding:1rem 1.4rem;flex-wrap:wrap">
-          <span style="font-size:1.8rem;font-family:'Playfair Display',serif;font-weight:700;color:var(--blue-light)" id="info-price">€ —</span>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);font-weight:300;line-height:1.5">La prenotazione viene completata online in modo sicuro tramite <strong style="color:#fff">Stripe</strong>. Il tuo slot è garantito solo dopo il pagamento.</p>
-        </div>
-      </div>
-      <!-- FINE INFO PRENOTAZIONE -->
       <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
 
       <!-- Q1 -->
