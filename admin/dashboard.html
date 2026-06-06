@@ -490,32 +490,38 @@ const TL = {
   /* CONFIG */
   _cfg: {},
   async loadCfg() {
-    // Prima leggi localStorage (sempre disponibile e aggiornato)
-    const local = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
-    TL._cfg = local;
     try {
+      // Firestore è la fonte primaria
       const snap = await getDoc(doc(db, 'config', 'main'));
       if (snap.exists()) {
-        // Merge: localStorage vince su campi più recenti
-        TL._cfg = { ...snap.data(), ...local };
+        TL._cfg = snap.data();
+        // Aggiorna anche localStorage per uso offline
+        localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+        if (TL._cfg.eventDay) localStorage.setItem('tl_eventDay', TL._cfg.eventDay);
+      } else {
+        // Documento non esiste ancora, usa localStorage
+        TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
       }
     } catch(e) {
+      // Firestore non raggiungibile, usa localStorage
       console.warn('Firestore loadCfg fallback:', e.message);
+      TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
     }
     return TL._cfg;
   },
   cfg() { return TL._cfg; },
   async saveCfg(data) {
     TL._cfg = { ...TL._cfg, ...data };
-    // Salva sempre su localStorage (fonte di verità locale)
-    localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
-    if (data.eventDay) localStorage.setItem('tl_eventDay', data.eventDay);
-    // Tenta anche Firestore in background
     try {
+      // Salva su Firestore (fonte primaria)
       await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
+      console.log('Firestore saveCfg OK:', data);
     } catch(e) {
       console.warn('Firestore saveCfg fallback:', e.message);
     }
+    // Salva sempre anche su localStorage come backup
+    localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+    if (data.eventDay) localStorage.setItem('tl_eventDay', data.eventDay);
   },
 
   /* PRENOTAZIONI */
