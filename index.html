@@ -1163,9 +1163,19 @@ function initSectionTracking() {
   sections.forEach(s => { if (s.el) obs.observe(s.el); });
 }
 
+/* ── PREZZO ── */
+function updatePrice() {
+  const c = TL.cfg();
+  const price = c.stripeAmount ? '€ ' + (c.stripeAmount / 100).toFixed(0) : '€ 87';
+  const el1 = document.getElementById('info-price');
+  const el2 = document.getElementById('info-price-inline');
+  if (el1) el1.textContent = price;
+  if (el2) el2.textContent = price;
+}
+
 /* ── DATE DINAMICHE ── */
 async function populateDates() {
-  await TL.loadCfg(); // ricarica sempre da Firebase
+  await TL.loadCfg();
   const day = TL.eventDay();
   const d   = new Date(day + 'T12:00:00');
   const short   = d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
@@ -1187,6 +1197,7 @@ async function populateDates() {
 
 // Esponi funzioni globali (necessario con type="module")
 window.go     = go;
+window.updatePrice = updatePrice;
 window.sel    = sel;
 window.afterQ3 = afterQ3;
 window.handlePay = handlePay;
@@ -1196,6 +1207,7 @@ window.trackEvent = trackEvent;
 document.addEventListener('DOMContentLoaded', async () => {
   await TL.loadCfg();
   console.log('[Config da Firestore]', TL.cfg());
+  updatePrice();
   initPixel();
   trackEvent('PageView');
   await populateDates();
