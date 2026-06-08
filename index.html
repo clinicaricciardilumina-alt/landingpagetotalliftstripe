@@ -426,7 +426,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Card prezzo -->
         <div style="background:var(--dark);padding:2rem;display:flex;flex-direction:column;gap:1.2rem">
           <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Costo prenotazione</p>
-          <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1" id="info-price">€ —</p>
+          <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1" id="info-price">€ 87</p>
           <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300">
             Pagamento sicuro e immediato tramite <strong style="color:#fff">Stripe</strong>.<br>Il tuo slot è garantito solo dopo il pagamento.
           </p>
@@ -1004,7 +1004,7 @@ async function renderSlots() {
 /* ── RIEPILOGO ── */
 async function renderSummary() {
   const c     = TL.cfg();
-  const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(2) : '—';
+  const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(0) : '87';
   document.getElementById('summary').innerHTML = `
     <div class="summary__row"><span>Trattamento</span><strong>${c.stripeDesc || 'Consulenza Total Lift'}</strong></div>
     <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
@@ -1058,21 +1058,29 @@ function initStripe() {
 }
 
 async function handlePay() {
-  if (!stripe || !cardEl) { alert('Stripe non configurato. Contatta lo staff.'); return; }
   const btn = document.getElementById('pay-btn');
   btn.classList.add('loading'); btn.disabled = true;
-  try {
-    const { paymentMethod, error } = await stripe.createPaymentMethod({ type: 'card', card: cardEl });
-    if (error) {
-      document.getElementById('card-errors').textContent = error.message;
-      btn.classList.remove('loading'); btn.disabled = false; return;
-    }
-    // ⚠️ PRODUZIONE: invia paymentMethod.id al backend → crea PaymentIntent → conferma
-    await saveAndConfirm('paid', TL.cfg().stripeAmount || 0, paymentMethod.id);
-  } catch (e) {
-    console.error(e);
-    btn.classList.remove('loading'); btn.disabled = false;
-  }
+
+  // Salva lead prima di reindirizzare
+  await saveLead();
+
+  // Parametri da passare alla pagina grazie dopo il pagamento
+  const params = new URLSearchParams({
+    nome:    document.getElementById('f-nome').value.trim(),
+    cognome: document.getElementById('f-cognome').value.trim(),
+    email:   document.getElementById('f-email').value.trim(),
+    data:    TL.eventDay(),
+    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
+    amount:  8700,
+    lead_id: _leadId || ''
+  });
+
+  // Aggiungi parametri success/cancel al link Stripe
+  const stripeUrl = 'https://buy.stripe.com/test_5kQeVc6b7agWdmB5sC04801'
+    + '?success_url=' + encodeURIComponent(window.location.origin + '/grazie?' + params.toString())
+    + '&cancel_url='  + encodeURIComponent(window.location.href);
+
+  window.location.href = stripeUrl;
 }
 
 /* ── SALVA SU FIRESTORE E MOSTRA SUCCESSO ── */
@@ -1172,8 +1180,8 @@ async function populateDates() {
   // Mostra prezzo nel blocco info
   const c = TL.cfg();
   const price = c.stripeAmount ? '€ ' + (c.stripeAmount / 100).toFixed(0) : '€ —';
-  set('info-price', price);
-  set('info-price-inline', price);
+  set('info-price', '€ ' + price);
+  set('info-price-inline', '€ ' + price);
 }
 
 
