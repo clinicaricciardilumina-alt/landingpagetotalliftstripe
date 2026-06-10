@@ -425,15 +425,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <!-- Card prezzo -->
         <div style="background:var(--dark);padding:2rem;display:flex;flex-direction:column;gap:1.2rem">
-          <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Costo prenotazione</p>
-          <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1" id="info-price">€ 87</p>
+          <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Blocca il tuo slot</p>
+          <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1">€ 20</p>
+          <p style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:-0.3rem">acconto · visita totale € 87</p>
           <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300">
-            Pagamento sicuro e immediato tramite <strong style="color:#fff">Stripe</strong>.<br>Il tuo slot è garantito solo dopo il pagamento.
+            Acconto di <strong style="color:#fff">€ 20</strong> tramite <strong style="color:#fff">Stripe</strong>. Il saldo di € 67 verrà pagato il giorno dell'appuntamento.
           </p>
           <div style="height:1px;background:rgba(65,156,201,0.2)"></div>
           <div style="display:flex;flex-direction:column;gap:0.6rem">
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
-              <span style="color:var(--blue-light)">✓</span> Prima seduta Total Lift inclusa
+              <span style="color:var(--blue-light)">✓</span> Acconto € 20 · saldo € 67 in studio
             </div>
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
               <span style="color:var(--blue-light)">✓</span> Analisi personalizzata del viso
@@ -1010,7 +1011,8 @@ async function renderSummary() {
     <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
     <div class="summary__row"><span>Data</span><strong>${formatDay(TL.eventDay())}</strong></div>
     <div class="summary__row"><span>Orario</span><strong>${selSlot ? selSlot.start + ' – ' + selSlot.end : '—'}</strong></div>
-    <div class="summary__row summary__total"><span>Totale</span><strong>€ ${price}</strong></div>
+    <div class="summary__row"><span>Visita completa</span><strong>€ 87</strong></div>
+    <div class="summary__row summary__total"><span>Acconto da pagare ora</span><strong>€ 20</strong></div>
   `;
 }
 
@@ -1071,7 +1073,7 @@ async function handlePay() {
     email:   document.getElementById('f-email').value.trim(),
     data:    TL.eventDay(),
     ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
-    amount:  8700,
+    amount:  2000,
     lead_id: _leadId || ''
   });
 
@@ -1177,7 +1179,7 @@ function initSectionTracking() {
 /* ── PREZZO ── */
 function updatePrice() {
   const c = TL.cfg();
-  const price = c.stripeAmount ? '€ ' + (c.stripeAmount / 100).toFixed(0) : '€ 87';
+  const price = c.stripeAmount ? '€ ' + (c.stripeAmount / 100).toFixed(0) : '€ 20';
   const el1 = document.getElementById('info-price');
   const el2 = document.getElementById('info-price-inline');
   if (el1) el1.textContent = price;
