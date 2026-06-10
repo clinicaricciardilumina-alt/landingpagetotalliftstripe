@@ -150,7 +150,7 @@ const nome    = params.get('nome')    || backup.nome    || '';
 const cognome = params.get('cognome') || backup.cognome || '';
 const data    = params.get('data')    || backup.data    || '';
 const ora     = params.get('ora')     || backup.ora     || '';
-const amount  = params.get('amount')  || String(backup.amount || 8700);
+const amount  = params.get('amount')  || String(backup.amount || 2000);
 const leadId  = params.get('lead_id') || backup.leadId  || '';
 
 // Pulisci il backup dopo averlo letto
@@ -164,7 +164,8 @@ if (nome || data || ora) {
     ${nome ? `<div class="detail-row"><span>Paziente</span><strong>${nome} ${cognome}</strong></div>` : ''}
     ${data ? `<div class="detail-row"><span>Data</span><strong>${data}</strong></div>` : ''}
     ${ora  ? `<div class="detail-row"><span>Orario</span><strong>${ora.replace('-',' – ')}</strong></div>` : ''}
-    <div class="detail-row"><span>Importo pagato</span><strong>€ ${(parseInt(amount)/100).toFixed(2)}</strong></div>
+    <div class="detail-row"><span>Acconto versato</span><strong>€ 20,00</strong></div>
+    <div class="detail-row"><span>Saldo in studio</span><strong>€ 67,00</strong></div>
   `;
 } else {
   box.style.display = 'none';
@@ -204,7 +205,7 @@ async function initTracking() {
     (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', pixelId);
     fbq('track', 'PageView');
-    const value = parseInt(amount) / 100 || 87;
+    const value = parseInt(amount) / 100 || 20;
     fbq('track', 'Purchase', { value, currency: 'EUR' });
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'Purchase', value, currency: 'EUR' });
