@@ -1011,7 +1011,6 @@ async function renderSummary() {
     <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
     <div class="summary__row"><span>Data</span><strong>${formatDay(TL.eventDay())}</strong></div>
     <div class="summary__row"><span>Orario</span><strong>${selSlot ? selSlot.start + ' – ' + selSlot.end : '—'}</strong></div>
-    <div class="summary__row"><span>Visita completa</span><strong>€ 87</strong></div>
     <div class="summary__row summary__total"><span>Acconto da pagare ora</span><strong>€ 20</strong></div>
   `;
 }
