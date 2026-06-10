@@ -1076,7 +1076,7 @@ async function handlePay() {
   });
 
   // Aggiungi parametri success/cancel al link Stripe
-  const stripeUrl = 'https://buy.stripe.com/test_5kQeVc6b7agWdmB5sC04801'
+  const stripeUrl = 'https://buy.stripe.com/6oU8wO5dz5nk3Ss3kraVa01'
     + '?success_url=' + encodeURIComponent(window.location.origin + '/grazie?' + params.toString())
     + '&cancel_url='  + encodeURIComponent(window.location.href);
 
@@ -1189,9 +1189,7 @@ async function populateDates() {
 
   // Mostra prezzo nel blocco info
   const c = TL.cfg();
-  const price = c.stripeAmount ? '€ ' + (c.stripeAmount / 100).toFixed(0) : '€ —';
-  set('info-price', '€ ' + price);
-  set('info-price-inline', '€ ' + price);
+
 }
 
 
