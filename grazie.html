@@ -128,7 +128,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyCVC6fHbo8OHevILIkI9j_XDyP4GoWCHAQ",
@@ -142,13 +142,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// Leggi i dati della prenotazione dai parametri URL
-const params = new URLSearchParams(window.location.search);
-const nome    = params.get('nome')    || '';
-const cognome = params.get('cognome') || '';
-const data    = params.get('data')    || '';
-const ora     = params.get('ora')     || '';
-const amount  = params.get('amount')  || '';
+// Leggi dai parametri URL, con fallback su localStorage
+const params   = new URLSearchParams(window.location.search);
+const backup   = JSON.parse(localStorage.getItem('tl_pending_booking') || '{}');
+
+const nome    = params.get('nome')    || backup.nome    || '';
+const cognome = params.get('cognome') || backup.cognome || '';
+const data    = params.get('data')    || backup.data    || '';
+const ora     = params.get('ora')     || backup.ora     || '';
+const amount  = params.get('amount')  || String(backup.amount || 8700);
+const leadId  = params.get('lead_id') || backup.leadId  || '';
+
+// Pulisci il backup dopo averlo letto
+localStorage.removeItem('tl_pending_booking');
+console.log('[Grazie] leadId:', leadId, '| nome:', nome, '| params:', window.location.search);
 
 // Popola il box dettagli
 const box = document.getElementById('details-box');
@@ -157,13 +164,29 @@ if (nome || data || ora) {
     ${nome ? `<div class="detail-row"><span>Paziente</span><strong>${nome} ${cognome}</strong></div>` : ''}
     ${data ? `<div class="detail-row"><span>Data</span><strong>${data}</strong></div>` : ''}
     ${ora  ? `<div class="detail-row"><span>Orario</span><strong>${ora.replace('-',' – ')}</strong></div>` : ''}
-    ${amount ? `<div class="detail-row"><span>Importo pagato</span><strong>€ ${(parseInt(amount)/100).toFixed(2)}</strong></div>` : ''}
+    <div class="detail-row"><span>Importo pagato</span><strong>€ ${(parseInt(amount)/100).toFixed(2)}</strong></div>
   `;
 } else {
   box.style.display = 'none';
 }
 
-// Carica config per Pixel ID
+// Aggiorna prenotazione su Firestore: pending → paid
+async function confirmBooking() {
+  if (!leadId) { console.warn('Nessun lead_id nei parametri URL'); return; }
+  try {
+    await updateDoc(doc(db, 'bookings', leadId), {
+      payment:   'paid',
+      amount:    parseInt(amount) || 8700,
+      leadOnly:  false,
+      paidAt:    new Date().toISOString()
+    });
+    console.log('[Firestore] Prenotazione confermata:', leadId);
+  } catch(e) {
+    console.error('[Firestore] Errore aggiornamento:', e.message);
+  }
+}
+
+// Pixel tracking
 async function initTracking() {
   let pixelId = '';
   try {
@@ -173,28 +196,24 @@ async function initTracking() {
     pixelId = JSON.parse(localStorage.getItem('tl_cfg') || '{}').pixelId || '';
   }
 
-  if (!pixelId) return;
-
-  // Inizializza Pixel
-  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-
-  fbq('init', pixelId);
-  fbq('track', 'PageView');
-
-  // Traccia Purchase
-  const value = amount ? parseInt(amount) / 100 : 0;
-  fbq('track', 'Purchase', { value, currency: 'EUR' });
-
-  // Push su dataLayer per GTM
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ event: 'Purchase', value, currency: 'EUR' });
-  console.log('[Pixel] Purchase tracciato:', value);
+  if (pixelId) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', pixelId);
+    fbq('track', 'PageView');
+    const value = parseInt(amount) / 100 || 87;
+    fbq('track', 'Purchase', { value, currency: 'EUR' });
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'Purchase', value, currency: 'EUR' });
+    console.log('[Pixel] Purchase tracciato:', value);
+  }
 }
 
+// Esegui entrambi
+confirmBooking();
 initTracking();
 </script>
 </body>
