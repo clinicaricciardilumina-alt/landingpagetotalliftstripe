@@ -1064,8 +1064,8 @@ async function handlePay() {
   // Salva lead prima di reindirizzare
   await saveLead();
 
-  // Parametri da passare alla pagina grazie dopo il pagamento
-  const params = new URLSearchParams({
+  // Costruisci URL di ritorno con tutti i dati
+  const grazieParams = new URLSearchParams({
     nome:    document.getElementById('f-nome').value.trim(),
     cognome: document.getElementById('f-cognome').value.trim(),
     email:   document.getElementById('f-email').value.trim(),
@@ -1075,10 +1075,21 @@ async function handlePay() {
     lead_id: _leadId || ''
   });
 
-  // Aggiungi parametri success/cancel al link Stripe
-  const stripeUrl = 'https://buy.stripe.com/6oU8wO5dz5nk3Ss3kraVa01'
-    + '?success_url=' + encodeURIComponent(window.location.origin + '/grazie?' + params.toString())
-    + '&cancel_url='  + encodeURIComponent(window.location.href);
+  // Salva anche in localStorage come backup nel caso Stripe non passi i params
+  localStorage.setItem('tl_pending_booking', JSON.stringify({
+    leadId:  _leadId,
+    nome:    document.getElementById('f-nome').value.trim(),
+    cognome: document.getElementById('f-cognome').value.trim(),
+    email:   document.getElementById('f-email').value.trim(),
+    data:    TL.eventDay(),
+    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
+    amount:  8700
+  }));
+
+  // Stripe Payment Link con success_url
+  const successUrl = window.location.origin + '/grazie?' + grazieParams.toString();
+  const stripeUrl  = 'https://buy.stripe.com/6oU8wO5dz5nk3Ss3kraVa01'
+    + '?success_url=' + encodeURIComponent(successUrl);
 
   window.location.href = stripeUrl;
 }
