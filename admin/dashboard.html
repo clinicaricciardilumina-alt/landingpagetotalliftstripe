@@ -3,19 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard – Total Lift Admin</title>
+<title>Prenotazione confermata – Ricciardi Studio Dentistico</title>
 <style>
-/* ═══════════════════════════════════════════════
-   global.css — Variabili, reset, componenti base
-   Ricciardi Studio Dentistico · Total Lift
-═══════════════════════════════════════════════ */
-
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap');
 
-/* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── VARIABILI ── */
 :root {
   --blue:       #419cc9;
   --blue-light: #a2d7ea;
@@ -27,427 +20,78 @@
   --text:       #1a2530;
   --green:      #27ae60;
   --red:        #e74c3c;
-  --radius:     0px;
 }
 
-/* ── BASE ── */
-html   { scroll-behavior: smooth; }
-body   { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+html { scroll-behavior: smooth; }
+body { font-family: 'DM Sans', sans-serif; background: var(--dark); color: var(--text); overflow-x: hidden; }
 h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
-a      { transition: color .2s; }
-img    { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; }
 
-/* ── TIPOGRAFIA UTILITY ── */
-.label {
-  font-size: 0.63rem; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--blue); margin-bottom: 0.8rem; display: block; font-weight: 500;
-}
-.label--light { color: var(--blue-light); }
-
-/* ── BOTTONI ── */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
   font-family: 'DM Sans', sans-serif; font-weight: 500;
   font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
   text-decoration: none; border: none; cursor: pointer;
-  padding: 1rem 2.4rem;
-  transition: background .2s, transform .15s, border-color .2s, color .2s;
+  padding: 1rem 2.4rem; transition: background .2s, transform .15s;
 }
-.btn--primary  { background: var(--blue); color: #fff; }
+.btn--primary { background: var(--blue); color: #fff; }
 .btn--primary:hover { background: var(--accent); transform: translateY(-2px); }
-.btn--ghost    { background: transparent; border: 1px solid rgba(255,255,255,0.38); color: rgba(255,255,255,0.85); }
-.btn--ghost:hover  { border-color: #fff; color: #fff; }
-.btn--dark     { background: var(--dark); color: #fff; }
-.btn--dark:hover   { background: var(--accent); }
-.btn--outline  { background: transparent; border: 1px solid rgba(65,156,201,0.3); color: var(--mid); }
-.btn--outline:hover { border-color: var(--blue); color: var(--blue); }
-.btn--danger   { background: transparent; border: 1px solid rgba(231,76,60,0.3); color: var(--red); }
-.btn--danger:hover  { border-color: var(--red); background: rgba(231,76,60,0.05); }
-.btn--sm       { padding: 0.42rem 0.9rem; font-size: 0.67rem; }
-.btn--full     { width: 100%; padding: 1.15rem; }
 
-/* ── NAV ── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0;
-  background: #ffffff;
-  border-bottom: none;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-  height: 80px;
+/* SUCCESS PAGE */
+.success-page {
+  min-height: 100vh; background: var(--dark);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 4rem 2rem;
 }
-.nav__logo {
-  display: flex; align-items: center; text-decoration: none;
-  height: 100%;
-  padding: 0 2rem;
+.success-page__check {
+  width: 80px; height: 80px; border-radius: 50%; background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem; font-size: 2rem; color: #fff;
+  animation: pop .5s ease;
 }
-.nav__logo img {
-  height: 70px; width: auto; display: block;
+@keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.success-page h2 { font-size: clamp(2rem,5vw,3rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
+.success-page h2 em { font-style: italic; color: var(--blue-light); }
+.success-page > p { color: rgba(255,255,255,0.88); font-size: 1rem; line-height: 1.85; max-width: 480px; font-weight: 300; margin: 0 auto; }
+.success-page > p strong { color: #fff; }
+.success-page__details {
+  margin-top: 2rem; background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18);
+  padding: 1.3rem 2rem; font-size: 0.9rem; color: rgba(255,255,255,0.88);
+  text-align: left; max-width: 420px; width: 100%;
+  display: flex; flex-direction: column; gap: 0.6rem;
 }
-
-/* ── FOOTER ── */
-.footer { background: var(--dark); padding: 3.5rem 2rem; text-align: center; }
-.footer__logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
-.footer__sub { font-size: 0.65rem; letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,255,255,0.28); margin-bottom: 1.3rem; }
-.footer p   { font-size: 0.8rem; color: rgba(255,255,255,0.3); font-weight: 300; }
-.footer a   { color: rgba(255,255,255,0.3); text-decoration: none; margin: 0 0.5rem; }
-.footer a:hover { color: var(--blue); }
-.footer__divider { height: 1px; background: rgba(65,156,201,0.12); margin: 1.5rem auto; max-width: 260px; }
-.footer__social { display: flex; gap: 0.8rem; justify-content: center; margin-bottom: 1.5rem; }
-.footer__social a { width: 36px; height: 36px; border: 1px solid rgba(65,156,201,0.25); display: flex; align-items: center; justify-content: center; color: var(--blue-light); font-size: 0.72rem; text-decoration: none; transition: all .2s; }
-.footer__social a:hover { border-color: var(--blue); color: var(--blue); }
-
-/* ── BADGE ── */
-.badge { display: inline-block; font-size: 0.6rem; letter-spacing: 0.08em; padding: 0.22rem 0.65rem; text-transform: uppercase; font-weight: 600; }
-.badge--paid    { background: rgba(39,174,96,0.1);   color: #27ae60; }
-.badge--pending { background: rgba(162,215,234,0.18); color: var(--blue); }
-.badge--failed  { background: rgba(231,76,60,0.1);   color: var(--red); }
-.badge--yes     { background: rgba(39,174,96,0.1);   color: #27ae60; }
-.badge--no      { background: rgba(162,215,234,0.12); color: var(--mid); }
-
-/* ── FORM ── */
-.field { display: flex; flex-direction: column; gap: 0.38rem; }
-.field label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.48); font-weight: 500; }
-.field input, .field textarea, .field select {
-  padding: 0.88rem 1rem; font-size: 0.9rem; font-family: 'DM Sans', sans-serif;
-  color: #fff; background: rgba(255,255,255,0.05); border: 1px solid rgba(65,156,201,0.22);
-  outline: none; transition: border-color .2s, background .2s; width: 100%;
-}
-.field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.22); }
-.field input:focus, .field textarea:focus { border-color: var(--blue); background: rgba(65,156,201,0.08); }
-.field--light label  { color: var(--mid); }
-.field--light input, .field--light textarea, .field--light select { background: #f8fbfd; color: var(--text); border-color: rgba(65,156,201,0.22); }
-.field--light input::placeholder { color: rgba(26,37,48,0.3); }
-.field--light input:focus, .field--light textarea:focus { border-color: var(--blue); background: #fff; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.privacy-row { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; }
-.privacy-row input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--blue); flex-shrink: 0; margin-top: 3px; }
-.privacy-row span { font-size: 0.8rem; color: rgba(255,255,255,0.52); line-height: 1.6; }
-.privacy-row a { color: var(--blue-light); }
-.err { color: #ff6b6b; font-size: 0.78rem; margin-top: 0.3rem; }
-
-/* ── UTILITY ── */
-.hidden { display: none !important; }
-.text-center { text-align: center; }
-.mt-1 { margin-top: 0.8rem; }  .mt-2 { margin-top: 1.5rem; }
-.mb-1 { margin-bottom: 0.8rem; } .mb-2 { margin-bottom: 1.5rem; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
-@media (max-width: 768px) { .nav { padding: 0.9rem 1.5rem; } }
-
-/* Nav button alignment */
-.nav .btn { margin-right: 2rem; }
-
-/* ═══════════════════════════════════════════════
-   dashboard.css — Stili admin login + dashboard
-   Ricciardi Studio Dentistico · Total Lift
-═══════════════════════════════════════════════ */
-
-/* ── LOGIN PAGE ── */
-.login-page { min-height: 100vh; background: var(--dark); display: flex; align-items: center; justify-content: center; padding: 2rem; }
-.login-page::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(65,156,201,0.07) 0%, transparent 70%); pointer-events: none; }
-.login-card { background: var(--white); padding: 3.5rem 3rem; max-width: 400px; width: 100%; position: relative; }
-.login-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
-.login-card__logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); text-align: center; }
-.login-card__sub  { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); text-align: center; margin-bottom: 2.5rem; }
-.login-card h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; text-align: center; }
-.login-card > p { font-size: 0.82rem; color: var(--mid); margin-bottom: 2rem; text-align: center; font-weight: 300; }
-.login-card .field--light { margin-bottom: 1rem; }
-.login-err  { color: var(--red); font-size: 0.8rem; margin-bottom: 1rem; text-align: center; }
-.login-back { display: block; text-align: center; margin-top: 1.2rem; font-size: 0.75rem; color: var(--mid); text-decoration: none; transition: color .2s; }
-.login-back:hover { color: var(--blue); }
-
-/* ── DASHBOARD LAYOUT ── */
-.dash-page   { min-height: 100vh; background: #eef5f9; }
-.dash-header { background: var(--dark); padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(65,156,201,0.12); }
-.dash-header__logo { font-family: 'Playfair Display', serif; color: var(--blue); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
-.dash-header__logo span { font-family: 'DM Sans', sans-serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-left: 0.5rem; font-weight: 300; }
-.dash-header__actions { display: flex; gap: 0.6rem; align-items: center; }
-
-/* ── TABS ── */
-.dash-tabs { background: #fff; border-bottom: 1px solid rgba(65,156,201,0.12); display: flex; padding: 0 2rem; }
-.dash-tab { padding: 0.9rem 1.4rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; color: var(--mid); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Sans', sans-serif; font-weight: 500; }
-.dash-tab:hover  { color: var(--blue); }
-.dash-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
-.dash-panel      { display: none; padding: 2rem; }
-.dash-panel.active { display: block; }
-
-/* ── STATS ── */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-.stat-card  { background: #fff; padding: 1.3rem 1.5rem; border-top: 3px solid var(--blue); }
-.stat-card__label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mid); margin-bottom: 0.4rem; }
-.stat-card__val   { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--dark); line-height: 1; }
-.stat-card__sub   { font-size: 0.72rem; color: var(--blue); margin-top: 0.3rem; }
-
-/* ── FILTERS ── */
-.filters { background: #fff; padding: 1rem 1.2rem; border: 1px solid rgba(65,156,201,0.1); margin-bottom: 1rem; display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: flex-end; }
-.filter-group { display: flex; flex-direction: column; gap: 0.25rem; }
-.filter-group label  { font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
-.filter-group input, .filter-group select { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.42rem 0.75rem; font-size: 0.8rem; color: var(--dark); font-family: 'DM Sans', sans-serif; outline: none; min-width: 120px; }
-
-/* ── TABLE ── */
-.table-wrap { background: #fff; border: 1px solid rgba(65,156,201,0.1); overflow-x: auto; }
-.table-head { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(65,156,201,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; }
-.table-head h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); }
-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; min-width: 1100px; }
-thead th { padding: 0.7rem 0.9rem; text-align: left; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); font-weight: 600; border-bottom: 1px solid rgba(65,156,201,0.1); white-space: nowrap; background: #fafcfe; }
-tbody tr { border-bottom: 1px solid rgba(65,156,201,0.06); transition: background .12s; }
-tbody tr:hover { background: #f4f9fc; }
-td { padding: 0.7rem 0.9rem; color: var(--dark); vertical-align: middle; white-space: nowrap; }
-td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
-.actions { display: flex; gap: 0.3rem; }
-.act { padding: 0.22rem 0.6rem; font-size: 0.62rem; border: 1px solid rgba(65,156,201,0.22); background: transparent; color: var(--mid); cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .15s; letter-spacing: 0.04em; text-transform: uppercase; }
-.act:hover        { border-color: var(--blue); color: var(--blue); }
-.act-danger       { border-color: rgba(231,76,60,0.22); color: var(--red); }
-.act-danger:hover { border-color: var(--red); background: rgba(231,76,60,0.04); }
-.act-green        { border-color: rgba(39,174,96,0.25); color: var(--green); }
-.act-green:hover  { border-color: var(--green); background: rgba(39,174,96,0.05); }
-
-/* ── SLOT MANAGER ── */
-.slot-mgr    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
-.slot-mgr h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
-.slot-items  { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 0.6rem; margin-bottom: 1.2rem; }
-.slot-item   { display: flex; align-items: center; justify-content: space-between; background: #f4f9fc; border: 1px solid rgba(65,156,201,0.12); padding: 0.65rem 0.9rem; }
-.slot-item__time   { font-size: 0.85rem; font-weight: 500; color: var(--dark); }
-.slot-item__status { font-size: 0.65rem; color: var(--mid); margin-top: 1px; }
-.slot-item__acts   { display: flex; gap: 0.3rem; }
-.add-slot { display: flex; gap: 0.7rem; align-items: flex-end; flex-wrap: wrap; padding-top: 1rem; border-top: 1px solid rgba(65,156,201,0.1); }
-.add-slot .input-group { display: flex; flex-direction: column; gap: 0.2rem; }
-.add-slot .input-group label { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
-.add-slot input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.5rem 0.8rem; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; }
-
-/* ── SETTINGS ── */
-.settings-card    { background: #fff; border: 1px solid rgba(65,156,201,0.1); padding: 1.5rem; margin-bottom: 1.5rem; }
-.settings-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(65,156,201,0.1); }
-.setting-row { display: grid; grid-template-columns: 180px 1fr; gap: 1rem; align-items: center; margin-bottom: 0.9rem; }
-.setting-row label { font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); }
-.setting-row input { border: 1px solid rgba(65,156,201,0.22); background: #f8fbfd; padding: 0.55rem 0.9rem; font-size: 0.88rem; font-family: 'DM Sans', sans-serif; color: var(--dark); outline: none; transition: border-color .2s; width: 100%; }
-.setting-row input:focus { border-color: var(--blue); }
-.settings-note { font-size: 0.75rem; color: var(--mid); line-height: 1.6; margin-top: 0.5rem; }
-.save-indicator { font-size: 0.72rem; color: var(--green); margin-left: 0.5rem; opacity: 0; transition: opacity .3s; }
-.save-indicator.show { opacity: 1; }
-
-/* ── MODAL ── */
-.modal-bg  { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 500; align-items: center; justify-content: center; padding: 1rem; }
-.modal-bg.open { display: flex; }
-.modal { background: #fff; padding: 2rem; max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
-.modal::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); }
-.modal h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--dark); margin-bottom: 1.5rem; }
-.modal-actions { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
-.modal .field--light { margin-bottom: 0.9rem; }
-
+.success-page__details .row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+.success-page__details .row span { color: rgba(255,255,255,0.6); font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.success-page__details strong { color: #fff; font-weight: 600; }
+.success-page__cta { margin-top: 2.5rem; }
+.success-page__note { margin-top: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+.logo-top { height: 70px; width: auto; margin-bottom: 2.5rem; filter: brightness(0) invert(1); }
 </style>
 </head>
-<body class="dash-page">
+<body>
 
-<!-- HEADER -->
-<div class="dash-header">
-  <a href="dashboard.html" class="dash-header__logo"><img src="../assets/logo.png" alt="Ricciardi" style="height:36px;width:auto;display:block;filter:invert(1)"></a>
-  <div class="dash-header__actions">
-    <button class="btn btn--outline btn--sm" onclick="exportCSV()">↓ Esporta CSV</button>
-    <button class="btn btn--outline btn--sm" onclick="logout()">Esci</button>
+<div class="success-page" id="page-success">
+  <img class="logo-top" src="assets/logo.png" alt="Ricciardi Studio Dentistico" onerror="this.style.display='none'">
+  <div class="success-page__check">&#10003;</div>
+  <h2>Prenotazione <em>confermata.</em></h2>
+  <p>Grazie, abbiamo ricevuto la tua richiesta per il trattamento <strong>Total Lift</strong>.<br>
+     La nostra segreteria ti ricorder&agrave; l'appuntamento prima della visita.</p>
+
+  <div class="success-page__details" id="success-details">
+    <div class="row"><span>Caricamento&hellip;</span></div>
   </div>
+
+  <div class="success-page__cta">
+    <a href="index.html" class="btn btn--primary">Torna alla home</a>
+  </div>
+  <p class="success-page__note">Riceverai conferma anche via email.</p>
 </div>
-
-<!-- SAVED BANNER -->
-<div id="saved-banner" style="
-  display:none;position:fixed;top:60px;left:0;right:0;z-index:300;
-  background:var(--green);color:#fff;text-align:center;
-  padding:0.75rem;font-size:0.85rem;font-family:'DM Sans',sans-serif;
-  font-weight:500;letter-spacing:0.05em;transition:opacity .3s;
-">✓ Salvato con successo</div>
-
-<!-- TABS -->
-<div class="dash-tabs">
-  <button class="dash-tab active" onclick="switchTab('prenotazioni', this)">📋 Prenotazioni</button>
-  <button class="dash-tab" onclick="switchTab('slot-mgr', this)">🕐 Gestione Slot</button>
-  <button class="dash-tab" onclick="switchTab('impostazioni', this)">⚙️ Impostazioni</button>
-</div>
-
-<!-- ═══ PANEL: PRENOTAZIONI ═══ -->
-<div id="panel-prenotazioni" class="dash-panel active">
-
-  <div class="stats-grid">
-    <div class="stat-card"><p class="stat-card__label">Totale</p><p class="stat-card__val" id="s-tot">0</p><p class="stat-card__sub">prenotazioni</p></div>
-    <div class="stat-card"><p class="stat-card__label">Pagate</p><p class="stat-card__val" id="s-paid">0</p><p class="stat-card__sub">completate</p></div>
-    <div class="stat-card"><p class="stat-card__label">Incasso</p><p class="stat-card__val" id="s-inc">€0</p><p class="stat-card__sub">totale</p></div>
-    <div class="stat-card"><p class="stat-card__label">Promemoria</p><p class="stat-card__val" id="s-prom">0</p><p class="stat-card__sub">da inviare</p></div>
-    <div class="stat-card"><p class="stat-card__label">Slot liberi</p><p class="stat-card__val" id="s-free">0</p><p class="stat-card__sub">disponibili</p></div>
-  </div>
-
-  <div class="filters">
-    <div class="filter-group">
-      <label>Giorno</label>
-      <input type="date" id="f-day" onchange="renderBookings()">
-    </div>
-    <div class="filter-group">
-      <label>Orario</label>
-      <input type="text" id="f-time" placeholder="es. 09:00" style="width:90px" oninput="renderBookings()">
-    </div>
-    <div class="filter-group">
-      <label>Stato pagamento</label>
-      <select id="f-payment" onchange="renderBookings()">
-        <option value="">Tutti</option>
-        <option value="paid">Pagato</option>
-        <option value="pending">In attesa</option>
-        <option value="failed">Fallito</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Promemoria</label>
-      <select id="f-reminder" onchange="renderBookings()">
-        <option value="">Tutti</option>
-        <option value="no">Non inviato</option>
-        <option value="si">Inviato</option>
-      </select>
-    </div>
-    <button class="btn btn--outline btn--sm" onclick="clearFilters()">Reset</button>
-  </div>
-
-  <div class="table-wrap">
-    <div class="table-head">
-      <h3>Elenco prenotazioni</h3>
-      <button class="btn btn--outline btn--sm" onclick="exportCSV()">↓ CSV</button>
-    </div>
-    <table>
-      <thead><tr>
-        <th>#</th><th>Nome e cognome</th><th>Telefono</th><th>Email</th>
-        <th>Giorno</th><th>Orario</th>
-        <th>Q1 – Risultato</th><th>Q2 – Grado</th><th>Q3 – Sede</th>
-        <th>Pagamento</th><th>Importo</th><th>Note</th>
-        <th>Promemoria</th><th>Prenotato il</th><th>Azioni</th>
-      </tr></thead>
-      <tbody id="tbody"></tbody>
-    </table>
-  </div>
-
-</div>
-
-<!-- ═══ PANEL: GESTIONE SLOT ═══ -->
-<div id="panel-slot-mgr" class="dash-panel">
-
-  <div class="slot-mgr">
-    <h3>Giorno evento</h3>
-    <div class="setting-row">
-      <label>Data evento</label>
-      <input type="date" id="admin-day">
-      </div>
-      <div class="setting-row">
-        <label></label>
-        <div style="display:flex;align-items:center;gap:1rem">
-          <button class="btn btn--primary btn--sm" onclick="saveEventDay()">Salva data</button>
-          <span id="saved-day" style="font-size:0.75rem;color:var(--green);opacity:0;transition:opacity .3s">✓ Salvato</span>
-        </div>
-      </div>
-      <div style="display:none">
-    </div>
-  </div>
-
-  <div class="slot-mgr">
-    <h3>Slot appuntamenti</h3>
-    <div class="slot-items" id="slot-list"></div>
-    <div class="add-slot">
-      <div class="input-group">
-        <label>Inizio</label>
-        <input type="time" id="ns-start">
-      </div>
-      <div class="input-group">
-        <label>Fine</label>
-        <input type="time" id="ns-end">
-      </div>
-      <button class="btn btn--primary btn--sm" onclick="addSlot()">+ Aggiungi slot</button>
-    </div>
-  </div>
-
-</div>
-
-<!-- ═══ PANEL: IMPOSTAZIONI ═══ -->
-<div id="panel-impostazioni" class="dash-panel">
-
-  <div class="settings-card">
-    <h3>Meta Pixel <span class="save-indicator" id="si-pixel">✓ Salvato</span></h3>
-    <div class="setting-row">
-      <label>Pixel ID</label>
-      <input type="text" id="cfg-pixel" placeholder="es. 1234567890123456"
-             oninput="saveCfgField('pixelId','cfg-pixel','si-pixel')">
-    </div>
-    <p class="settings-note">
-      Eventi tracciati: PageView · ClickPrenotazione · QuestionarioCompletato ·
-      Lead · SlotSelected · InitiateCheckout · Purchase
-    </p>
-  </div>
-
-  <div class="settings-card">
-    <h3>Stripe <span class="save-indicator" id="si-stripe">✓ Salvato</span></h3>
-    <div class="setting-row">
-      <label>Publishable Key</label>
-      <input type="text" id="cfg-pk" placeholder="pk_live_..."
-             oninput="saveCfgFields(['stripePk'],['cfg-pk'],'si-stripe')">
-    </div>
-    <div class="setting-row">
-      <label>Prezzo (centesimi)</label>
-      <input type="number" id="cfg-amount" placeholder="es. 15000 = €150,00"
-             oninput="saveCfgFields(['stripeAmount'],['cfg-amount'],'si-stripe')">
-    </div>
-    <div class="setting-row">
-      <label>Descrizione</label>
-      <input type="text" id="cfg-desc" placeholder="Consulenza Total Lift"
-             oninput="saveCfgFields(['stripeDesc'],['cfg-desc'],'si-stripe')">
-    </div>
-    <p class="settings-note">
-      ⚠️ Per i pagamenti reali è necessario un backend che crei il PaymentIntent.
-      La Publishable Key da sola non è sufficiente per finalizzare i pagamenti.
-    </p>
-  </div>
-
-  <div class="settings-card">
-    <h3>Accesso dashboard <span class="save-indicator" id="si-auth">✓ Salvato</span></h3>
-    <div class="setting-row">
-      <label>Username</label>
-      <input type="text" value="admin" readonly style="background:#eee;cursor:not-allowed">
-    </div>
-    <div class="setting-row">
-      <label>Password</label>
-      <input type="text" id="cfg-pw" placeholder="ricciardi2025"
-             oninput="saveCfgFields(['adminPw'],['cfg-pw'],'si-auth')">
-    </div>
-  </div>
-
-</div>
-
-<!-- EDIT MODAL -->
-<div class="modal-bg" id="modal-bg">
-  <div class="modal">
-    <h3>Modifica prenotazione</h3>
-    <input type="hidden" id="edit-id">
-    <div class="grid-2">
-      <div class="field field--light mb-1"><label>Nome</label><input type="text" id="e-nome"></div>
-      <div class="field field--light mb-1"><label>Cognome</label><input type="text" id="e-cognome"></div>
-    </div>
-    <div class="field field--light mb-1"><label>Email</label><input type="email" id="e-email"></div>
-    <div class="field field--light mb-1"><label>Telefono</label><input type="tel" id="e-tel"></div>
-    <div class="field field--light mb-1"><label>Orario (es. 09:00-10:00)</label><input type="text" id="e-ora"></div>
-    <div class="field field--light mb-1">
-      <label>Note</label>
-      <textarea id="e-note" rows="3" style="width:100%;padding:0.7rem;border:1px solid rgba(65,156,201,0.22);background:#f8fbfd;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:var(--text);outline:none;resize:vertical"></textarea>
-    </div>
-    <div class="modal-actions">
-      <button class="btn btn--primary btn--sm" onclick="saveEdit()">Salva modifiche</button>
-      <button class="btn btn--outline btn--sm" onclick="closeModal()">Annulla</button>
-    </div>
-  </div>
-</div>
-
-
 
 <script type="module">
-/* ═══════════════════════════════════════════════
-   storage.js — Firebase Firestore + fallback localStorage
-   Ricciardi Studio Dentistico · Total Lift
-═══════════════════════════════════════════════ */
+/* grazie.html — Conferma prenotazione.
+   Legge i parametri dall'URL di ritorno da Stripe, aggiorna lo stato
+   del lead a "paid" su Firestore (fallback localStorage) e mostra il riepilogo. */
 
-// ── FIREBASE CONFIG ──────────────────────────
 const firebaseConfig = {
   apiKey:            "AIzaSyCVC6fHbo8OHevILIkI9j_XDyP4GoWCHAQ",
   authDomain:        "landing-total-stripe.firebaseapp.com",
@@ -457,509 +101,112 @@ const firebaseConfig = {
   appId:             "1:528151902496:web:9da1394fe42a30a36dff45"
 };
 
-// ── FIREBASE INIT ────────────────────────────
-import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, doc,
-         getDocs, getDoc, setDoc, addDoc,
-         updateDoc, deleteDoc, onSnapshot,
-         query, orderBy }                         from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc, addDoc, updateDoc }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const _app = initializeApp(firebaseConfig);
 const db   = getFirestore(_app);
 
-// ── COLLEZIONI FIRESTORE ─────────────────────
-// /bookings/{id}   → prenotazioni
-// /config/main     → cfg (pixelId, stripePk, stripeAmount, stripeDesc, adminPw, eventDay)
-// /slots/{id}      → slot orari
-
-// ── DEFAULT SLOTS ────────────────────────────
-const DEFAULT_SLOTS = [
-  { id: 's1', start: '09:00', end: '10:00', blocked: false },
-  { id: 's2', start: '10:00', end: '11:00', blocked: false },
-  { id: 's3', start: '11:00', end: '12:00', blocked: false },
-  { id: 's4', start: '12:00', end: '13:00', blocked: false },
-  { id: 's5', start: '14:00', end: '15:00', blocked: false },
-  { id: 's6', start: '15:00', end: '16:00', blocked: false },
-  { id: 's7', start: '16:00', end: '17:00', blocked: false },
-  { id: 's8', start: '17:00', end: '18:00', blocked: false },
-];
-
-// ── TL OBJECT ────────────────────────────────
-const TL = {
-
-  /* CONFIG */
-  _cfg: {},
-  async loadCfg() {
-    try {
-      // Firestore è la fonte primaria
-      const snap = await getDoc(doc(db, 'config', 'main'));
-      if (snap.exists()) {
-        TL._cfg = snap.data();
-        // Aggiorna anche localStorage per uso offline
-        localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
-        if (TL._cfg.eventDay) localStorage.setItem('tl_eventDay', TL._cfg.eventDay);
-      } else {
-        // Documento non esiste ancora, usa localStorage
-        TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
-      }
-    } catch(e) {
-      // Firestore non raggiungibile, usa localStorage
-      console.warn('Firestore loadCfg fallback:', e.message);
-      TL._cfg = JSON.parse(localStorage.getItem('tl_cfg') || '{}');
-    }
-    return TL._cfg;
-  },
-  cfg() { return TL._cfg; },
-  async saveCfg(data) {
-    TL._cfg = { ...TL._cfg, ...data };
-    try {
-      // Salva su Firestore (fonte primaria)
-      await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
-      console.log('Firestore saveCfg OK:', data);
-    } catch(e) {
-      console.warn('Firestore saveCfg fallback:', e.message);
-    }
-    // Salva sempre anche su localStorage come backup
-    localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
-    if (data.eventDay) localStorage.setItem('tl_eventDay', data.eventDay);
-  },
-
-  /* PRENOTAZIONI */
-  async getBookings() {
-    try {
-      const snap = await getDocs(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')));
-      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    } catch(e) {
-      return JSON.parse(localStorage.getItem('tl_bookings') || '[]');
-    }
-  },
-  async addBooking(b) {
-    try {
-      const ref = await addDoc(collection(db, 'bookings'), b);
-      return ref.id;
-    } catch(e) {
-      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]');
-      bks.push(b);
-      localStorage.setItem('tl_bookings', JSON.stringify(bks));
-      return b.id;
-    }
-  },
-  async updateBooking(id, data) {
-    try {
-      await updateDoc(doc(db, 'bookings', id), data);
-    } catch(e) {
-      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]');
-      const i = bks.findIndex(b => b.id === id);
-      if (i > -1) { bks[i] = { ...bks[i], ...data }; localStorage.setItem('tl_bookings', JSON.stringify(bks)); }
-    }
-  },
-  async deleteBooking(id) {
-    try {
-      await deleteDoc(doc(db, 'bookings', id));
-    } catch(e) {
-      const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]').filter(b => b.id !== id);
-      localStorage.setItem('tl_bookings', JSON.stringify(bks));
-    }
-  },
-
-  /* SLOTS */
-  async getSlots() {
-    try {
-      const snap = await getDocs(collection(db, 'slots'));
-      if (snap.empty) {
-        await TL.initDefaultSlots();
-        return DEFAULT_SLOTS;
-      }
-      return snap.docs.map(d => ({ id: d.id, ...d.data() }))
-                      .sort((a,b) => a.start.localeCompare(b.start));
-    } catch(e) {
-      return JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
-    }
-  },
-  async initDefaultSlots() {
-    for (const s of DEFAULT_SLOTS) {
-      await setDoc(doc(db, 'slots', s.id), { start: s.start, end: s.end, blocked: s.blocked });
-    }
-  },
-  async saveSlot(id, data) {
-    try {
-      await setDoc(doc(db, 'slots', id), data, { merge: true });
-    } catch(e) {
-      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
-      const i = slots.findIndex(s => s.id === id);
-      if (i > -1) slots[i] = { ...slots[i], ...data };
-      localStorage.setItem('tl_slots', JSON.stringify(slots));
-    }
-  },
-  async addSlot(slot) {
-    try {
-      await setDoc(doc(db, 'slots', slot.id), { start: slot.start, end: slot.end, blocked: false });
-    } catch(e) {
-      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS));
-      slots.push(slot);
-      localStorage.setItem('tl_slots', JSON.stringify(slots));
-    }
-  },
-  async deleteSlot(id) {
-    try {
-      await deleteDoc(doc(db, 'slots', id));
-    } catch(e) {
-      const slots = JSON.parse(localStorage.getItem('tl_slots') || JSON.stringify(DEFAULT_SLOTS)).filter(s => s.id !== id);
-      localStorage.setItem('tl_slots', JSON.stringify(slots));
-    }
-  },
-
-  /* EVENTO */
-  eventDay() { return TL._cfg.eventDay || localStorage.getItem('tl_eventDay') || '2025-05-27'; },
-
-  /* REAL-TIME LISTENER prenotazioni (per dashboard) */
-  onBookingsChange(callback) {
-    try {
-      return onSnapshot(
-        query(collection(db, 'bookings'), orderBy('createdAt', 'desc')),
-        snap => callback(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-      );
-    } catch(e) {
-      return () => {};
-    }
-  }
-};
-
-
-/* ═══════════════════════════════════════════════
-   dashboard.js — Logica admin dashboard (Firebase)
-   Ricciardi Studio Dentistico · Total Lift
-═══════════════════════════════════════════════ */
-
 function formatDay(dateStr) {
-  if (!dateStr) return '';
-  return new Date(dateStr + 'T12:00:00').toLocaleDateString('it-IT', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-  });
-}
-
-function q1Label(v) {
-  const m = { asimmetria: 'Asimmetria', prevenzione: 'Prevenzione', cambiamento: 'Cambiamento visibile', fresco: 'Aspetto fresco' };
-  return m[v] || v || '—';
-}
-
-/* ── AUTH ── */
-function checkAuth() {
-  if (sessionStorage.getItem('tl_auth') !== '1') window.location.href = '/admin/login';
-}
-function logout() { sessionStorage.removeItem('tl_auth'); window.location.href = '/admin/login'; }
-
-/* ── TABS ── */
-function switchTab(name, btn) {
-  document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.dash-panel').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('panel-' + name).classList.add('active');
-  if (name === 'slot-mgr')    renderSlotMgr();
-  if (name === 'impostazioni') loadSettings();
-}
-
-/* ── STATS ── */
-let _allBookings = [];
-
-function updateStats(bks, slots) {
-  const paid = bks.filter(b => b.payment === 'paid');
-  const prom = bks.filter(b => b.promemoria === 'no');
-  const day  = TL.eventDay();
-  const taken = bks.filter(b => b.data === day && b.payment === 'paid').map(b => b.ora);
-  const free  = slots.filter(s => !s.blocked && !taken.includes(s.start + '-' + s.end)).length;
-  document.getElementById('s-tot').textContent  = bks.length;
-  document.getElementById('s-paid').textContent = paid.length;
-  document.getElementById('s-inc').textContent  = '€' + paid.reduce((a, b) => a + (b.amount / 100 || 0), 0).toFixed(0);
-  document.getElementById('s-prom').textContent = prom.length;
-  document.getElementById('s-free').textContent = free;
-}
-
-/* ── TABELLA PRENOTAZIONI ── */
-async function renderBookings() {
-  _allBookings = await TL.getBookings();
-  const slots  = await TL.getSlots();
-  updateStats(_allBookings, slots);
-  applyFilters();
-}
-
-function applyFilters() {
-  let bks = [..._allBookings];
-  const fd = document.getElementById('f-day').value;
-  const fp = document.getElementById('f-payment').value;
-  const fr = document.getElementById('f-reminder').value;
-  const ft = document.getElementById('f-time').value.trim();
-  if (fd) bks = bks.filter(b => b.data === fd);
-  if (fp) bks = bks.filter(b => b.payment === fp);
-  if (fr) bks = bks.filter(b => b.promemoria === fr);
-  if (ft) bks = bks.filter(b => b.ora && b.ora.startsWith(ft));
-
-  const tb = document.getElementById('tbody');
-  tb.innerHTML = '';
-  if (!bks.length) {
-    tb.innerHTML = '<tr><td colspan="15" style="text-align:center;padding:2.5rem;color:var(--mid)">Nessuna prenotazione trovata.</td></tr>';
-    return;
-  }
-  bks.forEach((b, i) => {
-    const pmB = b.payment === 'paid' ? 'badge--paid' : b.payment === 'failed' ? 'badge--failed' : 'badge--pending';
-    const pmL = b.payment === 'paid' ? 'Pagato' : b.payment === 'failed' ? 'Fallito' : 'In attesa';
-    const prB = b.promemoria === 'si' ? 'badge--yes' : 'badge--no';
-    const dt  = b.createdAt ? new Date(b.createdAt).toLocaleString('it-IT') : '—';
-    const ora = b.ora ? b.ora.replace('-', ' – ') : '—';
-    const tr  = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${i + 1}</td>
-      <td><strong>${b.nome} ${b.cognome}</strong></td>
-      <td>${b.tel || '—'}</td>
-      <td style="font-size:0.73rem">${b.email || '—'}</td>
-      <td>${b.data || '—'}</td>
-      <td><strong>${ora}</strong></td>
-      <td class="wrap">${q1Label(b.q1)}</td>
-      <td>${b.q2 || '—'}</td>
-      <td>${b.q3 === 'si' ? '✅ Sì' : '❌ No'}</td>
-      <td>
-        <div style="display:flex;align-items:center;gap:0.5rem">
-          <div style="width:12px;height:12px;border-radius:2px;background:${b.payment==='paid'?'#27ae60':b.payment==='failed'?'#e74c3c':'#e67e22'};flex-shrink:0"></div>
-          <span class="badge ${pmB}">${pmL}</span>
-        </div>
-      </td>
-      <td>${b.amount ? '€' + (b.amount / 100).toFixed(2) : '—'}</td>
-      <td class="wrap">${b.note || '—'}</td>
-      <td>
-        <span class="badge ${prB}">${b.promemoria === 'si' ? 'Inviato' : 'Non inviato'}</span><br>
-        <button class="act ${b.promemoria === 'si' ? 'act-danger' : 'act-green'}" style="margin-top:4px" onclick="toggleProm('${b.id}','${b.promemoria}')">
-          ${b.promemoria === 'si' ? '↩ Reset' : '✓ Segna inviato'}
-        </button>
-      </td>
-      <td style="font-size:0.72rem;color:var(--mid)">${dt}</td>
-      <td>
-        <div class="actions">
-          <button class="act" onclick="openEdit('${b.id}')">✏️</button>
-          <button class="act act-danger" onclick="delBooking('${b.id}')">🗑</button>
-        </div>
-      </td>
-    `;
-    tb.appendChild(tr);
-  });
-}
-
-function clearFilters() {
-  ['f-day','f-time'].forEach(id => document.getElementById(id).value = '');
-  ['f-payment','f-reminder'].forEach(id => document.getElementById(id).value = '');
-  applyFilters();
-}
-
-async function toggleProm(id, current) {
-  const next = current === 'si' ? 'no' : 'si';
-  await TL.updateBooking(id, { promemoria: next });
-  await renderBookings();
-}
-
-async function delBooking(id) {
-  if (!confirm('Eliminare questa prenotazione? L\'azione è irreversibile.')) return;
-  await TL.deleteBooking(id);
-  await renderBookings();
-}
-
-/* ── EDIT MODAL ── */
-function openEdit(id) {
-  const b = _allBookings.find(x => x.id === id);
-  if (!b) return;
-  document.getElementById('edit-id').value    = id;
-  document.getElementById('e-nome').value     = b.nome;
-  document.getElementById('e-cognome').value  = b.cognome;
-  document.getElementById('e-email').value    = b.email;
-  document.getElementById('e-tel').value      = b.tel;
-  document.getElementById('e-ora').value      = b.ora;
-  document.getElementById('e-note').value     = b.note || '';
-  document.getElementById('modal-bg').classList.add('open');
-}
-function closeModal() { document.getElementById('modal-bg').classList.remove('open'); }
-
-async function saveEdit() {
-  const id = document.getElementById('edit-id').value;
-  await TL.updateBooking(id, {
-    nome:    document.getElementById('e-nome').value,
-    cognome: document.getElementById('e-cognome').value,
-    email:   document.getElementById('e-email').value,
-    tel:     document.getElementById('e-tel').value,
-    ora:     document.getElementById('e-ora').value,
-    note:    document.getElementById('e-note').value,
-  });
-  closeModal();
-  await renderBookings();
-}
-
-/* ── CSV EXPORT ── */
-async function exportCSV() {
-  const bks = await TL.getBookings();
-  if (!bks.length) { alert('Nessun dato da esportare.'); return; }
-  const H = ['ID','Nome','Cognome','Email','Telefono','Data','Orario','Q1','Q2','Q3','Pagamento','Importo','Note','Promemoria','Creato il'];
-  const R = bks.map(b => [b.id,b.nome,b.cognome,b.email,b.tel,b.data,b.ora,b.q1,b.q2,b.q3,b.payment,b.amount?b.amount/100:'',b.note||'',b.promemoria,b.createdAt]);
-  const csv = [H,...R].map(r => r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
-  a.download = 'totallift_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-}
-
-/* ── SLOT MANAGER ── */
-async function renderSlotMgr() {
-  // Non sovrascrivere il campo se l'utente sta modificando
-  const savedDay = TL.eventDay();
-  document.getElementById('admin-day').value = savedDay;
-  const slots = await TL.getSlots();
-  const bks   = await TL.getBookings();
-  const day   = TL.eventDay();
-  const list  = document.getElementById('slot-list');
-  list.innerHTML = '';
-  slots.forEach(s => {
-    const taken = bks.some(b => b.ora === s.start+'-'+s.end && b.data === day && b.payment !== 'failed');
-    const div = document.createElement('div');
-    div.className = 'slot-item';
-    div.innerHTML = `
-      <div>
-        <div class="slot-item__time">${s.start} – ${s.end}</div>
-        <div class="slot-item__status">${s.blocked ? '🔒 Bloccato' : taken ? '✅ Prenotato' : '🟢 Libero'}</div>
-      </div>
-      <div class="slot-item__acts">
-        <button class="act ${s.blocked?'act-green':''}" onclick="toggleBlock('${s.id}',${s.blocked})">${s.blocked?'Sblocca':'Blocca'}</button>
-        ${!taken ? `<button class="act act-danger" onclick="removeSlot('${s.id}')">Elimina</button>` : '<button class="act" disabled style="opacity:.3">—</button>'}
-      </div>
-    `;
-    list.appendChild(div);
-  });
-}
-
-async function saveEventDay() {
-  const newDay = document.getElementById('admin-day').value;
-  if (!newDay) { alert('Seleziona una data valida'); return; }
-  // Aggiorna direttamente senza passare per loadCfg che potrebbe sovrascrivere
-  TL._cfg.eventDay = newDay;
-  localStorage.setItem('tl_eventDay', newDay);
-  localStorage.setItem('tl_cfg', JSON.stringify(TL._cfg));
+  if (!dateStr) return '—';
   try {
-    const { setDoc, doc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await setDoc(doc(db, 'config', 'main'), TL._cfg, { merge: true });
-  } catch(e) { console.warn('Firestore:', e.message); }
-  // Mantieni il campo con la data salvata
-  document.getElementById('admin-day').value = newDay;
-  // Banner "Salvato" inline
-  const sp = document.getElementById('saved-day');
-  sp.style.opacity = '1';
-  clearTimeout(sp._t);
-  sp._t = setTimeout(() => sp.style.opacity = '0', 2500);
-  // Banner in alto
-  showSavedBanner('Data evento aggiornata');
+    const d = new Date(dateStr + 'T12:00:00');
+    const f = d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    return f.charAt(0).toUpperCase() + f.slice(1);
+  } catch(e) { return dateStr; }
 }
 
-async function toggleBlock(id, current) {
-  await TL.saveSlot(id, { blocked: !current });
-  await renderSlotMgr();
+async function markPaid(leadId, amount) {
+  const updateData = {
+    payment:  'paid',
+    amount:   amount || 2000,
+    leadOnly: false,
+    paidAt:   new Date().toISOString()
+  };
+
+  let pending = {};
+  try { pending = JSON.parse(localStorage.getItem('tl_pending_booking') || '{}'); } catch(e) {}
+
+  if (leadId) {
+    try {
+      await updateDoc(doc(db, 'bookings', leadId), updateData);
+      return leadId;
+    } catch(e) { console.warn('Firestore updateDoc fallback:', e.message); }
+  }
+
+  const p = new URLSearchParams(window.location.search);
+  const newBooking = {
+    nome:    p.get('nome')    || pending.nome    || '',
+    cognome: p.get('cognome') || pending.cognome || '',
+    email:   p.get('email')   || pending.email   || '',
+    tel:     pending.tel  || '',
+    note:    pending.note || '',
+    data:    p.get('data') || pending.data || '',
+    ora:     p.get('ora')  || pending.ora  || '',
+    ...updateData,
+    promemoria: 'no',
+    createdAt:  new Date().toISOString()
+  };
+  try {
+    const ref = await addDoc(collection(db, 'bookings'), newBooking);
+    return ref.id;
+  } catch(e) {
+    console.warn('Firestore addDoc fallback localStorage:', e.message);
+    const bks = JSON.parse(localStorage.getItem('tl_bookings') || '[]');
+    if (leadId) {
+      const i = bks.findIndex(b => b.id === leadId);
+      if (i > -1) bks[i] = { ...bks[i], ...updateData };
+      else bks.push({ id: leadId, ...newBooking });
+    } else {
+      newBooking.id = 'local_' + Date.now();
+      bks.push(newBooking);
+    }
+    localStorage.setItem('tl_bookings', JSON.stringify(bks));
+    return leadId || newBooking.id;
+  }
 }
 
-async function removeSlot(id) {
-  if (!confirm('Eliminare questo slot?')) return;
-  await TL.deleteSlot(id);
-  await renderSlotMgr();
+function renderDetails({ nome, cognome, data, ora, amount }) {
+  const oraDisp = ora ? ora.replace('-', ' – ') : '—';
+  const acc = amount ? (amount / 100).toFixed(0) : '20';
+  document.getElementById('success-details').innerHTML =
+    '<div class="row"><span>Paziente</span><strong>' + ((nome||'') + ' ' + (cognome||'')) + '</strong></div>' +
+    '<div class="row"><span>Data</span><strong>' + formatDay(data) + '</strong></div>' +
+    '<div class="row"><span>Orario</span><strong>' + oraDisp + '</strong></div>' +
+    '<div class="row"><span>Acconto pagato</span><strong>€ ' + acc + '</strong></div>' +
+    '<div class="row"><span>Saldo in studio</span><strong>€ 67</strong></div>';
 }
 
-async function addSlot() {
-  const start = document.getElementById('ns-start').value;
-  const end   = document.getElementById('ns-end').value;
-  if (!start || !end) { alert('Inserisci orario di inizio e fine.'); return; }
-  await TL.addSlot({ id: 's' + Date.now(), start, end, blocked: false });
-  document.getElementById('ns-start').value = '';
-  document.getElementById('ns-end').value   = '';
-  await renderSlotMgr();
-}
-
-/* ── SETTINGS ── */
-function loadSettings() {
-  const c = TL.cfg();
-  document.getElementById('cfg-pixel').value  = c.pixelId  || '';
-  document.getElementById('cfg-pk').value     = c.stripePk || '';
-  document.getElementById('cfg-amount').value = c.stripeAmount || '';
-  document.getElementById('cfg-desc').value   = c.stripeDesc || 'Consulenza Total Lift';
-  document.getElementById('cfg-pw').value     = c.adminPw  || 'ricciardi2025';
-}
-
-async function saveCfgField(key, inputId, indId) {
-  await TL.saveCfg({ [key]: document.getElementById(inputId).value });
-  flashSave(indId);
-  showSavedBanner();
-}
-
-async function saveCfgFields(keys, inputIds, indId) {
-  const obj = {};
-  keys.forEach((k, i) => {
-    const v = document.getElementById(inputIds[i]).value;
-    obj[k] = k === 'stripeAmount' ? parseInt(v) || 0 : v;
-  });
-  await TL.saveCfg(obj);
-  flashSave(indId);
-  showSavedBanner();
-}
-
-function showSavedBanner(msg) {
-  const el = document.getElementById('saved-banner');
-  el.textContent = '✓ ' + (msg || 'Salvato con successo');
-  el.style.display = 'block';
-  el.style.opacity = '1';
-  clearTimeout(el._t);
-  el._t = setTimeout(() => {
-    el.style.opacity = '0';
-    setTimeout(() => el.style.display = 'none', 300);
-  }, 2500);
-}
-window.showSavedBanner = showSavedBanner;
-
-function flashSave(id) {
-  const el = document.getElementById(id);
-  el.classList.add('show');
-  clearTimeout(el._t);
-  el._t = setTimeout(() => el.classList.remove('show'), 2000);
-}
-
-
-// Esponi funzioni globali
-window.switchTab    = switchTab;
-window.renderBookings = renderBookings;
-window.clearFilters = clearFilters;
-window.toggleProm   = toggleProm;
-window.delBooking   = delBooking;
-window.openEdit     = openEdit;
-window.closeModal   = closeModal;
-window.saveEdit     = saveEdit;
-window.exportCSV    = exportCSV;
-window.renderSlotMgr = renderSlotMgr;
-window.saveEventDay = saveEventDay;
-window.toggleBlock  = toggleBlock;
-window.removeSlot   = removeSlot;
-window.addSlot      = addSlot;
-window.loadSettings = loadSettings;
-window.saveCfgField = saveCfgField;
-window.saveCfgFields= saveCfgFields;
-window.logout       = logout;
-
-/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', async () => {
-  checkAuth();
-  await TL.loadCfg();
-  await renderBookings();
-  document.getElementById('modal-bg').addEventListener('click', e => {
-    if (e.target === document.getElementById('modal-bg')) closeModal();
-  });
+  const p = new URLSearchParams(window.location.search);
 
-  // Real-time aggiornamento prenotazioni
-  TL.onBookingsChange(async (bks) => {
-    _allBookings = bks;
-    const slots = await TL.getSlots();
-    updateStats(bks, slots);
-    applyFilters();
-  });
+  let pending = {};
+  try { pending = JSON.parse(localStorage.getItem('tl_pending_booking') || '{}'); } catch(e) {}
+
+  const leadId = p.get('lead_id') || pending.leadId || '';
+  const amount = parseInt(p.get('amount')) || 2000;
+
+  const details = {
+    nome:    p.get('nome')    || pending.nome    || '',
+    cognome: p.get('cognome') || pending.cognome || '',
+    data:    p.get('data')    || pending.data    || '',
+    ora:     p.get('ora')     || pending.ora     || '',
+    amount
+  };
+
+  renderDetails(details);
+
+  try { await markPaid(leadId, amount); }
+  catch(e) { console.warn('markPaid error:', e.message); }
+
+  localStorage.removeItem('tl_pending_booking');
+
+  if (typeof fbq === 'function') fbq('track', 'Purchase', { value: amount / 100, currency: 'EUR' });
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: 'Purchase', value: amount / 100, currency: 'EUR' });
 });
-
 </script>
+
 </body>
 </html>
