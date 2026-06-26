@@ -175,10 +175,10 @@ img    { display: block; max-width: 100%; }
 .intro__text { background: var(--dark); padding: 5rem 4.5rem; display: flex; flex-direction: column; justify-content: center; }
 .intro__text h2 { font-size: clamp(2rem, 3.5vw, 2.9rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.5rem; }
 .intro__text h2 em { font-style: italic; color: var(--blue); }
-.intro__text p { font-size: 0.95rem; color: rgba(255,255,255,0.58); line-height: 1.85; font-weight: 300; margin-bottom: 1rem; }
+.intro__text p { font-size: 1.05rem; color: rgba(255,255,255,0.90); line-height: 1.85; font-weight: 300; margin-bottom: 1rem; }
 .intro__bullets { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
-.intro__bullets li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.85rem; color: rgba(255,255,255,0.72); }
-.intro__bullets li::before { content: ''; width: 22px; height: 1px; background: var(--blue); flex-shrink: 0; }
+.intro__bullets li { display: flex; align-items: center; gap: 0.8rem; font-size: 0.95rem; color: #ffffff; font-weight: 500; }
+.intro__bullets li::before { content: '✓'; width: auto; background: none; color: var(--blue-light); font-weight: 700; font-size: 1rem; flex-shrink: 0; }
 .intro__img { position: relative; overflow: hidden; }
 .intro__img img { width: 100%; height: 100%; object-fit: cover; }
 .intro__img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,17,23,0.45) 0%, transparent 55%); }
@@ -201,10 +201,10 @@ img    { display: block; max-width: 100%; }
 #flow .inner { max-width: 720px; margin: 0 auto; }
 .progress-bar  { height: 2px; background: rgba(255,255,255,0.08); margin-bottom: 2.8rem; overflow: hidden; border-radius: 2px; }
 .progress-fill { height: 100%; background: var(--blue); transition: width .45s ease; }
-.step-indicator { font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.5rem; display: block; }
+.step-indicator { font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue-light); margin-bottom: 0.5rem; display: block; }
 .quiz-q { font-family: 'Playfair Display', serif; font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 400; color: #fff; margin-bottom: 1.8rem; line-height: 1.35; }
 .options { display: grid; gap: 0.7rem; margin-bottom: 2rem; }
-.opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.3rem; border: 1px solid rgba(65,156,201,0.2); background: rgba(65,156,201,0.04); cursor: pointer; font-size: 0.88rem; color: rgba(255,255,255,0.78); font-weight: 300; transition: border-color .2s, background .2s; }
+.opt { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.3rem; border: 1px solid rgba(65,156,201,0.2); background: rgba(65,156,201,0.04); cursor: pointer; font-size: 0.95rem; color: rgba(255,255,255,0.92); font-weight: 400; transition: border-color .2s, background .2s; }
 .opt:hover { border-color: var(--blue); background: rgba(65,156,201,0.1); }
 .opt.selected { border-color: var(--blue); background: rgba(65,156,201,0.16); color: #fff; }
 .opt__marker { width: 24px; height: 24px; border: 1px solid rgba(65,156,201,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--blue-light); font-weight: 600; transition: all .2s; }
@@ -219,10 +219,10 @@ img    { display: block; max-width: 100%; }
 .block-msg { background: rgba(65,156,201,0.06); border: 1px solid rgba(65,156,201,0.18); padding: 2.5rem 2rem; text-align: center; }
 .block-msg__icon { font-size: 2.5rem; margin-bottom: 1rem; }
 .block-msg h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #fff; margin-bottom: 0.8rem; }
-.block-msg p  { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.75; font-weight: 300; }
+.block-msg p  { font-size: 0.95rem; color: rgba(255,255,255,0.90); line-height: 1.75; font-weight: 300; }
 
 /* SLOTS */
-.slots-label { font-size: 0.63rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.9rem; margin-top: 1.5rem; font-weight: 500; display: block; }
+.slots-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.80); margin-bottom: 0.9rem; margin-top: 1.5rem; font-weight: 500; display: block; }
 .slots-grid  { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 0.6rem; margin-bottom: 1.5rem; }
 .slot { padding: 0.75rem 1rem; border: 1px solid rgba(65,156,201,0.2); font-size: 0.82rem; cursor: pointer; color: rgba(255,255,255,0.72); background: rgba(255,255,255,0.03); transition: all .2s; text-align: center; line-height: 1.3; }
 .slot:hover:not(.slot--taken):not(.slot--blocked) { border-color: var(--blue); color: #fff; background: rgba(65,156,201,0.1); }
@@ -233,7 +233,7 @@ img    { display: block; max-width: 100%; }
 
 /* SUMMARY */
 .summary { background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 1.6rem; margin-bottom: 1.5rem; }
-.summary__row  { display: flex; justify-content: space-between; align-items: baseline; padding: 0.28rem 0; font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+.summary__row  { display: flex; justify-content: space-between; align-items: baseline; padding: 0.28rem 0; font-size: 0.9rem; color: rgba(255,255,255,0.88); }
 .summary__row strong { color: #fff; }
 .summary__total { border-top: 1px solid rgba(65,156,201,0.18); margin-top: 0.5rem; padding-top: 0.5rem; }
 .summary__total .summary__row { font-size: 1.05rem; }
@@ -249,7 +249,7 @@ img    { display: block; max-width: 100%; }
 .pay-btn.loading .pay-spinner { display: block; }
 .pay-btn.loading .pay-label { display: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
-.pay-note { font-size: 0.7rem; color: rgba(255,255,255,0.3); text-align: center; margin-top: 0.8rem; }
+.pay-note { font-size: 0.78rem; color: rgba(255,255,255,0.70); text-align: center; margin-top: 0.8rem; }
 
 /* TESTIMONIALS */
 .testi { background: var(--blue-pale); padding: 5rem 2rem; }
@@ -270,7 +270,7 @@ img    { display: block; max-width: 100%; }
 .cta-banner__content { position: relative; z-index: 2; max-width: 580px; }
 .cta-banner__content h2 { font-size: clamp(1.9rem, 4vw, 3.2rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
 .cta-banner__content h2 em { font-style: italic; color: var(--blue-light); }
-.cta-banner__content p  { color: rgba(255,255,255,0.62); font-size: 0.95rem; margin-bottom: 2.2rem; font-weight: 300; line-height: 1.75; }
+.cta-banner__content p  { color: rgba(255,255,255,0.90); font-size: 1.05rem; margin-bottom: 2.2rem; font-weight: 300; line-height: 1.75; }
 
 /* SUCCESS */
 .success-page { min-height: 100vh; background: var(--dark); display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 2rem; }
@@ -278,8 +278,8 @@ img    { display: block; max-width: 100%; }
 .success-page__check   { width: 80px; height: 80px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem; color: #fff; }
 .success-page h2       { font-size: clamp(2rem,5vw,3rem); color: #fff; font-weight: 700; margin-bottom: 1rem; }
 .success-page h2 em    { font-style: italic; color: var(--blue-light); }
-.success-page > p      { color: rgba(255,255,255,0.58); font-size: 0.95rem; line-height: 1.85; max-width: 480px; font-weight: 300; margin: 0 auto; }
-.success-page__details { margin-top: 2rem; background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.6); text-align: left; max-width: 400px; width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
+.success-page > p      { color: rgba(255,255,255,0.88); font-size: 1rem; line-height: 1.85; max-width: 480px; font-weight: 300; margin: 0 auto; }
+.success-page__details { margin-top: 2rem; background: rgba(65,156,201,0.07); border: 1px solid rgba(65,156,201,0.18); padding: 1.3rem 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.88); text-align: left; max-width: 400px; width: 100%; display: flex; flex-direction: column; gap: 0.5rem; }
 .success-page__details strong { color: #fff; }
 
 /* RESPONSIVE */
@@ -297,6 +297,44 @@ img    { display: block; max-width: 100%; }
 #flow h2.flow-title em { color: var(--blue-light); }
 
 /* ── MOBILE ── */
+/* ── EVIDENZIAZIONE PASSAGGI CHIAVE ── */
+.quiz-q {
+  border-left: 3px solid var(--blue);
+  padding-left: 1rem;
+}
+.step-indicator {
+  background: rgba(65,156,201,0.12);
+  display: inline-block;
+  padding: 0.25rem 0.8rem;
+  border-radius: 0;
+}
+/* Sottolineatura blu sui titoli delle domande nel summary */
+.summary__total {
+  background: rgba(65,156,201,0.08);
+  padding: 0.6rem 0.8rem;
+  border-left: 3px solid var(--blue);
+  margin-left: -0.8rem;
+  margin-right: -0.8rem;
+  padding-left: 0.8rem;
+}
+/* Opt: testo più leggibile al hover */
+.opt:hover { border-color: var(--blue); background: rgba(65,156,201,0.12); color: #fff; }
+/* Label form più visibili */
+.field label { color: rgba(255,255,255,0.75) !important; font-size: 0.68rem; }
+/* Privacy row testo più chiaro */
+.privacy-row span { color: rgba(255,255,255,0.72); font-size: 0.85rem; }
+
+/* ── STRONG SU SFONDI SCURI ── */
+#flow strong, .block-msg strong { color: #ffffff; }
+.intro__text strong { color: #ffffff; }
+.intro__bullets li strong { color: var(--blue-light); letter-spacing: 0.01em; }
+.hero__sub strong { color: #ffffff; }
+.cta-banner__content p strong { color: #ffffff; }
+/* Strong nelle card testimonial */
+.testi__card p strong { color: var(--dark); font-style: normal; }
+/* Stile strong nei blocchi azione */
+.azione p strong { color: var(--dark); }
+
 @media (max-width: 768px) {
   .hero__content   { padding: 5rem 1.8rem 3rem; }
   .hero__ctas      { flex-direction: column; }
@@ -330,7 +368,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero__content">
       <span class="hero__tag">Total Beauty Day · <span id="date-tag"></span></span>
       <h1 class="hero__title">Total <em>Lift</em></h1>
-      <p class="hero__sub">Ringiovanimento completo del volto senza bisturi.<br>Tre azioni sinergiche, un risultato naturale e duraturo.</p>
+      <p class="hero__sub"><strong>Ringiovanimento completo del volto</strong> senza bisturi.<br>Tre azioni sinergiche, un risultato <strong>naturale e duraturo</strong>.</p>
       <p class="hero__date"><span id="date-hero"></span> · Palagiano</p>
       <div class="hero__ctas">
         <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
@@ -358,13 +396,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="intro__text">
       <span class="label label--light">Perché Total Lift</span>
       <h2>Il trattamento che<br><em>ridà giovinezza</em><br>al tuo viso</h2>
-      <p>Con il passare degli anni la pelle subisce trasformazioni naturali. Total Lift è un programma innovativo per contrastare questi effetti in soli 3 step, dalla superficie al muscolo profondo.</p>
-      <p>In questa giornata speciale proponiamo soluzioni personalizzate pensate solo per chi partecipa.</p>
+      <p>Con il passare degli anni la pelle subisce trasformazioni naturali. <strong>Total Lift</strong> è un programma innovativo per contrastare questi effetti in <strong>soli 3 step</strong>, dalla superficie al muscolo profondo.</p>
+      <p>In questa <strong>giornata speciale</strong> proponiamo soluzioni <strong>personalizzate</strong> pensate solo per chi partecipa.</p>
       <ul class="intro__bullets">
-        <li>Non invasivo — zero bisturi, zero cicatrici</li>
-        <li>Rapido — torni subito alla tua routine</li>
-        <li>Naturale — rigenerazione profonda dei tessuti</li>
-        <li>Duraturo — risultati che migliorano nel tempo</li>
+        <li><strong>Non invasivo</strong> — zero bisturi, zero cicatrici</li>
+        <li><strong>Rapido</strong> — torni subito alla tua routine</li>
+        <li><strong>Naturale</strong> — rigenerazione profonda dei tessuti</li>
+        <li><strong>Duraturo</strong> — risultati che migliorano nel tempo</li>
       </ul>
     </div>
     <div class="intro__img">
@@ -384,17 +422,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="azione">
         <div class="azione__num">Azione 01 · Superficiale</div>
         <h3>Efficace su:</h3>
-        <p>Palpebre cadenti · Pelle flaccida · Rughe da pelle in eccesso · Macchie cutanee</p>
+        <p><strong>Palpebre cadenti</strong> · <strong>Pelle flaccida</strong> · Rughe da pelle in eccesso · Macchie cutanee</p>
       </div>
       <div class="azione">
         <div class="azione__num">Azione 02 · Intermedia</div>
         <h3>Efficace su:</h3>
-        <p>Rilassamento cutaneo · Lifting viso e décolleté · Contouring del viso · Resurfacing frazionato</p>
+        <p><strong>Rilassamento cutaneo</strong> · <strong>Lifting viso e décolleté</strong> · Contouring del viso · Resurfacing frazionato</p>
       </div>
       <div class="azione">
         <div class="azione__num">Azione 03 · Profonda</div>
         <h3>Efficace su:</h3>
-        <p>Fronte e guance · Doppio mento · Sollevamento sopracciglia · Rinforzo della pelle del collo</p>
+        <p><strong>Fronte e guance</strong> · <strong>Doppio mento</strong> · Sollevamento sopracciglia · Rinforzo della pelle del collo</p>
       </div>
     </div>
   </section>
@@ -413,13 +451,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Testo -->
         <div>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
-            Per il Total Beauty Day, puoi prenotare uno slot individuale di <strong style="color:var(--dark)">1 ora</strong> presso il nostro Studio a Palagiano.
+            Per il Total Beauty Day, puoi prenotare uno slot individuale di <strong style="color:var(--dark);font-size:1.05rem">1 ora</strong> presso il nostro Studio a Palagiano.
           </p>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
-            Non si tratta di una semplice visita: durante l'appuntamento farai una <strong style="color:var(--dark)">prima seduta Total Lift</strong> e riceverai una valutazione approfondita del tuo viso, con un'analisi personalizzata delle zone da trattare e degli obiettivi estetici che desideri raggiungere.
+            Non si tratta di una semplice visita: durante l'appuntamento farai una <strong style="color:var(--dark);text-decoration:underline;text-underline-offset:3px">prima seduta Total Lift</strong> e riceverai una <strong style="color:var(--dark)">valutazione approfondita del tuo viso</strong>, con un'analisi personalizzata delle zone da trattare e degli obiettivi estetici che desideri raggiungere.
           </p>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300">
-            In questo modo blocchi il tuo orario, vivi già il primo trattamento e ricevi un'indicazione chiara e personalizzata sul percorso più adatto a te.
+            In questo modo <strong style="color:var(--dark)">blocchi il tuo orario</strong>, vivi già il primo trattamento e ricevi un'<strong style="color:var(--dark)">indicazione chiara e personalizzata</strong> sul percorso più adatto a te.
           </p>
         </div>
 
@@ -427,20 +465,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div style="background:var(--dark);padding:2rem;display:flex;flex-direction:column;gap:1.2rem">
           <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Blocca il tuo slot</p>
           <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1">€ 20</p>
-          <p style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-top:-0.3rem">acconto · visita totale € 87</p>
-          <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.7;font-weight:300">
-            Acconto di <strong style="color:#fff">€ 20</strong> tramite <strong style="color:#fff">Stripe</strong>. Il saldo di € 67 verrà pagato il giorno dell'appuntamento.
+          <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);margin-top:-0.3rem">acconto · visita totale <strong style="color:#fff">€ 87</strong></p>
+          <p style="font-size:0.9rem;color:rgba(255,255,255,0.88);line-height:1.7;font-weight:300">
+            Acconto di <strong style="color:#fff;font-size:1rem">€ 20</strong> tramite <strong style="color:#fff">Stripe</strong>. Il saldo di <strong style="color:#fff">€ 67</strong> verrà pagato il giorno dell'appuntamento.
           </p>
           <div style="height:1px;background:rgba(65,156,201,0.2)"></div>
           <div style="display:flex;flex-direction:column;gap:0.6rem">
-            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
-              <span style="color:var(--blue-light)">✓</span> Acconto € 20 · saldo € 67 in studio
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:#ffffff">
+              <span style="color:var(--blue-light)">✓</span> <strong>Acconto € 20</strong> · saldo € 67 in studio
             </div>
-            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
-              <span style="color:var(--blue-light)">✓</span> Analisi personalizzata del viso
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:#ffffff">
+              <span style="color:var(--blue-light)">✓</span> <strong>Analisi personalizzata</strong> del viso
             </div>
-            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.82rem;color:rgba(255,255,255,0.65)">
-              <span style="color:var(--blue-light)">✓</span> Slot orario garantito
+            <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:#ffffff">
+              <span style="color:var(--blue-light)">✓</span> <strong>Slot orario garantito</strong>
             </div>
           </div>
           <a href="#flow" class="btn btn--primary" style="text-align:center;margin-top:0.5rem">Prenota il tuo slot</a>
@@ -466,7 +504,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="inner">
       <span class="label label--light">Prenota il tuo Total Lift</span>
       <h2 class="flow-title">Tre domande,<br><em>soluzioni su misura</em></h2>
-      <p class="sub" style="font-size:0.9rem;color:rgba(255,255,255,0.48);margin-bottom:2.5rem;font-weight:300">Rispondi al questionario per personalizzare il tuo percorso.</p>
+      <p class="sub" style="font-size:1rem;color:rgba(255,255,255,0.85);margin-bottom:2.5rem;font-weight:400">Rispondi a <strong style="color:#fff">3 domande</strong> e prenota il tuo slot: <strong style="color:var(--blue-light)">posti limitati</strong>.</p>
       <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
 
       <!-- Q1 -->
@@ -474,10 +512,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="step-indicator">Domanda 1 di 3</span>
         <p class="quiz-q">Quale risultato desideri ottenere principalmente?</p>
         <div class="options">
-          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span>Correggere una piccola asimmetria del viso</div>
-          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span>Prevenire i segni dell'invecchiamento</div>
-          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un cambiamento visibile e più definito</div>
-          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più fresco, riposato e armonioso</div>
+          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span>Correggere una piccola <strong>asimmetria del viso</strong></div>
+          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span>Prevenire i <strong>segni dell'invecchiamento</strong></div>
+          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un <strong>cambiamento visibile</strong> e più definito</div>
+          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più <strong>fresco, riposato e armonioso</strong></div>
         </div>
       </div>
 
@@ -516,9 +554,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
+      <!-- SLOT -->
+      <div id="step-slot" class="hidden">
+        <span class="step-indicator">Passo 4 di 6 · Scegli l'orario</span>
+        <p class="quiz-q">Seleziona il tuo orario preferito</p>
+        <div class="field mb-1">
+          <label>Giorno evento</label>
+          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.4);cursor:default">
+        </div>
+        <span class="slots-label">Orari disponibili (durata 1 ora)</span>
+        <div class="slots-grid" id="slots-grid"></div>
+        <div id="slot-err" class="err hidden">Seleziona un orario per continuare.</div>
+        <div class="btn-row">
+          <button class="btn--back" onclick="go('q3')">← Indietro</button>
+          <button class="btn--next" onclick="go('form')">Continua →</button>
+        </div>
+      </div>
+
       <!-- FORM DATI -->
       <div id="step-form" class="hidden">
-        <span class="step-indicator">Passo 4 di 6 · I tuoi dati</span>
+        <span class="step-indicator">Passo 5 di 6 · I tuoi dati</span>
         <p class="quiz-q">Inserisci i tuoi dati per la prenotazione</p>
         <div class="grid-2 mb-1">
           <div class="field"><label>Nome *</label><input type="text" id="f-nome" placeholder="Maria" autocomplete="given-name"></div>
@@ -533,24 +588,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </label>
         <div id="form-err" class="err hidden"></div>
         <div class="btn-row">
-          <button class="btn--back" onclick="go('q3')">← Indietro</button>
-          <button class="btn--next" onclick="go('slot')">Continua →</button>
-        </div>
-      </div>
-
-      <!-- SLOT -->
-      <div id="step-slot" class="hidden">
-        <span class="step-indicator">Passo 5 di 6 · Scegli l'orario</span>
-        <p class="quiz-q">Seleziona il tuo orario preferito</p>
-        <div class="field mb-1">
-          <label>Giorno evento</label>
-          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.4);cursor:default">
-        </div>
-        <span class="slots-label">Orari disponibili (durata 1 ora)</span>
-        <div class="slots-grid" id="slots-grid"></div>
-        <div id="slot-err" class="err hidden">Seleziona un orario per continuare.</div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('form')">← Indietro</button>
+          <button class="btn--back" onclick="go('slot')">← Indietro</button>
           <button class="btn--next" onclick="go('payment')">Continua →</button>
         </div>
       </div>
@@ -568,7 +606,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </button>
         <p class="pay-note">Pagamento sicuro gestito da Stripe · Crittografia SSL</p>
         <div class="btn-row mt-2">
-          <button class="btn--back" onclick="go('slot')">← Indietro</button>
+          <button class="btn--back" onclick="go('form')">← Indietro</button>
         </div>
       </div>
 
@@ -584,11 +622,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="testi__grid">
         <div class="testi__card">
-          <p>"Ho provato il trattamento durante un open day e subito ho capito l'efficacia. Ho seguito le tre fasi, adesso la mia pelle è più giovane e tonica."</p>
+          <p>"Ho provato il trattamento durante un open day e subito ho capito l'efficacia. Ho seguito le tre fasi, adesso la mia pelle è <strong>più giovane e tonica</strong>."</p>
           <cite>Tonia, 41 anni</cite>
         </div>
         <div class="testi__card">
-          <p>"Sono rimasta sorpresa dalla semplicità e dall'efficacia. I risultati sono stati immediati e naturali. Lo consiglio a tutte!"</p>
+          <p>"Sono rimasta sorpresa dalla semplicità e dall'efficacia. I risultati sono stati <strong>immediati e naturali</strong>. Lo consiglio a tutte!"</p>
           <cite>Laura, 55 anni</cite>
         </div>
       </div>
@@ -601,7 +639,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="cta-banner__overlay"></div>
     <div class="cta-banner__content">
       <h2>Posti limitati.<br><em>Prenota ora.</em></h2>
-      <p>Solo per il Total Beauty Day presso Ricciardi Studio Dentistico a Palagiano. Gli slot sono individuali e disponibili fino a esaurimento posti.</p>
+      <p>Solo per il <strong>Total Beauty Day</strong> presso Ricciardi Studio Dentistico a Palagiano. Gli slot sono <strong style="text-decoration:underline;text-underline-offset:3px">individuali e disponibili fino a esaurimento posti</strong>.</p>
       <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
     </div>
   </div>
@@ -890,8 +928,8 @@ let selSlot = null;
 let stripe  = null;
 let cardEl  = null;
 
-const STEPS = ['q1','q2','q3','blocked','form','slot','payment'];
-const PROG  = { q1:14, q2:28, q3:42, blocked:42, form:57, slot:71, payment:85 };
+const STEPS = ['q1','q2','q3','blocked','slot','form','payment'];
+const PROG  = { q1:14, q2:28, q3:42, blocked:42, slot:57, form:71, payment:85 };
 
 /* ── STEP NAVIGATION ── */
 function showStep(id) {
@@ -904,14 +942,15 @@ function showStep(id) {
 async function go(next) {
   if (next === 'q2' && !ans.q1) { alert('Seleziona una risposta'); return; }
   if (next === 'q3' && !ans.q2) { alert('Seleziona una risposta'); return; }
+  // Slot viene subito dopo il questionario
   if (next === 'slot') {
-    if (!validateForm()) return;
     await renderSlots();
   }
-  if (next === 'payment') {
+  // Form viene dopo la scelta dello slot
+  if (next === 'form') {
     if (!selSlot) { document.getElementById('slot-err').classList.remove('hidden'); return; }
     document.getElementById('slot-err').classList.add('hidden');
-    // controllo doppia prenotazione
+    // Controllo doppia prenotazione prima di procedere al form
     const bks = await TL.getBookings();
     const taken = bks.filter(b =>
       b.ora  === selSlot.start + '-' + selSlot.end &&
@@ -923,6 +962,10 @@ async function go(next) {
       await renderSlots(); showStep('slot'); return;
     }
     trackEvent('SlotSelected', { slot: selSlot.start });
+  }
+  // Payment viene dopo il form
+  if (next === 'payment') {
+    if (!validateForm()) return;
     trackEvent('InitiateCheckout');
     await renderSummary();
     initStripe();
@@ -937,7 +980,7 @@ function afterQ3() {
   trackEvent('QuestionarioCompletato');
   if (ans.q3 === 'no') { showStep('blocked'); return; }
   trackEvent('Lead');
-  showStep('form');
+  go('slot');
 }
 
 /* ── SELEZIONE OPZIONE (auto-avanza) ── */
@@ -1084,7 +1127,7 @@ async function handlePay() {
     email:   document.getElementById('f-email').value.trim(),
     data:    TL.eventDay(),
     ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
-    amount:  8700
+    amount:  2000
   }));
 
   // Stripe Payment Link con success_url
