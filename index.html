@@ -209,6 +209,8 @@ img    { display: block; max-width: 100%; }
 .opt.selected { border-color: var(--blue); background: rgba(65,156,201,0.16); color: #fff; }
 .opt__marker { width: 24px; height: 24px; border: 1px solid rgba(65,156,201,0.4); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--blue-light); font-weight: 600; transition: all .2s; }
 .opt.selected .opt__marker { background: var(--blue); border-color: var(--blue); color: #fff; }
+.opt__txt { flex: 1; line-height: 1.45; }
+.opt__txt strong { color: #fff; font-weight: 600; }
 .btn-row { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
 .btn--back { background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.45); padding: 0.88rem 1.8rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .2s; }
 .btn--back:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.8); }
@@ -512,10 +514,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="step-indicator">Domanda 1 di 3</span>
         <p class="quiz-q">Quale risultato desideri ottenere principalmente?</p>
         <div class="options">
-          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span>Correggere una piccola <strong>asimmetria del viso</strong></div>
-          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span>Prevenire i <strong>segni dell'invecchiamento</strong></div>
-          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span>Ottenere un <strong>cambiamento visibile</strong> e più definito</div>
-          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span>Avere un aspetto più <strong>fresco, riposato e armonioso</strong></div>
+          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span><span class="opt__txt">Correggere una piccola <strong>asimmetria del viso</strong></span></div>
+          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span><span class="opt__txt">Prevenire i <strong>segni dell'invecchiamento</strong></span></div>
+          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span><span class="opt__txt">Ottenere un <strong>cambiamento visibile</strong> e più definito</span></div>
+          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span><span class="opt__txt">Avere un aspetto più <strong>fresco, riposato e armonioso</strong></span></div>
         </div>
       </div>
 
@@ -524,9 +526,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="step-indicator">Domanda 2 di 3</span>
         <p class="quiz-q">Quanto vorresti migliorare questo aspetto?</p>
         <div class="options">
-          <div class="opt" data-val="poco"       onclick="sel(this,'q2')"><span class="opt__marker">A</span>Poco</div>
-          <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span>Abbastanza</div>
-          <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span>Molto</div>
+          <div class="opt" data-val="poco"       onclick="sel(this,'q2')"><span class="opt__marker">A</span><span class="opt__txt">Poco</span></div>
+          <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span><span class="opt__txt">Abbastanza</span></div>
+          <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span><span class="opt__txt">Molto</span></div>
         </div>
         <div class="btn-row"><button class="btn--back" onclick="go('q1')">← Indietro</button></div>
       </div>
@@ -536,8 +538,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <span class="step-indicator">Domanda 3 di 3</span>
         <p class="quiz-q">La nostra sede è a Palagiano. Sei disponibile a venire in studio per la visita e il trattamento?</p>
         <div class="options">
-          <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span>Sì, sono disponibile</div>
-          <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span>No, al momento non posso venire in sede</div>
+          <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span><span class="opt__txt">Sì, sono disponibile</span></div>
+          <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span><span class="opt__txt">No, al momento non posso venire in sede</span></div>
         </div>
         <div class="btn-row"><button class="btn--back" onclick="go('q2')">← Indietro</button></div>
       </div>
