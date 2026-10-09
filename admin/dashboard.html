@@ -261,7 +261,7 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
 <!-- TABS -->
 <div class="dash-tabs">
   <button class="dash-tab active" onclick="switchTab('prenotazioni', this)">📋 Prenotazioni</button>
-  <button class="dash-tab" onclick="switchTab('slot-mgr', this)">🕐 Gestione Slot</button>
+  <button class="dash-tab" onclick="switchTab('slot-mgr', this)">📅 Data evento</button>
   <button class="dash-tab" onclick="switchTab('impostazioni', this)">⚙️ Impostazioni</button>
 </div>
 
@@ -273,7 +273,6 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
     <div class="stat-card"><p class="stat-card__label">Pagate</p><p class="stat-card__val" id="s-paid">0</p><p class="stat-card__sub">completate</p></div>
     <div class="stat-card"><p class="stat-card__label">Incasso</p><p class="stat-card__val" id="s-inc">€0</p><p class="stat-card__sub">totale</p></div>
     <div class="stat-card"><p class="stat-card__label">Promemoria</p><p class="stat-card__val" id="s-prom">0</p><p class="stat-card__sub">da inviare</p></div>
-    <div class="stat-card"><p class="stat-card__label">Slot liberi</p><p class="stat-card__val" id="s-free">0</p><p class="stat-card__sub">disponibili</p></div>
   </div>
 
   <div class="filters">
@@ -314,7 +313,6 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
       <thead><tr>
         <th>#</th><th>Nome e cognome</th><th>Telefono</th><th>Email</th>
         <th>Giorno</th><th>Orario</th>
-        <th>Q1 – Risultato</th><th>Q2 – Grado</th><th>Q3 – Sede</th>
         <th>Pagamento</th><th>Importo</th><th>Note</th>
         <th>Promemoria</th><th>Prenotato il</th><th>Azioni</th>
       </tr></thead>
@@ -344,22 +342,6 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
     </div>
   </div>
 
-  <div class="slot-mgr">
-    <h3>Slot appuntamenti</h3>
-    <div class="slot-items" id="slot-list"></div>
-    <div class="add-slot">
-      <div class="input-group">
-        <label>Inizio</label>
-        <input type="time" id="ns-start">
-      </div>
-      <div class="input-group">
-        <label>Fine</label>
-        <input type="time" id="ns-end">
-      </div>
-      <button class="btn btn--primary btn--sm" onclick="addSlot()">+ Aggiungi slot</button>
-    </div>
-  </div>
-
 </div>
 
 <!-- ═══ PANEL: IMPOSTAZIONI ═══ -->
@@ -373,8 +355,7 @@ td.wrap { white-space: normal; max-width: 160px; font-size: 0.75rem; }
              oninput="saveCfgField('pixelId','cfg-pixel','si-pixel')">
     </div>
     <p class="settings-note">
-      Eventi tracciati: PageView · ClickPrenotazione · QuestionarioCompletato ·
-      Lead · SlotSelected · InitiateCheckout · Purchase
+      Eventi tracciati: PageView · ClickPrenotazione · Lead · InitiateCheckout · Purchase
     </p>
   </div>
 
@@ -662,24 +643,19 @@ function switchTab(name, btn) {
 /* ── STATS ── */
 let _allBookings = [];
 
-function updateStats(bks, slots) {
+function updateStats(bks) {
   const paid = bks.filter(b => b.payment === 'paid');
   const prom = bks.filter(b => b.promemoria === 'no');
-  const day  = TL.eventDay();
-  const taken = bks.filter(b => b.data === day && b.payment === 'paid').map(b => b.ora);
-  const free  = slots.filter(s => !s.blocked && !taken.includes(s.start + '-' + s.end)).length;
   document.getElementById('s-tot').textContent  = bks.length;
   document.getElementById('s-paid').textContent = paid.length;
   document.getElementById('s-inc').textContent  = '€' + paid.reduce((a, b) => a + (b.amount / 100 || 0), 0).toFixed(0);
   document.getElementById('s-prom').textContent = prom.length;
-  document.getElementById('s-free').textContent = free;
 }
 
 /* ── TABELLA PRENOTAZIONI ── */
 async function renderBookings() {
   _allBookings = await TL.getBookings();
-  const slots  = await TL.getSlots();
-  updateStats(_allBookings, slots);
+  updateStats(_allBookings);
   applyFilters();
 }
 
@@ -697,7 +673,7 @@ function applyFilters() {
   const tb = document.getElementById('tbody');
   tb.innerHTML = '';
   if (!bks.length) {
-    tb.innerHTML = '<tr><td colspan="15" style="text-align:center;padding:2.5rem;color:var(--mid)">Nessuna prenotazione trovata.</td></tr>';
+    tb.innerHTML = '<tr><td colspan="12" style="text-align:center;padding:2.5rem;color:var(--mid)">Nessuna prenotazione trovata.</td></tr>';
     return;
   }
   bks.forEach((b, i) => {
@@ -714,9 +690,6 @@ function applyFilters() {
       <td style="font-size:0.73rem">${b.email || '—'}</td>
       <td>${b.data || '—'}</td>
       <td><strong>${ora}</strong></td>
-      <td class="wrap">${q1Label(b.q1)}</td>
-      <td>${b.q2 || '—'}</td>
-      <td>${b.q3 === 'si' ? '✅ Sì' : '❌ No'}</td>
       <td>
         <div style="display:flex;align-items:center;gap:0.5rem">
           <div style="width:12px;height:12px;border-radius:2px;background:${b.payment==='paid'?'#27ae60':b.payment==='failed'?'#e74c3c':'#e67e22'};flex-shrink:0"></div>
@@ -794,8 +767,8 @@ async function saveEdit() {
 async function exportCSV() {
   const bks = await TL.getBookings();
   if (!bks.length) { alert('Nessun dato da esportare.'); return; }
-  const H = ['ID','Nome','Cognome','Email','Telefono','Data','Orario','Q1','Q2','Q3','Pagamento','Importo','Note','Promemoria','Creato il'];
-  const R = bks.map(b => [b.id,b.nome,b.cognome,b.email,b.tel,b.data,b.ora,b.q1,b.q2,b.q3,b.payment,b.amount?b.amount/100:'',b.note||'',b.promemoria,b.createdAt]);
+  const H = ['ID','Nome','Cognome','Email','Telefono','Data','Orario','Pagamento','Importo','Note','Promemoria','Creato il'];
+  const R = bks.map(b => [b.id,b.nome,b.cognome,b.email,b.tel,b.data,b.ora,b.payment,b.amount?b.amount/100:'',b.note||'',b.promemoria,b.createdAt]);
   const csv = [H,...R].map(r => r.map(v => `"${String(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
   const a = document.createElement('a');
   a.href = URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'}));
@@ -805,30 +778,7 @@ async function exportCSV() {
 
 /* ── SLOT MANAGER ── */
 async function renderSlotMgr() {
-  // Non sovrascrivere il campo se l'utente sta modificando
-  const savedDay = TL.eventDay();
-  document.getElementById('admin-day').value = savedDay;
-  const slots = await TL.getSlots();
-  const bks   = await TL.getBookings();
-  const day   = TL.eventDay();
-  const list  = document.getElementById('slot-list');
-  list.innerHTML = '';
-  slots.forEach(s => {
-    const taken = bks.some(b => b.ora === s.start+'-'+s.end && b.data === day && b.payment === 'paid');
-    const div = document.createElement('div');
-    div.className = 'slot-item';
-    div.innerHTML = `
-      <div>
-        <div class="slot-item__time">${s.start} – ${s.end}</div>
-        <div class="slot-item__status">${s.blocked ? '🔒 Bloccato' : taken ? '✅ Prenotato' : '🟢 Libero'}</div>
-      </div>
-      <div class="slot-item__acts">
-        <button class="act ${s.blocked?'act-green':''}" onclick="toggleBlock('${s.id}',${s.blocked})">${s.blocked?'Sblocca':'Blocca'}</button>
-        ${!taken ? `<button class="act act-danger" onclick="removeSlot('${s.id}')">Elimina</button>` : '<button class="act" disabled style="opacity:.3">—</button>'}
-      </div>
-    `;
-    list.appendChild(div);
-  });
+  document.getElementById('admin-day').value = TL.eventDay();
 }
 
 async function saveEventDay() {
@@ -851,27 +801,6 @@ async function saveEventDay() {
   sp._t = setTimeout(() => sp.style.opacity = '0', 2500);
   // Banner in alto
   showSavedBanner('Data evento aggiornata');
-}
-
-async function toggleBlock(id, current) {
-  await TL.saveSlot(id, { blocked: !current });
-  await renderSlotMgr();
-}
-
-async function removeSlot(id) {
-  if (!confirm('Eliminare questo slot?')) return;
-  await TL.deleteSlot(id);
-  await renderSlotMgr();
-}
-
-async function addSlot() {
-  const start = document.getElementById('ns-start').value;
-  const end   = document.getElementById('ns-end').value;
-  if (!start || !end) { alert('Inserisci orario di inizio e fine.'); return; }
-  await TL.addSlot({ id: 's' + Date.now(), start, end, blocked: false });
-  document.getElementById('ns-start').value = '';
-  document.getElementById('ns-end').value   = '';
-  await renderSlotMgr();
 }
 
 /* ── SETTINGS ── */
@@ -934,9 +863,6 @@ window.saveEdit     = saveEdit;
 window.exportCSV    = exportCSV;
 window.renderSlotMgr = renderSlotMgr;
 window.saveEventDay = saveEventDay;
-window.toggleBlock  = toggleBlock;
-window.removeSlot   = removeSlot;
-window.addSlot      = addSlot;
 window.loadSettings = loadSettings;
 window.saveCfgField = saveCfgField;
 window.saveCfgFields= saveCfgFields;
@@ -954,8 +880,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Real-time aggiornamento prenotazioni
   TL.onBookingsChange(async (bks) => {
     _allBookings = bks;
-    const slots = await TL.getSlots();
-    updateStats(bks, slots);
+    updateStats(bks);
     applyFilters();
   });
 });
