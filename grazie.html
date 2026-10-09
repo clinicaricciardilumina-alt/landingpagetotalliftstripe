@@ -173,7 +173,7 @@ function renderDetails({ nome, cognome, data, ora, amount }) {
   document.getElementById('success-details').innerHTML =
     '<div class="row"><span>Paziente</span><strong>' + ((nome||'') + ' ' + (cognome||'')) + '</strong></div>' +
     '<div class="row"><span>Data</span><strong>' + formatDay(data) + '</strong></div>' +
-    '<div class="row"><span>Orario</span><strong>' + oraDisp + '</strong></div>' +
+    (ora ? '<div class="row"><span>Orario</span><strong>' + oraDisp + '</strong></div>' : '') +
     '<div class="row"><span>Acconto pagato</span><strong>€ ' + acc + '</strong></div>' +
     '<div class="row"><span>Saldo in studio</span><strong>€ 67</strong></div>';
 }
