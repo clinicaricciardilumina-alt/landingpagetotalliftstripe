@@ -373,8 +373,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="hero__sub"><strong>Ringiovanimento completo del volto</strong> senza bisturi.<br>Tre azioni sinergiche, un risultato <strong>naturale e duraturo</strong>.</p>
       <p class="hero__date"><span id="date-hero"></span> · Palagiano</p>
       <div class="hero__ctas">
-        <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
-        <a href="#come-agisce" class="btn btn--ghost">Come funziona</a>
+        <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Paga l'acconto per fissare l'appuntamento</a>
       </div>
       <div class="hero__badges">
         <div class="hero__badge">Senza bisturi</div>
@@ -446,26 +445,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section id="info-prenotazione" style="background:#f0f8fd;padding:4rem 2rem">
     <div style="max-width:900px;margin:0 auto">
       <span style="font-size:0.63rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--blue);margin-bottom:0.8rem;display:block;font-weight:500">Cosa include</span>
-      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--dark);margin-bottom:2.5rem;line-height:1.1">Riserva il tuo slot per il<br><em style="font-style:italic;color:var(--blue)">Total Beauty Day</em></h2>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--dark);margin-bottom:2.5rem;line-height:1.1">Fissa il tuo appuntamento al<br><em style="font-style:italic;color:var(--blue)">Total Beauty Day</em></h2>
 
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
 
         <!-- Testo -->
         <div>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
-            Per il Total Beauty Day, puoi prenotare uno slot individuale di <strong style="color:var(--dark);font-size:1.05rem">1 ora</strong> presso il nostro Studio a Palagiano.
+            Per il Total Beauty Day, puoi prenotare un appuntamento individuale di <strong style="color:var(--dark);font-size:1.05rem">1 ora</strong> presso il nostro Studio a Palagiano.
           </p>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300;margin-bottom:1rem">
             Non si tratta di una semplice visita: durante l'appuntamento farai una <strong style="color:var(--dark);text-decoration:underline;text-underline-offset:3px">prima seduta Total Lift</strong> e riceverai una <strong style="color:var(--dark)">valutazione approfondita del tuo viso</strong>, con un'analisi personalizzata delle zone da trattare e degli obiettivi estetici che desideri raggiungere.
           </p>
           <p style="font-size:0.95rem;color:var(--mid);line-height:1.85;font-weight:300">
-            In questo modo <strong style="color:var(--dark)">blocchi il tuo orario</strong>, vivi già il primo trattamento e ricevi un'<strong style="color:var(--dark)">indicazione chiara e personalizzata</strong> sul percorso più adatto a te.
+            In questo modo <strong style="color:var(--dark)">blocchi il tuo posto</strong>, vivi già il primo trattamento e ricevi un'<strong style="color:var(--dark)">indicazione chiara e personalizzata</strong> sul percorso più adatto a te.
           </p>
         </div>
 
         <!-- Card prezzo -->
         <div style="background:var(--dark);padding:2rem;display:flex;flex-direction:column;gap:1.2rem">
-          <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Blocca il tuo slot</p>
+          <p style="font-size:0.63rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--blue-light);font-weight:500">Blocca il tuo posto</p>
           <p style="font-family:'Playfair Display',serif;font-size:3.5rem;font-weight:700;color:var(--blue);line-height:1">€ 20</p>
           <p style="font-size:0.88rem;color:rgba(255,255,255,0.75);margin-top:-0.3rem">acconto · visita totale <strong style="color:#fff">€ 87</strong></p>
           <p style="font-size:0.9rem;color:rgba(255,255,255,0.88);line-height:1.7;font-weight:300">
@@ -480,10 +479,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <span style="color:var(--blue-light)">✓</span> <strong>Analisi personalizzata</strong> del viso
             </div>
             <div style="display:flex;align-items:center;gap:0.6rem;font-size:0.9rem;color:#ffffff">
-              <span style="color:var(--blue-light)">✓</span> <strong>Slot orario garantito</strong>
+              <span style="color:var(--blue-light)">✓</span> <strong>Posto garantito</strong>
             </div>
           </div>
-          <a href="#flow" class="btn btn--primary" style="text-align:center;margin-top:0.5rem">Prenota il tuo slot</a>
+          <a href="#flow" class="btn btn--primary" style="text-align:center;margin-top:0.5rem" onclick="trackEvent('ClickPrenotazione')">Paga l'acconto</a>
         </div>
 
       </div>
@@ -501,115 +500,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div style="height:3px;background:linear-gradient(to right,var(--blue-light),var(--blue),var(--blue-light))"></div>
 
-  <!-- FLOW: quiz + form + payment -->
+  <!-- FLOW: dati + pagamento acconto -->
   <section id="flow">
     <div class="inner">
       <span class="label label--light">Prenota il tuo Total Lift</span>
-      <h2 class="flow-title">Tre domande,<br><em>soluzioni su misura</em></h2>
-      <p class="sub" style="font-size:1rem;color:rgba(255,255,255,0.85);margin-bottom:2.5rem;font-weight:400">Rispondi a <strong style="color:#fff">3 domande</strong> e prenota il tuo slot: <strong style="color:var(--blue-light)">posti limitati</strong>.</p>
-      <div class="progress-bar"><div class="progress-fill" id="progress" style="width:14%"></div></div>
+      <h2 class="flow-title">Fissa il tuo<br><em>appuntamento</em></h2>
+      <p class="sub" style="font-size:1rem;color:rgba(255,255,255,0.85);margin-bottom:2.5rem;font-weight:400">Paga l'acconto di <strong style="color:#fff">€ 20</strong> e il tuo posto è bloccato: <strong style="color:var(--blue-light)">posti limitati</strong>.</p>
 
-      <!-- Q1 -->
-      <div id="step-q1">
-        <span class="step-indicator">Domanda 1 di 3</span>
-        <p class="quiz-q">Quale risultato desideri ottenere principalmente?</p>
-        <div class="options">
-          <div class="opt" data-val="asimmetria" onclick="sel(this,'q1')"><span class="opt__marker">A</span><span class="opt__txt">Correggere una piccola <strong>asimmetria del viso</strong></span></div>
-          <div class="opt" data-val="prevenzione" onclick="sel(this,'q1')"><span class="opt__marker">B</span><span class="opt__txt">Prevenire i <strong>segni dell'invecchiamento</strong></span></div>
-          <div class="opt" data-val="cambiamento" onclick="sel(this,'q1')"><span class="opt__marker">C</span><span class="opt__txt">Ottenere un <strong>cambiamento visibile</strong> e più definito</span></div>
-          <div class="opt" data-val="fresco" onclick="sel(this,'q1')"><span class="opt__marker">D</span><span class="opt__txt">Avere un aspetto più <strong>fresco, riposato e armonioso</strong></span></div>
-        </div>
-      </div>
-
-      <!-- Q2 -->
-      <div id="step-q2" class="hidden">
-        <span class="step-indicator">Domanda 2 di 3</span>
-        <p class="quiz-q">Quanto vorresti migliorare questo aspetto?</p>
-        <div class="options">
-          <div class="opt" data-val="poco"       onclick="sel(this,'q2')"><span class="opt__marker">A</span><span class="opt__txt">Poco</span></div>
-          <div class="opt" data-val="abbastanza" onclick="sel(this,'q2')"><span class="opt__marker">B</span><span class="opt__txt">Abbastanza</span></div>
-          <div class="opt" data-val="molto"      onclick="sel(this,'q2')"><span class="opt__marker">C</span><span class="opt__txt">Molto</span></div>
-        </div>
-        <div class="btn-row"><button class="btn--back" onclick="go('q1')">← Indietro</button></div>
-      </div>
-
-      <!-- Q3 -->
-      <div id="step-q3" class="hidden">
-        <span class="step-indicator">Domanda 3 di 3</span>
-        <p class="quiz-q">La nostra sede è a Palagiano. Sei disponibile a venire in studio per la visita e il trattamento?</p>
-        <div class="options">
-          <div class="opt" data-val="si" onclick="sel(this,'q3')"><span class="opt__marker">A</span><span class="opt__txt">Sì, sono disponibile</span></div>
-          <div class="opt" data-val="no" onclick="sel(this,'q3')"><span class="opt__marker">B</span><span class="opt__txt">No, al momento non posso venire in sede</span></div>
-        </div>
-        <div class="btn-row"><button class="btn--back" onclick="go('q2')">← Indietro</button></div>
-      </div>
-
-      <!-- BLOCKED -->
-      <div id="step-blocked" class="hidden">
-        <div class="block-msg">
-          <div class="block-msg__icon">📍</div>
-          <h3>Trattamento in sede</h3>
-          <p>Il trattamento viene effettuato presso la nostra sede di <strong style="color:var(--blue-light)">Palagiano</strong>.<br>Per completare la prenotazione è necessario essere disponibili a venire in studio.</p>
-        </div>
-        <div class="btn-row mt-2">
-          <button class="btn--back" onclick="go('q3')">← Torna alla domanda</button>
-        </div>
-      </div>
-
-      <!-- SLOT -->
-      <div id="step-slot" class="hidden">
-        <span class="step-indicator">Passo 4 di 6 · Scegli l'orario</span>
-        <p class="quiz-q">Seleziona il tuo orario preferito</p>
+      <div id="step-form">
         <div class="field mb-1">
-          <label>Giorno evento</label>
-          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.4);cursor:default">
+          <label>Data appuntamento</label>
+          <input type="text" id="event-day-disp" readonly style="color:rgba(255,255,255,0.6);cursor:default">
         </div>
-        <span class="slots-label">Orari disponibili (durata 1 ora)</span>
-        <div class="slots-grid" id="slots-grid"></div>
-        <div id="slot-err" class="err hidden">Seleziona un orario per continuare.</div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('q3')">← Indietro</button>
-          <button class="btn--next" onclick="go('form')">Continua →</button>
-        </div>
-      </div>
-
-      <!-- FORM DATI -->
-      <div id="step-form" class="hidden">
-        <span class="step-indicator">Passo 5 di 6 · I tuoi dati</span>
-        <p class="quiz-q">Inserisci i tuoi dati per la prenotazione</p>
         <div class="grid-2 mb-1">
           <div class="field"><label>Nome *</label><input type="text" id="f-nome" placeholder="Maria" autocomplete="given-name"></div>
           <div class="field"><label>Cognome *</label><input type="text" id="f-cognome" placeholder="Rossi" autocomplete="family-name"></div>
         </div>
         <div class="field mb-1"><label>Email *</label><input type="email" id="f-email" placeholder="maria@email.it" autocomplete="email"></div>
-        <div class="field mb-1"><label>Telefono *</label><input type="tel" id="f-tel" placeholder="+39 333 000 0000" autocomplete="tel"></div>
-        <div class="field mb-2"><label>Note (opzionale)</label><textarea id="f-note" rows="3" placeholder="Eventuali note o richieste particolari..."></textarea></div>
+        <div class="field mb-2"><label>Telefono *</label><input type="tel" id="f-tel" placeholder="+39 333 000 0000" autocomplete="tel"></div>
         <label class="privacy-row mb-2">
           <input type="checkbox" id="f-privacy">
           <span>Ho letto e accetto la <a href="https://luminaricciardi.it/privacy-policy/" target="_blank">Privacy Policy</a>. Acconsento al trattamento dei miei dati personali per la gestione della prenotazione. *</span>
         </label>
         <div id="form-err" class="err hidden"></div>
-        <div class="btn-row">
-          <button class="btn--back" onclick="go('slot')">← Indietro</button>
-          <button class="btn--next" onclick="go('payment')">Continua →</button>
-        </div>
-      </div>
-
-      <!-- PAYMENT -->
-      <div id="step-payment" class="hidden">
-        <span class="step-indicator">Passo 6 di 6 · Pagamento</span>
-        <p class="quiz-q">Conferma e completa il pagamento</p>
-        <div class="summary" id="summary"></div>
-        <div id="stripe-el-wrap"><div id="card-element"></div></div>
-        <div id="card-errors"></div>
         <button class="pay-btn" id="pay-btn" onclick="handlePay()">
           <div class="pay-spinner"></div>
-          <span class="pay-label">💳 &nbsp;Paga e Prenota</span>
+          <span class="pay-label">💳 &nbsp;Paga l'acconto di € 20</span>
         </button>
-        <p class="pay-note">Pagamento sicuro gestito da Stripe · Crittografia SSL</p>
-        <div class="btn-row mt-2">
-          <button class="btn--back" onclick="go('form')">← Indietro</button>
-        </div>
+        <p class="pay-note">Saldo di € 67 il giorno dell'appuntamento · Pagamento sicuro gestito da Stripe</p>
       </div>
 
     </div>
@@ -636,12 +554,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- CTA BANNER -->
-  <div class="cta-banner">
-    <img class="cta-banner__img" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=1400&q=80&auto=format&fit=crop" alt="">
+  <div class="cta-banner" style="background:var(--dark)">
     <div class="cta-banner__overlay"></div>
     <div class="cta-banner__content">
       <h2>Posti limitati.<br><em>Prenota ora.</em></h2>
-      <p>Solo per il <strong>Total Beauty Day</strong> presso Ricciardi Studio Dentistico a Palagiano. Gli slot sono <strong style="text-decoration:underline;text-underline-offset:3px">individuali e disponibili fino a esaurimento posti</strong>.</p>
+      <p>Solo per il <strong>Total Beauty Day</strong> presso Ricciardi Studio Dentistico a Palagiano. Gli appuntamenti sono <strong style="text-decoration:underline;text-underline-offset:3px">individuali e disponibili fino a esaurimento posti</strong>.</p>
       <a href="#flow" class="btn btn--primary" onclick="trackEvent('ClickPrenotazione')">Prenota il tuo Total Lift</a>
     </div>
   </div>
@@ -667,7 +584,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
-<script src="https://js.stripe.com/v3/"></script>
 <script type="module" id="app-module">
 /* ═══════════════════════════════════════════════
    storage.js — Firebase Firestore + fallback localStorage
@@ -924,79 +840,6 @@ function formatDay(dateStr) {
   });
 }
 
-/* ── STATE ── */
-const ans = { q1: '', q2: '', q3: '' };
-let selSlot = null;
-let stripe  = null;
-let cardEl  = null;
-
-const STEPS = ['q1','q2','q3','blocked','slot','form','payment'];
-const PROG  = { q1:14, q2:28, q3:42, blocked:42, slot:57, form:71, payment:85 };
-
-/* ── STEP NAVIGATION ── */
-function showStep(id) {
-  STEPS.forEach(s => document.getElementById('step-' + s).classList.add('hidden'));
-  document.getElementById('step-' + id).classList.remove('hidden');
-  document.getElementById('progress').style.width = (PROG[id] || 14) + '%';
-  document.getElementById('flow').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
-async function go(next) {
-  if (next === 'q2' && !ans.q1) { alert('Seleziona una risposta'); return; }
-  if (next === 'q3' && !ans.q2) { alert('Seleziona una risposta'); return; }
-  // Slot viene subito dopo il questionario
-  if (next === 'slot') {
-    await renderSlots();
-  }
-  // Form viene dopo la scelta dello slot
-  if (next === 'form') {
-    if (!selSlot) { document.getElementById('slot-err').classList.remove('hidden'); return; }
-    document.getElementById('slot-err').classList.add('hidden');
-    // Controllo doppia prenotazione prima di procedere al form
-    const bks = await TL.getBookings();
-    const taken = bks.filter(b =>
-      b.ora  === selSlot.start + '-' + selSlot.end &&
-      b.data === TL.eventDay() &&
-      b.payment === 'paid'
-    );
-    if (taken.length) {
-      alert('Questo slot è appena stato prenotato. Scegline un altro.');
-      await renderSlots(); showStep('slot'); return;
-    }
-    trackEvent('SlotSelected', { slot: selSlot.start });
-  }
-  // Payment viene dopo il form
-  if (next === 'payment') {
-    if (!validateForm()) return;
-    trackEvent('InitiateCheckout');
-    await renderSummary();
-    initStripe();
-    // Salva lead su Firestore anche se non paga
-    await saveLead();
-  }
-  showStep(next);
-}
-
-function afterQ3() {
-  if (!ans.q3) { alert('Seleziona una risposta'); return; }
-  trackEvent('QuestionarioCompletato');
-  if (ans.q3 === 'no') { showStep('blocked'); return; }
-  trackEvent('Lead');
-  go('slot');
-}
-
-/* ── SELEZIONE OPZIONE (auto-avanza) ── */
-function sel(el, q) {
-  document.querySelectorAll('#step-' + q + ' .opt').forEach(o => o.classList.remove('selected'));
-  el.classList.add('selected');
-  ans[q] = el.dataset.val;
-  setTimeout(() => {
-    if (q === 'q1') go('q2');
-    else if (q === 'q2') go('q3');
-    else if (q === 'q3') afterQ3();
-  }, 350);
-}
-
 /* ── VALIDAZIONE FORM ── */
 function validateForm() {
   const nome    = document.getElementById('f-nome').value.trim();
@@ -1017,49 +860,6 @@ function validateForm() {
   return true;
 }
 
-/* ── RENDER SLOT ── */
-async function renderSlots() {
-  const slots = await TL.getSlots();
-  const bks   = await TL.getBookings();
-  const day   = TL.eventDay();
-  document.getElementById('event-day-disp').value = formatDay(day);
-  const grid = document.getElementById('slots-grid');
-  grid.innerHTML = '';
-  slots.forEach(s => {
-    const taken = bks.some(b =>
-      b.ora  === s.start + '-' + s.end &&
-      b.data === day &&
-      b.payment === 'paid'
-    );
-    const div = document.createElement('div');
-    div.className = 'slot' + (s.blocked ? ' slot--blocked' : taken ? ' slot--taken' : '');
-    div.innerHTML = `${s.start} – ${s.end}` +
-      (s.blocked ? '<span class="slot__badge">Bloccato</span>' :
-       taken      ? '<span class="slot__badge">Occupato</span>' : '');
-    if (!s.blocked && !taken) {
-      div.onclick = () => {
-        document.querySelectorAll('.slot').forEach(el => el.classList.remove('selected'));
-        div.classList.add('selected');
-        selSlot = s;
-      };
-    }
-    grid.appendChild(div);
-  });
-}
-
-/* ── RIEPILOGO ── */
-async function renderSummary() {
-  const c     = TL.cfg();
-  const price = c.stripeAmount ? (c.stripeAmount / 100).toFixed(0) : '87';
-  document.getElementById('summary').innerHTML = `
-    <div class="summary__row"><span>Trattamento</span><strong>${c.stripeDesc || 'Consulenza Total Lift'}</strong></div>
-    <div class="summary__row"><span>Paziente</span><strong>${document.getElementById('f-nome').value} ${document.getElementById('f-cognome').value}</strong></div>
-    <div class="summary__row"><span>Data</span><strong>${formatDay(TL.eventDay())}</strong></div>
-    <div class="summary__row"><span>Orario</span><strong>${selSlot ? selSlot.start + ' – ' + selSlot.end : '—'}</strong></div>
-    <div class="summary__row summary__total"><span>Acconto da pagare ora</span><strong>€ 20</strong></div>
-  `;
-}
-
 /* ── SALVA LEAD (prima del pagamento) ── */
 let _leadId = null;
 
@@ -1070,10 +870,8 @@ async function saveLead() {
     cognome:   document.getElementById('f-cognome').value.trim(),
     email:     document.getElementById('f-email').value.trim(),
     tel:       document.getElementById('f-tel').value.trim(),
-    note:      document.getElementById('f-note').value.trim(),
-    q1: ans.q1, q2: ans.q2, q3: ans.q3,
     data:      TL.eventDay(),
-    ora:       selSlot ? selSlot.start + '-' + selSlot.end : '',
+    ora:       '',
     payment:   'pending',
     amount:    0,
     paymentRef: '',
@@ -1085,27 +883,13 @@ async function saveLead() {
   console.log('[Lead salvato]', _leadId);
 }
 
-/* ── STRIPE ── */
-function initStripe() {
-  const pk = TL.cfg().stripePk;
-  if (!pk || stripe) return;
-  stripe = Stripe(pk);
-  const elements = stripe.elements();
-  cardEl = elements.create('card', {
-    style: {
-      base: { color: '#ffffff', fontFamily: 'DM Sans, sans-serif', fontSize: '16px', '::placeholder': { color: 'rgba(255,255,255,0.28)' } },
-      invalid: { color: '#ff6b6b' }
-    }
-  });
-  cardEl.mount('#card-element');
-  cardEl.on('change', e => {
-    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-  });
-}
-
+/* ── PAGAMENTO (Stripe Payment Link) ── */
 async function handlePay() {
+  if (!validateForm()) return;
   const btn = document.getElementById('pay-btn');
   btn.classList.add('loading'); btn.disabled = true;
+  trackEvent('Lead');
+  trackEvent('InitiateCheckout');
 
   // Salva lead prima di reindirizzare
   await saveLead();
@@ -1116,7 +900,6 @@ async function handlePay() {
     cognome: document.getElementById('f-cognome').value.trim(),
     email:   document.getElementById('f-email').value.trim(),
     data:    TL.eventDay(),
-    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
     amount:  2000,
     lead_id: _leadId || ''
   });
@@ -1128,7 +911,6 @@ async function handlePay() {
     cognome: document.getElementById('f-cognome').value.trim(),
     email:   document.getElementById('f-email').value.trim(),
     data:    TL.eventDay(),
-    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
     amount:  2000
   }));
 
@@ -1162,10 +944,8 @@ async function saveAndConfirm(status, amount, ref) {
       cognome:    document.getElementById('f-cognome').value.trim(),
       email:      document.getElementById('f-email').value.trim(),
       tel:        document.getElementById('f-tel').value.trim(),
-      note:       document.getElementById('f-note').value.trim(),
-      q1: ans.q1, q2: ans.q2, q3: ans.q3,
       data:       TL.eventDay(),
-      ora:        selSlot ? selSlot.start + '-' + selSlot.end : '',
+      ora:        '',
       ...updateData,
       promemoria: 'no',
       createdAt:  new Date().toISOString()
@@ -1181,7 +961,7 @@ async function saveAndConfirm(status, amount, ref) {
     cognome: document.getElementById('f-cognome').value.trim(),
     email:   document.getElementById('f-email').value.trim(),
     data:    TL.eventDay(),
-    ora:     selSlot ? selSlot.start + '-' + selSlot.end : '',
+    ora:     '',
     amount
   });
 }
@@ -1203,7 +983,7 @@ function showSuccess(b) {
 function initSectionTracking() {
   const sections = [
     { el: document.getElementById('come-agisce'), name: 'ViewComeAgisce' },
-    { el: document.getElementById('flow'),        name: 'ViewQuestionario' },
+    { el: document.getElementById('flow'),        name: 'ViewModuloPagamento' },
     { el: document.querySelector('.testi'),        name: 'ViewTestimonianze' },
     { el: document.querySelector('.cta-banner'),   name: 'ViewCTABanner' },
   ];
@@ -1243,6 +1023,8 @@ async function populateDates() {
   set('date-hero',   fullCap);
   set('date-strip',  short);
   set('date-banner', short);
+  const disp = document.getElementById('event-day-disp');
+  if (disp) { const f = formatDay(day); disp.value = f.charAt(0).toUpperCase() + f.slice(1); }
 
   // Mostra prezzo nel blocco info
   const c = TL.cfg();
@@ -1251,10 +1033,7 @@ async function populateDates() {
 
 
 // Esponi funzioni globali (necessario con type="module")
-window.go     = go;
 window.updatePrice = updatePrice;
-window.sel    = sel;
-window.afterQ3 = afterQ3;
 window.handlePay = handlePay;
 window.trackEvent = trackEvent;
 
